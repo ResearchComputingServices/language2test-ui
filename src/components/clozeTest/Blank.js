@@ -50,13 +50,29 @@ function Blank({ hint, defaultValue, onChange, typed, options }) {
                 value={value}
             />
             {toggle && (
-                <Paper style={{ zIndex: 1000, position: 'absolute', top: ref.current.offsetTop + 35, left: ref.current.offsetLeft }}>
+                <Paper style={{
+                    zIndex: 1000,
+                    position: 'absolute',
+                    top: ref.current.offsetTop + 35,
+                    left: ref.current.offsetLeft,
+                    width: width,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                }}>
                     {_.map(options, (option, index) => (
                         <MenuItem
+                            style={{ width: '100%' }}
                             key={index}
                             onClick={() => onPicklistClick(option.text)}
                         >
+                            <div style={{
+                                width: '100%',
+                                textAlign: 'center'    
+                            }}>
                             {option.text}
+                            </div>
                         </MenuItem>
                     ))}
                 </Paper>

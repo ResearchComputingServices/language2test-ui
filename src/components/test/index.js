@@ -118,6 +118,10 @@ function Test({ match }) {
         if (!_.isNil(typeField)) {
             layout[index].elements.push(getGridSelectField(index, typeField));
         }
+        setDynamicData(d => ({
+            ...d,
+            [`steps.${index}.type`]: data,
+        }))
         setDynamicLayout([...layout]);
     };
 
