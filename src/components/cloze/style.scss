@@ -1,0 +1,91 @@
+@import '../root/_theme.scss';
+
+.cloze-form-title {
+    margin-bottom: 30px !important;
+    font-size: 30px;
+}
+
+.cloze-form-section {
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+    font-size: 25px;
+}
+
+.cloze-form-question {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    font-size: 18px;
+}
+
+.cloze-form-question-title {
+    font-size: 18px;
+    margin-left: 5px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.cloze-sub-title {
+    font-size: 22px;
+    margin-left: 5px;
+    margin-top: 40px;
+}
+
+.cloze-sub-title u {
+    text-decoration:none;
+    padding-bottom: 2px;
+    border-bottom:1.5px solid $primary;
+}
+
+.cloze-question-container {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.cloze-question-expansion-panel {
+    width: 98%;
+}
+
+.cloze-question-heading {
+    font-size: 16px;
+}
+
+.cloze-question-text {
+    font-size: 15px;
+}
+
+.cloze-question-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.cloze-question-children {
+    margin-right: auto;
+}
+
+.cloze-question-lists {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 120px;
+}
+
+.cloze-interactive-text-editor-container {
+    padding: 5px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    width: 100%;
+}
+
+.cloze-interactive-text-editor-edit {
+    padding: 20px;
+    line-height: 2.0;
+    width: 100%;
+}
+
+.cloze-interactive-text-editor-text {
+    line-height: 2.0;
+    cursor: pointer;
+}

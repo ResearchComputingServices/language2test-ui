@@ -1,0 +1,74 @@
+@import '../root/_theme.scss';
+
+.results-result-panel {
+    margin-bottom: 20px;
+}
+
+.result-header-chip {
+    margin-left: 15px !important;
+    margin-top: 11.5px;
+}
+
+.result-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+    min-height: 40px;
+}
+
+.result-header u {
+    text-decoration:none;
+    padding-bottom: 6px;
+    border-bottom:1.5px solid $primary;
+}
+
+.results-result-panel-non-expandable {
+    padding-left: 22px;
+    padding-right: 13px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    margin-bottom: 20px;
+}
+
+.result {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+}
+
+.result-statistics {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px !important;
+    margin-bottom: 20px !important;
+    background: $secondary-background-color !important;
+}
+
+.result-statistics p {
+    padding: 5px;
+}
+
+.result-statistics u {
+    text-decoration:none;
+    padding-bottom: 2px;
+    border-bottom:1.5px solid $primary;
+}
+
+.results-result-panel-details {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.result-metadata {
+    text-align: left;
+}
+
+.result-metadata * {
+    margin-bottom: 0.5rem;
+}

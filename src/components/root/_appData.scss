@@ -1,0 +1,9 @@
+$app-bar: 64px;
+$drawer: 265px;
+$drawer-transition-delay: 225ms;
+
+:export {
+    appBar: $app-bar;
+    drawer: $drawer;
+    drawerTransitionDelay: $drawer-transition-delay;
+}

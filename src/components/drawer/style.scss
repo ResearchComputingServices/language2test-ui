@@ -1,0 +1,59 @@
+@import "../root/_theme.scss";
+@import "../root/_appData.scss";
+
+.drawer-paper {
+    width: $drawer;
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px;
+    min-height: $app-bar,
+}
+
+.drawer {
+    width: $drawer;
+    min-height: 100vh;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: $tertiary-background-color;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+}
+
+.drawer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px !important;
+    padding-right: 15px !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
+.drawer-item-content {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+}
+
+.drawer-item-icon {
+    margin-right: 6px;
+}
+
+.drawer-item-text {
+    width: 100%;
+}
+
+.drawer-item-expand-arrow {
+    font-size: 1.2rem !important;
+}
+
+.drawer-item-expand-arrow-expanded {
+    color: $primary;
+    font-weight: bold;
+}

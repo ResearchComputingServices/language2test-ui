@@ -1,0 +1,45 @@
+.demographic-questionnaire-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.demographic-questionnaire-form-container {
+    width: 30vw;
+    padding-top: 30px;
+    padding-left: 12%;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .demographic-questionnaire-form-container {
+        width: 400px;
+        padding-top: 30px;
+        padding-left: 50px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    } 
+}
+
+@media only screen and (max-width: 780) {
+    .demographic-questionnaire-form-container {
+        width: 200px;
+        padding-top: 30px;
+        padding-left: 50px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    } 
+}
+
+.demographic-questionnaire-form {
+    width: 80%;
+}

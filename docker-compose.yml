@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  language2test-ui:
+    container_name: language2test-ui
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '443:443'

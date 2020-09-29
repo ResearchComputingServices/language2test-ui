@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+<div
+  className="my-5 text-center"
+>
+  <span
+    aria-labelledby="block"
+    role="img"
+  >
+    🚫
+  </span>
+  403 Permission Denied
+  <span
+    aria-labelledby="block"
+    role="img"
+  >
+    🚫
+  </span>
+</div>
+`;

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Introduction should match snapshot 1`] = `
+<div
+  className="test-wizard-result-introduction"
+>
+  <h5
+    className="pb-4"
+  >
+    Test Introduction
+  </h5>
+  <WithStyles(ForwardRef(Button))
+    className="test-wizard-result-start-btn"
+    color="primary"
+    onClick={[MockFunction]}
+    variant="contained"
+  >
+    Save
+  </WithStyles(ForwardRef(Button))>
+</div>
+`;

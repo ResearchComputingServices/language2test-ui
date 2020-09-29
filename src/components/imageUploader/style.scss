@@ -1,0 +1,12 @@
+@import '../root/_theme.scss';
+
+.image-uploader-filename {
+    margin-top: 25px !important;
+    margin-bottom: 10px !important;
+    font-size: 17px;
+}
+
+.image-uploader-image {
+    box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+    margin-bottom: 20px;
+}

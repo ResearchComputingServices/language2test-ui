@@ -1,0 +1,19 @@
+@import '../root/_theme.scss';
+
+.test-wizard {
+    background: lighten($background-color, 1%) !important;
+}
+
+.test-wizard-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-bottom: 2%;
+    width: 100vw;
+}
+
+.test-wizard-controls-btn {
+    outline: none !important;
+}

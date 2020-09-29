@@ -1,0 +1,20 @@
+$primary: #CF112D;
+$secondary: #4D4D4D;
+$background-color: #eef2f7be;
+$secondary-background-color: rgba(235, 238, 241, 0.925);
+$tertiary-background-color: white;
+$border-color: rgba(0, 0, 0, 0.12);
+$font-color: #ffffff;
+$text-font-color: rgba(0, 0, 0, 0.87);
+$font: Oxygen;
+
+:export {
+    primary: $primary;
+    secondary: $secondary;
+    backgroundColor: $background-color;
+    secondaryBackgroundColor: $secondary-background-color;
+    tertiaryBackgroundColor: tertiaryBackgroundColor;
+    borderColor: $border-color;
+    fontColor: $font-color;
+    textFontColor: $text-font-color;
+}

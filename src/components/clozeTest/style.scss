@@ -1,0 +1,83 @@
+@import '../root/_theme.scss';
+
+.cloze-test {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.cloze-test-content {
+    display: flex;
+    flex-direction: column;
+    width: 97vw;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .cloze-test-content {
+        display: flex;
+        flex-direction: column;
+        width: 97vw;
+        padding: 20px;
+        margin-bottom: 25px;
+    } 
+}
+
+.cloze-test-text {
+    text-align: left;
+    line-height: 2.5;
+    padding-left: 10px;
+    max-width : 100%;
+    // This is very important, it wraps characters and fits them to your container, even spaces.
+    white-space: break-spaces;
+}
+
+.cloze-test-text u {
+    text-decoration:none;
+    padding-bottom: 1.5px;
+    border-bottom:1.5px solid $text-font-color;
+}
+
+.cloze-test-text b {
+    color: $primary;
+    font-weight: 600;
+}
+
+.cloze-test-result {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.cloze-test-card {
+    padding-top: 30px !important;
+    padding-left: 6% !important;
+    padding-right: 6% !important;
+    margin-top: 20px !important;
+    width: 100%;
+}
+
+.cloze-test-card h2 {
+    font-size: 23px;
+}
+
+.cloze-blank {
+    border-top-style: hidden !important;
+    border-right-style: hidden !important;
+    border-left-style: hidden !important;
+    border-bottom: 1px dotted $primary !important;
+    text-align: center !important;
+    cursor: pointer;
+}
+  
+.no-outline:focus {
+    outline: none;
+}

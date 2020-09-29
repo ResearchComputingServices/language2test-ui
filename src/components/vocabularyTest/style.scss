@@ -1,0 +1,94 @@
+@import '../root/_theme.scss';
+
+.vocabulary-test-question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.vocabulary-test-question-content-small {
+    width: 350px;
+    margin: 20px;
+    padding: 30px;
+    background: $tertiary-background-color;
+    text-align: center;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.vocabulary-test-question-content-large {
+    width: 800px;
+    margin: 20px;
+    padding: 40px;
+    background: $tertiary-background-color;
+    text-align: center;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+
+.vocabulary-test-question-content-wide {
+    width: 100%;
+    margin: 20px;
+    padding: 40px;
+    background: $tertiary-background-color;
+    text-align: center;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.vocabulary-test-question-content-title-large {
+    padding-top: 20px;
+    padding-bottom: 5px;
+    font-size: 23px;
+}
+
+.vocabulary-test-question-content-title-small {
+    padding-top: 20px;
+    padding-bottom: 5px;
+    font-size: 18px;
+}
+
+@media only screen and (max-width: 976px) {
+    .vocabulary-test-question-content-large {
+        width: 60vw;
+        margin: 20px;
+        padding: 40px;
+        background: $tertiary-background-color;
+        text-align: center;
+        user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+    }
+    .vocabulary-test-question-content-title-large {
+        padding-top: 20px;
+        padding-bottom: 5px;
+        font-size: 18px;
+        user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+    }    
+}
+
+@media only screen and (max-width: 1175px) {
+    .vocabulary-test-question-content-small {
+        width: 400px;
+        margin: 20px;
+        padding: 30px;
+        background: $tertiary-background-color;
+        text-align: center;
+        user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+    }
+}

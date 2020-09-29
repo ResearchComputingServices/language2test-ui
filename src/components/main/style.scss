@@ -1,0 +1,89 @@
+@import "../root/_theme.scss";
+@import "../root/appData.scss";
+
+.tool-bar {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.content {
+    transition: all $drawer-transition-delay ease-in-out;
+    padding-top: $app-bar;
+}
+
+.content-shift {
+    transition: all $drawer-transition-delay ease-in-out;
+    margin-left: $drawer;
+    padding-top: $app-bar;
+}
+
+.app-bar-segment {
+    margin-left: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: $app-bar;
+    align-items: center;
+}
+
+.app-title {
+    font-size: 22px !important;
+}
+
+@media only screen and (max-width: 992px) {
+    .app-title {
+        font-size: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 623px) {
+    .app-title {
+        font-size: 17px !important;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .app-title {
+        font-size: 0px !important;
+    }
+}
+
+.display-name {
+    color: $font-color;
+}
+
+.user-menu {
+    margin-bottom: auto !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    outline-style: none;
+    cursor: pointer;
+    width: 180px;
+    height: $app-bar;
+}
+
+.authenticating {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 90vh;
+}
+
+.hamburger-button {
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+}
+
+.hamburger-button-container {
+    height: $app-bar !important;
+    background: white !important;
+}
+
+.hamburger-button-icon {
+    margin: 8px !important;
+    fill: black !important;
+}

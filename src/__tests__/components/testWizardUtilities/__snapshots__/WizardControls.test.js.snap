@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WizardControls should match snapshot 1`] = `
+<div
+  className="test-wizard-controls"
+>
+  <WithStyles(ForwardRef(Button))
+    color="primary"
+    disabled={false}
+    onClick={[MockFunction]}
+  >
+    <KeyboardArrowLeftIcon />
+    Previous Step
+  </WithStyles(ForwardRef(Button))>
+  <WithStyles(ForwardRef(Button))
+    color="primary"
+    disabled={false}
+    onClick={[MockFunction]}
+  >
+    Next Step
+    <KeyboardArrowRightIcon />
+  </WithStyles(ForwardRef(Button))>
+</div>
+`;

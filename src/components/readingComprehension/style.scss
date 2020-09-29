@@ -1,0 +1,50 @@
+@import '../root/_theme.scss';
+
+.reading-comprehension-form-section {
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+    font-size: 25px;
+}
+
+.reading-comprehension-form-question {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    font-size: 18px;
+}
+
+.reading-comprehension-sub-title {
+    font-size: 22px;
+    margin-left: 5px;
+    margin-top: 40px;
+}
+
+.reading-comprehension-sub-title u {
+    text-decoration:none;
+    padding-bottom: 2px;
+    border-bottom:1.5px solid $primary;
+}
+
+.reading-comprehension-question-container {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.reading-comprehension-question-expansion-panel {
+    width: 98%;
+}
+
+.reading-comprehension-question-heading {
+    font-size: 16px;
+}
+
+.reading-comprehension-question-text {
+    font-size: 15px;
+}
+
+.reading-comprehension-question-details {
+    display: flex;
+    flex-direction: column;
+}

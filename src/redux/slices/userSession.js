@@ -1,0 +1,76 @@
+import { createSlice } from '@reduxjs/toolkit';
+import _ from 'lodash';
+import { logout } from '../actions';
+
+const initialState = {
+    id: null,
+    name: '',
+    firstName: '',
+    lastName: '',
+    displayName: '',
+    roles: [],
+    studentId: '',
+    firstLanguage: '',
+    email: '',
+    phone: '',
+    address: '',
+    education: '',
+    fields: [],
+    authenticated: false,
+};
+
+const userSessionSlice = createSlice({
+    name: 'userSession',
+    initialState,
+    reducers: {
+        login: (state, action) => {
+            const { payload: user } = action;
+            _.assign(state, {
+                id: user.id,
+                studentId: user.studentId,
+                firstLanguage: user.firstLanguage,
+                email: user.email,
+                phone: user.phone,
+                address: user.address,
+                education: user.education,
+                authenticated: true,
+                name: user.name,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                displayName: `${user.firstName || ''}${user.firstName ? ` ${user.lastName}` : ` ${user.lastName}`}`,
+                fields: user.fields,
+                roles: user.roles,
+            });
+        },
+        assignUserSession: (state, action) => {
+            const { payload: user } = action;
+            _.assign(state, {
+                id: user.id,
+                studentId: user.studentId,
+                firstLanguage: user.firstLanguage,
+                email: user.email,
+                phone: user.phone,
+                address: user.address,
+                education: user.education,
+                name: user.name,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                fields: user.fields,
+                displayName: `${user.firstName || ''}${user.firstName ? ` ${user.lastName}` : ` ${user.lastName}`}`,
+                roles: user.roles,
+            });
+        },
+        reset: state => {
+            _.assign(state, initialState);
+        },
+    },
+    extraReducers: {
+        [logout]: state => {
+            Object.assign(state, initialState);
+        },
+    },
+});
+
+userSessionSlice.initialState = initialState;
+
+export default userSessionSlice;

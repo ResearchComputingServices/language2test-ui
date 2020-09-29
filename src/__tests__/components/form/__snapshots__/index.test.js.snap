@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`form should match snapshot 1`] = `
+<div
+  id="generated-form"
+>
+  <MuiPickersUtilsProvider
+    utils={[Function]}
+  >
+    <Field
+      controls={Object {}}
+      field={
+        Object {
+          "defaultValue": undefined,
+          "disabled": true,
+          "field": "name",
+          "fullWidth": true,
+          "label": "Username",
+          "name": "name",
+          "required": true,
+          "title": "Username",
+          "type": "text",
+          "variant": "outlined",
+        }
+      }
+      key="1"
+    >
+      <WithStyles(ForwardRef(TextField)) />
+    </Field>
+    <Field
+      controls={Object {}}
+      field={
+        Object {
+          "defaultValue": undefined,
+          "disabled": true,
+          "field": "firstName",
+          "fullWidth": true,
+          "label": "First Name",
+          "name": "firstName",
+          "required": true,
+          "title": "First Name",
+          "type": "text",
+          "variant": "outlined",
+        }
+      }
+      key="2"
+    >
+      <WithStyles(ForwardRef(TextField)) />
+    </Field>
+    <Field
+      controls={Object {}}
+      field={
+        Object {
+          "defaultValue": undefined,
+          "disabled": true,
+          "field": "lastName",
+          "fullWidth": true,
+          "label": "Last Name",
+          "name": "lastName",
+          "required": true,
+          "title": "Last Name",
+          "type": "text",
+          "variant": "outlined",
+        }
+      }
+      key="3"
+    >
+      <WithStyles(ForwardRef(TextField)) />
+    </Field>
+  </MuiPickersUtilsProvider>
+  <div />
+</div>
+`;
