@@ -55,7 +55,7 @@ function Blank({ hint, defaultValue, onChange, typed, options }) {
                     position: 'absolute',
                     top: ref.current.offsetTop + 35,
                     left: ref.current.offsetLeft,
-                    width,
+                    minWidth: width,
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -67,10 +67,10 @@ function Blank({ hint, defaultValue, onChange, typed, options }) {
                             <MenuItem
                                 key={index}
                                 onClick={() => onPicklistClick(option.text)}
-                                style={{ width: '100%' }}
+                                style={{ minWidth: '100%' }}
                             >
                                 <div style={{
-                                    width: '100%',
+                                    minWidth: '100%',
                                     textAlign: 'center',
                                 }}
                                 >
