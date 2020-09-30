@@ -121,7 +121,7 @@ function Test({ match }) {
         setDynamicData(d => ({
             ...d,
             [`steps.${index}.type`]: data,
-        }))
+        }));
         setDynamicLayout([...layout]);
     };
 

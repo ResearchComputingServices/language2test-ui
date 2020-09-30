@@ -17,6 +17,7 @@ import { useForm, useState } from '../../hooks';
 
 function Question({
     sequence,
+    text,
     correct,
     options,
     typed,
@@ -36,6 +37,7 @@ function Question({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [correct, options, typed]);
 
+    const title = `${sequence}. "${text}"`;
     return (
         <div className='cloze-question-container'>
             <ExpansionPanel
@@ -44,7 +46,7 @@ function Question({
             >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className='cloze-question-heading'>
-                        {`${sequence ? `${sequence}.  ` : ''}`}
+                        {title}
                     </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className='cloze-question-details'>
@@ -122,19 +124,20 @@ Question.propTypes = {
     options: PropTypes.array,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func,
-    sequence: PropTypes.number,
+    sequence: PropTypes.number.isRequired,
     children: PropTypes.node,
     typed: PropTypes.bool,
+    text: PropTypes.string,
 };
 
 Question.defaultProps = {
     correct: undefined,
     options: [],
-    sequence: undefined,
     typed: undefined,
     onRemove: _.noop,
     onUpdate: _.noop,
     children: undefined,
+    text: '',
 };
 
 export default Question;

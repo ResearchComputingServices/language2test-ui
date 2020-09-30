@@ -55,26 +55,30 @@ function Blank({ hint, defaultValue, onChange, typed, options }) {
                     position: 'absolute',
                     top: ref.current.offsetTop + 35,
                     left: ref.current.offsetLeft,
-                    width: width,
+                    width,
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'column',
-                }}>
-                    {_.map(options, (option, index) => (
-                        <MenuItem
-                            style={{ width: '100%' }}
-                            key={index}
-                            onClick={() => onPicklistClick(option.text)}
-                        >
-                            <div style={{
-                                width: '100%',
-                                textAlign: 'center'    
-                            }}>
-                            {option.text}
-                            </div>
-                        </MenuItem>
-                    ))}
+                }}
+                >
+                    {!typed
+                        ? _.map(options, (option, index) => (
+                            <MenuItem
+                                key={index}
+                                onClick={() => onPicklistClick(option.text)}
+                                style={{ width: '100%' }}
+                            >
+                                <div style={{
+                                    width: '100%',
+                                    textAlign: 'center',
+                                }}
+                                >
+                                    {option.text}
+                                </div>
+                            </MenuItem>
+                        ))
+                        : []}
                 </Paper>
             )}
         </span>

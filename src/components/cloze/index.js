@@ -116,7 +116,7 @@ function Cloze({ match }) {
         setPreviousQuestions(questions);
         setQuestions(newQuestions);
         setOpenActionToast(true);
-        setActionToastMessage('Question removed');
+        setActionToastMessage(`Question-${index + 1} has been removed`);
         const text = controls.getValues('text');
         let newText = '';
         let segment = '';
@@ -161,7 +161,7 @@ function Cloze({ match }) {
         setPreviousQuestions(questions);
         setQuestions(newQuestions);
         setOpenActionToast(true);
-        setActionToastMessage('Question updated');
+        setActionToastMessage(`Question-${index + 1} has been updated`);
     };
 
     const generateQuestions = async () => {
@@ -221,7 +221,7 @@ function Cloze({ match }) {
                                 const questionId = data.id;
                                 return (
                                     <Question
-                                        key={`cloze-question-${index}`}
+                                        key={`cloze-question-${index}-${questionId || Math.random()}`}
                                         correct={data.correct}
                                         onRemove={() => onRemoveQuestion(data)}
                                         onUpdate={updatedData => onUpdateQuestion(data, updatedData)}

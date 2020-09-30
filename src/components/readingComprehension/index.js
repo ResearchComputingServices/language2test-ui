@@ -136,7 +136,7 @@ function ReadingComprehension({ match }) {
         setPreviousQuestions(questions);
         setQuestions(newQuestions);
         setOpenActionToast(true);
-        setActionToastMessage('Question removed');
+        setActionToastMessage(`Question-${index + 1} has been removed`);
     };
 
     const onUpdateQuestion = (data, updatedData) => {
@@ -147,7 +147,7 @@ function ReadingComprehension({ match }) {
         setPreviousQuestions(questions);
         setQuestions(newQuestions);
         setOpenActionToast(true);
-        setActionToastMessage('Question updated');
+        setActionToastMessage(`Question-${index + 1} has been updated`);
     };
 
     const getForm = id => (
