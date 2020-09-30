@@ -31,7 +31,7 @@ function Question({
         controls.reset({
             text,
             correct,
-            options: _.map(options, option => _.get(option, 'text')),
+            options: _.map(options, option => (_.isObject(option) ? _.get(option, 'text') : option)),
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [text, correct, options]);

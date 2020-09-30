@@ -126,7 +126,7 @@ function ReadingComprehension({ match }) {
         setPreviousQuestions(questions);
         setQuestions(newQuestions);
         setOpenActionToast(true);
-        setActionToastMessage('Question Added');
+        setActionToastMessage('New question added');
     };
 
     const onRemoveQuestion = data => {
