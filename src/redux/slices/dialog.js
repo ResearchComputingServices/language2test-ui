@@ -7,8 +7,8 @@ const initialState = {
     text: '',
     confirmed: false,
     canceled: false,
-    // Key must be unique to components.
     key: null,
+    loading: false,
 };
 
 export default createSlice({
@@ -34,6 +34,9 @@ export default createSlice({
         cancel: state => {
             state.open = false;
             state.canceled = true;
+        },
+        toggleLoading: state => {
+            state.loading = !state.loading;
         },
     },
 });

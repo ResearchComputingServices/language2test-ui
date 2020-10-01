@@ -5,10 +5,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { Ripple } from '.';
 import { useStore, useActions } from '../../hooks';
 
 function Confirmation() {
     const {
+        loading,
         open,
         title,
         text,
@@ -26,6 +28,7 @@ function Confirmation() {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
+                {loading && <Ripple size={40} />}
                 <Button
                     color='primary'
                     onClick={() => confirm()}

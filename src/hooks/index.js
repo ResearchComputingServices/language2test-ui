@@ -39,6 +39,7 @@ import useAuthorizationCheckerService from './useAuthorizationCheckerService';
 import useEventListener from './useEventListener';
 import useGridActions from './useGridActions';
 import usePagination from './usePagination';
+import useDialog from './useDialog';
 
 export {
     useEffect,
@@ -82,4 +83,5 @@ export {
     useEventListener,
     useGridActions,
     usePagination,
+    useDialog,
 };

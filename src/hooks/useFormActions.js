@@ -1,11 +1,10 @@
 import _ from 'lodash';
 import { ToastsStore } from 'react-toasts';
 import FileSaver from 'file-saver';
-import { useEffect, useRef, useCallback } from 'react';
+import { useRef } from 'react';
 import useService from './useService';
 import useNavigateHistoryByPattern from './useNavigateHistoryByPattern';
-import useStore from './useStore';
-import useActions from './useActions';
+import useDialog from './useDialog';
 
 export default function(entity, locale) {
     if (_.isNil(locale)) {
@@ -14,26 +13,20 @@ export default function(entity, locale) {
     const dataRef = useRef(null);
     const service = useService(entity);
     const cancel = useNavigateHistoryByPattern();
-    const { confirmed: dialogConfirmed } = useStore('dialog');
-    const dialogActions = useActions('dialog');
 
-    const removeEntity = useCallback(async data => {
+    const getData = () => dataRef.current;
+
+    const removeEntity = async () => {
         try {
-            await service.remove(data);
-            dialogActions.hideDialog();
+            await service.remove(getData());
             ToastsStore.success(`Successfully deleted ${locale}`);
             cancel();
         } catch (err) {
-            dialogActions.hideDialog();
             ToastsStore.error(`Failed to delete ${locale}`);
         }
-    }, [cancel, dialogActions, locale, service]);
+    };
 
-    useEffect(() => {
-        if (dialogConfirmed) {
-            removeEntity(dataRef.current);
-        }
-    }, [dialogConfirmed, removeEntity]);
+    const showDialog = useDialog({ onConfirm: removeEntity });
 
     const create = async data => {
         if (_.isEmpty(data)) return;
@@ -62,7 +55,7 @@ export default function(entity, locale) {
     const remove = async data => {
         if (_.isEmpty(data)) return;
         dataRef.current = data;
-        dialogActions.showDialog({ title: `Are you sure you want to delete this ${locale}?` });
+        showDialog(`Are you sure you want to delete this ${locale}?`);
     };
 
     const download = async (data, type, extension) => {

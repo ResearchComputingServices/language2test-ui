@@ -2,12 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { ToastsStore } from 'react-toasts';
+import Button from '@material-ui/core/Button';
 import ClozeForm from './Form';
-import { PaginatedList, Layout, NotFound, Button } from '../common';
+import { PaginatedList, Layout, NotFound, Confirmation } from '../common';
 import Question from './Question';
 import ActionToast from '../common/ActionToast';
 import {
     useForm,
+    useDialog,
     useFormData,
     useFormLayout,
     usePagination,
@@ -179,6 +181,8 @@ function Cloze({ match }) {
         }
     };
 
+    const showDialog = useDialog({ onConfirm: generateQuestions });
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -201,9 +205,12 @@ function Cloze({ match }) {
                         />
                         <div>
                             <Button
-                                color='secondary'
-                                onClick={generateQuestions}
-                                size='small'
+                                color='primary'
+                                onClick={
+                                    _.isEmpty(getQuestions())
+                                        ? generateQuestions
+                                        : () => showDialog('Generating the cloze will wipe out your current questions, are you sure?')
+                                }
                             >
                                 Generate Cloze
                             </Button>
@@ -221,7 +228,7 @@ function Cloze({ match }) {
                                 const questionId = data.id;
                                 return (
                                     <Question
-                                        key={`cloze-question-${index}-${questionId || Math.random()}`}
+                                        key={`cloze-question-${index}`}
                                         correct={data.correct}
                                         onRemove={() => onRemoveQuestion(data)}
                                         onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
@@ -264,6 +271,7 @@ function Cloze({ match }) {
                 }}
                 open={openActionToast}
             />
+            <Confirmation />
         </Layout>
     );
 }
