@@ -71,7 +71,7 @@ function ImageUploader({ imageName, onUpload, className }) {
             {!loading && (
                 <div>
                     <div className='column'>
-                        {filename && <p className='image-uploader-filename field'>{`Generated Filename: ${filename}`}</p>}
+                        {filename && <p className='image-uploader-filename'>{`Generated Filename: ${filename}`}</p>}
                         {filename && (
                             <img
                                 alt='uploaded'

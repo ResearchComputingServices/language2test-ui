@@ -146,9 +146,7 @@ export default function() {
                             ? (
                                 <Question
                                     filename={currentQuestion.filename}
-                                    sequence={progressIndex + 1}
                                     text={currentQuestion.question}
-                                    type={currentQuestion.type}
                                 >
                                     <WordLimitTextArea
                                         onChange={onAnswerChange}

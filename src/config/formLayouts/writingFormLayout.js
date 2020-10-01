@@ -45,4 +45,10 @@ export default [
         required: true,
         type: 'number',
     },
+    {
+        field: 'question',
+        title: 'Question',
+        type: 'textarea',
+        required: true,
+    },
 ];

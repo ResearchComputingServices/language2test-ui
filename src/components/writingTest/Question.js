@@ -6,28 +6,18 @@ import Image from '../image';
 
 const Question = ({
     children,
-    sequence,
     text,
     filename,
-    type,
 }) => (
     <>
         {!_.isNil(children)
             && (
                 <>
-                    {_.eq(type, 'image') && (
-                        <div className='writing-test-question-title-image'>
-                            {!_.isNil(sequence) && `${sequence}.`}
-                            <Image imageName={filename} />
-                        </div>
-                    )}
+                    <div className='writing-test-question-title-image'>
+                        <Image imageName={filename} />
+                    </div>
                     <div className='writing-test-question-title-text'>
-                        {_.eq(type, 'text') && (
-                            <>
-                                {!_.isNil(sequence) && `${sequence}. ${text}`}
-                                {_.isNil(sequence) && text}
-                            </>
-                        )}
+                        {text}
                     </div>
                     <Divider
                         className='mt-2 mb-2'
@@ -44,13 +34,10 @@ const Question = ({
 Question.propTypes = {
     children: PropTypes.node.isRequired,
     text: PropTypes.string,
-    sequence: PropTypes.number,
     filename: PropTypes.string,
-    type: PropTypes.string.isRequired,
 };
 
 Question.defaultProps = {
-    sequence: undefined,
     text: undefined,
     filename: undefined,
 };

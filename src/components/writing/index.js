@@ -32,48 +32,17 @@ function Writing({ match }) {
         clearError();
         data = _.isNil(data) ? getValues() : data;
         setValue('filename', _.get(data, 'filename'));
-        const { type } = data;
-        const dynamicLayout = [
-            {
-                field: 'type',
-                title: 'Type',
-                size: 'medium',
-                type: 'picklist',
-                options: [
-                    'text',
-                    'image',
-                ],
-                required: true,
-                onChange: type => {
-                    setValue('type', type);
-                    initialize(getValues());
-                },
-            },
-        ];
-        if (_.eq(type, 'image')) {
-            dynamicLayout.push({
-                type: 'raw',
-                content: (
-                    <div className='field'>
-                        <ImageUploader
-                            imageName={getValues('filename')}
-                            onUpload={onImageUpload}
-                        />
-                    </div>
-                ),
-            });
-        }
-        if (_.eq(type, 'text')) {
-            dynamicLayout.push(
-                {
-                    field: 'question',
-                    title: 'Requirement',
-                    type: 'textarea',
-                    required: true,
-                },
-            );
-        }
-        setDynamicLayout(dynamicLayout);
+        setDynamicLayout([{
+            type: 'raw',
+            content: (
+                <div className='field'>
+                    <ImageUploader
+                        imageName={getValues('filename')}
+                        onUpload={onImageUpload}
+                    />
+                </div>
+            ),
+        }]);
     };
 
     const {
