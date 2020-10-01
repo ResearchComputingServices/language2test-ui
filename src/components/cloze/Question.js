@@ -21,6 +21,7 @@ function Question({
     correct,
     options,
     typed,
+    acceptedAnswers,
     onUpdate,
     onRemove,
     children,
@@ -28,8 +29,25 @@ function Question({
     const controls = useForm();
     const [loading, setLoading] = useState(false);
 
+    const typedWatch = controls.watch('typed');
+
+    useEffect(() => {
+        if (typedWatch) {
+            if (_.isNil(acceptedAnswers) || _.isEmpty(acceptedAnswers)) {
+                controls.setValue('acceptedAnswers', [text]);
+            }
+        } else if (_.eq(typedWatch, false)) {
+            if (_.isNil(options) || _.isEmpty(options)) {
+                controls.setValue('options', [text]);
+                controls.setValue('correct', 1);
+            }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [typedWatch]);
+
     useEffect(() => {
         controls.reset({
+            acceptedAnswers: _.map(acceptedAnswers, acceptedAnswer => _.get(acceptedAnswer, 'text')),
             correct,
             options: _.map(options, option => _.get(option, 'text')),
             typed: !!typed,
@@ -51,28 +69,46 @@ function Question({
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className='cloze-question-details'>
                     {!_.isEmpty(controls.errors) && <div className='field-error mb-3'>Fields marked with * must be filled out</div>}
-                    <PicklistField
-                        controls={controls}
-                        field={{
-                            name: 'options',
-                            label: 'Options',
-                            variant: 'outlined',
-                            required: true,
-                            multiple: true,
-                            freeSolo: true,
-                            options: [],
-                        }}
-                    />
-                    <NumberField
-                        controls={controls}
-                        field={{
-                            name: 'correct',
-                            label: 'Correct',
-                            variant: 'outlined',
-                            required: true,
-                            fullWidth: true,
-                        }}
-                    />
+                    {!(!_.isNil(typedWatch) ? typedWatch : typed) && (
+                        <PicklistField
+                            controls={controls}
+                            field={{
+                                name: 'options',
+                                label: 'Options',
+                                variant: 'outlined',
+                                required: true,
+                                multiple: true,
+                                freeSolo: true,
+                                options: [],
+                            }}
+                        />
+                    )}
+                    {(!_.isNil(typedWatch) ? typedWatch : typed) && (
+                        <PicklistField
+                            controls={controls}
+                            field={{
+                                name: 'acceptedAnswers',
+                                label: 'Accepted Answers',
+                                variant: 'outlined',
+                                required: true,
+                                multiple: true,
+                                freeSolo: true,
+                                options: [],
+                            }}
+                        />
+                    )}
+                    {!(!_.isNil(typedWatch) ? typedWatch : typed) && (
+                        <NumberField
+                            controls={controls}
+                            field={{
+                                name: 'correct',
+                                label: 'Correct',
+                                variant: 'outlined',
+                                required: true,
+                                fullWidth: true,
+                            }}
+                        />
+                    )}
                     <Checkbox
                         controls={controls}
                         field={{
@@ -128,6 +164,7 @@ Question.propTypes = {
     children: PropTypes.node,
     typed: PropTypes.bool,
     text: PropTypes.string,
+    acceptedAnswers: PropTypes.array,
 };
 
 Question.defaultProps = {
@@ -137,6 +174,7 @@ Question.defaultProps = {
     onRemove: _.noop,
     onUpdate: _.noop,
     children: undefined,
+    acceptedAnswers: [],
     text: '',
 };
 

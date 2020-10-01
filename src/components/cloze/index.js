@@ -16,7 +16,6 @@ import {
     useFormActions,
     useFormButtons,
 } from '../../hooks';
-import ClozeQuestionCorrectlyTyped from './ClozeQuestionCorrectlyTyped';
 import ClozeQuestionIncorrectlyTyped from './ClozeQuestionIncorrectlyTyped';
 import ClozeQuestionPendingTyped from './ClozeQuestionPendingTyped';
 import Checkbox from '../form/fields/Checkbox';
@@ -229,6 +228,7 @@ function Cloze({ match }) {
                             page={page}
                             renderRow={(data, index) => {
                                 const questionId = data.id;
+                                const isTyped = data.typed;
                                 return (
                                     <Question
                                         key={`cloze-question-${index}`}
@@ -240,10 +240,9 @@ function Cloze({ match }) {
                                         text={data.text}
                                         typed={data.typed}
                                     >
-                                        {questionId && !questionIsGenerated && (
+                                        {questionId && isTyped && !questionIsGenerated && (
                                             <div className='field cloze-question-lists'>
                                                 <ClozeQuestionPendingTyped id={questionId} />
-                                                <ClozeQuestionCorrectlyTyped id={questionId} />
                                                 <ClozeQuestionIncorrectlyTyped id={questionId} />
                                             </div>
                                         )}
