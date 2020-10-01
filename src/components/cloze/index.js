@@ -169,6 +169,9 @@ function Cloze({ match }) {
     const generateQuestions = async () => {
         try {
             const text = controls.getValues('text');
+            if (_.isEmpty(text)) {
+                return ToastsStore.warning('Text to generate the cloze is empty');
+            }
             if (!isTextValid(text)) throw new Error();
             const newQuestions = await service.generateQuestions({
                 text,
