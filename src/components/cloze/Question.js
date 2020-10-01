@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -13,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import PicklistField from '../form/fields/PicklistField';
 import NumberField from '../form/fields/NumberField';
 import Checkbox from '../form/fields/Checkbox';
+import { Button as CommonButton, Ripple } from '../common';
 import { useForm, useState } from '../../hooks';
 
 function Question({
@@ -22,6 +22,7 @@ function Question({
     options,
     typed,
     acceptedAnswers,
+    onGenerateOptions,
     onUpdate,
     onRemove,
     children,
@@ -120,13 +121,24 @@ function Question({
                 <Divider />
                 <ExpansionPanelActions>
                     <div className='cloze-question-children'>
+                        {!typed && !typedWatch && (
+                            <div className='d-flex justify-content-center align-items-center'>
+                                <CommonButton
+                                    inline
+                                    onClick={async () => {
+                                        const [options, correct] = await onGenerateOptions(text);
+                                        controls.setValue('options', _.map(options, option => _.get(option, 'text')));
+                                        controls.setValue('correct', correct);
+                                    }}
+                                >
+                                    Generate Options
+                                </CommonButton>
+                            </div>
+                        )}
                         {children}
                     </div>
                     {loading && (
-                        <CircularProgress
-                            color='inherit'
-                            size={20}
-                        />
+                        <Ripple size={35} />
                     )}
                     <Button
                         color='primary'
@@ -160,6 +172,7 @@ Question.propTypes = {
     options: PropTypes.array,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func,
+    onGenerateOptions: PropTypes.func,
     sequence: PropTypes.number.isRequired,
     children: PropTypes.node,
     typed: PropTypes.bool,
@@ -173,6 +186,7 @@ Question.defaultProps = {
     typed: undefined,
     onRemove: _.noop,
     onUpdate: _.noop,
+    onGenerateOptions: _.noop,
     children: undefined,
     acceptedAnswers: [],
     text: '',

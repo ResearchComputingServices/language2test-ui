@@ -157,7 +157,7 @@ function Cloze({ match }) {
         updatedData.options = _.map(updatedData.options, option => (_.isObject(option) ? option : { text: option }));
         const questions = getQuestions();
         const index = questions.indexOf(data);
-        updatedData.id = _.get(data, 'id');
+        _.defaults(updatedData, data);
         const newQuestions = (questions.slice(0, index)).concat([updatedData]).concat(questions.slice(index + 1, questions.length));
         setPreviousQuestions(questions);
         setQuestions(newQuestions);
@@ -184,6 +184,17 @@ function Cloze({ match }) {
     };
 
     const showDialog = useDialog({ onConfirm: generateQuestions });
+
+    const onGenerateOptions = async word => {
+        try {
+            if (_.isEmpty(word)) {
+                return ToastsStore.warning('Text to generate the cloze is empty');
+            }
+            return service.generateOptions({ word });
+        } catch (err) {
+            ToastsStore.error('An error occured while genearting options');
+        }
+    };
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
@@ -233,6 +244,7 @@ function Cloze({ match }) {
                                     <Question
                                         key={`cloze-question-${index}`}
                                         correct={data.correct}
+                                        onGenerateOptions={onGenerateOptions}
                                         onRemove={() => onRemoveQuestion(data)}
                                         onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
                                         options={data.options}
@@ -269,7 +281,7 @@ function Cloze({ match }) {
                 onUndo={() => {
                     setOpenActionToast(false);
                     setQuestions(getPreviousQuestions());
-                    controls.setValue('text', getPreviousText());
+                    controls.setValue('text', getPreviousText() || controls.getValues('text'));
                 }}
                 open={openActionToast}
             />
