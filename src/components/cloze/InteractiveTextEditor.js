@@ -188,7 +188,6 @@ function InteractiveTextEditor({ controls }) {
         return count % 2 === 0;
     };
 
-    // TODO doesnt work backwards.
     const onMarkAsBlank = () => {
         const selected = selectedRef.current;
         const data = dataRef.current;

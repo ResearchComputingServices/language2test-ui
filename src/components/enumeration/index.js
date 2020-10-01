@@ -20,7 +20,6 @@ function Enumeration({ match }) {
     const layout = useFormLayout(entity);
     const [values, setValues] = useState([]);
 
-    // TODO - We are setting the state of values after we fetch the data so there is an additional render that is happening.
     const {
         data,
         loading,

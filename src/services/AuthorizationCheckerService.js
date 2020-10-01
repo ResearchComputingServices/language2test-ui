@@ -52,7 +52,6 @@ class AuthorizationCheckerService {
     }
 }
 
-// TODO - Need to remove
 const authorizationCheckerService = new AuthorizationCheckerService();
 
 Object.freeze(authorizationCheckerService);

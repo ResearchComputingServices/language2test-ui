@@ -79,7 +79,7 @@ function Main({ authenticate }) {
             return;
         }
         let authenticatedUser = null;
-        // TODO Hack, the version of Keycloak we are using by itself is broken, we need to catch the error 'kc.login(...).success is not a function'.
+        // The version of Keycloak we are using by itself is broken, we need to catch the error 'kc.login(...).success is not a function'.
         try { authenticatedUser = await keycloakService.login(); } catch (err) {
             if (_.eq(err.name, 'authentication')) {
                 return setError({
