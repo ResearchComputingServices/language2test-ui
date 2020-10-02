@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { ToastsStore } from 'react-toasts';
-import Button from '@material-ui/core/Button';
 import ClozeForm from './Form';
-import { PaginatedList, Layout, NotFound, Confirmation } from '../common';
+import { PaginatedList, Layout, NotFound, Confirmation, Button } from '../common';
 import Question from './Question';
 import ActionToast from '../common/ActionToast';
 import {
@@ -16,7 +15,6 @@ import {
     useFormActions,
     useFormButtons,
 } from '../../hooks';
-import ClozeQuestionCorrectlyTyped from './ClozeQuestionCorrectlyTyped';
 import ClozeQuestionIncorrectlyTyped from './ClozeQuestionIncorrectlyTyped';
 import ClozeQuestionPendingTyped from './ClozeQuestionPendingTyped';
 import Checkbox from '../form/fields/Checkbox';
@@ -154,11 +152,52 @@ function Cloze({ match }) {
         return count % 2 === 0;
     };
 
+    const onUpdateClozeQuestions = () => {
+        const existingWords = [...getQuestions()];
+        const newWords = [];
+        const text = controls.getValues('text');
+        let segment = '';
+        let bracketOpen = false;
+        for (let i = 0; i < text.length; ++i) {
+            const word = text[i];
+            if (word === '*' && !bracketOpen) {
+                segment = '';
+                bracketOpen = true;
+            } else if (word === '*' && bracketOpen) {
+                newWords.push(segment);
+                segment = '';
+                bracketOpen = false;
+            } else {
+                segment += word;
+            }
+        }
+        const newQuestions = [];
+        newWords.forEach(word => {
+            const wordThatWasFound = _.find(existingWords, o => o.text === word);
+            // Word is now in the list, it's a new word
+            if (_.isNil(wordThatWasFound)) {
+                newQuestions.push({
+                    text: word,
+                    options: [{ text: word }],
+                    correct: 1,
+                });
+            } else {
+                // Word has been found. Why shift? it's becaue the new words will always contain our existing words.
+                // Which means ff we are iterating the new list forwards, we will always find an existing word which
+                // will be the first element in our old list.
+                const existingWord = existingWords.shift();
+                newQuestions.push(existingWord);
+            }
+        });
+        setQuestions(newQuestions);
+        ToastsStore.success('Successfully added new questions');
+    };
+
     const onUpdateQuestion = (data, updatedData) => {
         updatedData.options = _.map(updatedData.options, option => (_.isObject(option) ? option : { text: option }));
         const questions = getQuestions();
         const index = questions.indexOf(data);
-        updatedData.id = _.get(data, 'id');
+        _.defaults(updatedData, data);
         const newQuestions = (questions.slice(0, index)).concat([updatedData]).concat(questions.slice(index + 1, questions.length));
         setPreviousQuestions(questions);
         setQuestions(newQuestions);
@@ -179,12 +218,22 @@ function Cloze({ match }) {
             });
             setQuestions(newQuestions);
             setQuestionIsGenerated(true);
+            ToastsStore.success('Successfully generated cloze');
         } catch (err) {
             ToastsStore.error('An error occured while genearting questions, please double check the cloze text');
         }
     };
 
     const showDialog = useDialog({ onConfirm: generateQuestions });
+
+    const onGenerateOptions = async word => {
+        try {
+            const result = await service.generateOptions({ word });
+            return result;
+        } catch (err) {
+            ToastsStore.error('An error occured while genearting options');
+        }
+    };
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
@@ -206,18 +255,26 @@ function Cloze({ match }) {
                                 label: 'Typed',
                             }}
                         />
-                        <div>
-                            <Button
-                                color='primary'
-                                onClick={
-                                    _.isEmpty(getQuestions())
-                                        ? generateQuestions
-                                        : () => showDialog('Generating the cloze will wipe out your current questions, are you sure?')
-                                }
-                            >
-                                Generate Cloze
-                            </Button>
-                        </div>
+                    </div>
+                    <div className='d-flex align-items-start'>
+                        <Button
+                            color='primary'
+                            inline
+                            onClick={
+                                _.isEmpty(getQuestions())
+                                    ? generateQuestions
+                                    : () => showDialog('Generating the cloze will wipe out your current questions, are you sure?')
+                            }
+                        >
+                            Generate Cloze
+                        </Button>
+                        <Button
+                            color='primary'
+                            inline
+                            onClick={onUpdateClozeQuestions}
+                        >
+                            Update Cloze Questions
+                        </Button>
                     </div>
                     <div className='my-3 mb-3'>
                         <div className='cloze-sub-title mb-4'><u>All Questions</u></div>
@@ -229,10 +286,12 @@ function Cloze({ match }) {
                             page={page}
                             renderRow={(data, index) => {
                                 const questionId = data.id;
+                                const isTyped = data.typed;
                                 return (
                                     <Question
                                         key={`cloze-question-${index}`}
                                         correct={data.correct}
+                                        onGenerateOptions={onGenerateOptions}
                                         onRemove={() => onRemoveQuestion(data)}
                                         onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
                                         options={data.options}
@@ -240,10 +299,9 @@ function Cloze({ match }) {
                                         text={data.text}
                                         typed={data.typed}
                                     >
-                                        {questionId && !questionIsGenerated && (
+                                        {questionId && isTyped && !questionIsGenerated && (
                                             <div className='field cloze-question-lists'>
                                                 <ClozeQuestionPendingTyped id={questionId} />
-                                                <ClozeQuestionCorrectlyTyped id={questionId} />
                                                 <ClozeQuestionIncorrectlyTyped id={questionId} />
                                             </div>
                                         )}
@@ -270,7 +328,7 @@ function Cloze({ match }) {
                 onUndo={() => {
                     setOpenActionToast(false);
                     setQuestions(getPreviousQuestions());
-                    controls.setValue('text', getPreviousText());
+                    controls.setValue('text', getPreviousText() || controls.getValues('text'));
                 }}
                 open={openActionToast}
             />

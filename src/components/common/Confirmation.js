@@ -28,15 +28,22 @@ function Confirmation() {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                {loading && <Ripple size={40} />}
+                {loading && (
+                    <Ripple
+                        className='confirmation-ripple'
+                        size={50}
+                    />
+                )}
                 <Button
                     color='primary'
+                    disabled={loading}
                     onClick={() => confirm()}
                 >
                     Ok
                 </Button>
                 <Button
                     color='primary'
+                    disabled={loading}
                     onClick={() => cancel()}
                 >
                     Cancel

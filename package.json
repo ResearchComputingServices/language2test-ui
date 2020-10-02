@@ -56,7 +56,8 @@
         "mock:api": "json-server --watch mockApi/db.json --port 4000",
         "eject": "react-scripts eject",
         "lint": "node_modules/eslint/bin/eslint.js 'src/**/*.js'",
-        "lint:fix": "node_modules/eslint/bin/eslint.js 'src/**/*.js' --fix"
+        "lint:fix": "node_modules/eslint/bin/eslint.js 'src/**/*.js' --fix",
+        "serve": "npm run build && serve -s build"
     },
     "eslintConfig": {
         "extends": "react-app"

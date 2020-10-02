@@ -14,6 +14,10 @@ class ClozeService extends RestService {
         .post(`${this.prefix}/generate_questions`, this._processRequest(data, {}))
         .then(data => this._processResponse(data, {}));
 
+    generateOptions = data => axios
+        .post(`${this.prefix}/generate_options`, this._processRequest(data, {}))
+        .then(data => this._processResponse(data, {}));
+
     remove = this._remove;
 
     import = this._import;
