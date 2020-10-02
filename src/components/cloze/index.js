@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { ToastsStore } from 'react-toasts';
-import Button from '@material-ui/core/Button';
 import ClozeForm from './Form';
-import { PaginatedList, Layout, NotFound, Confirmation } from '../common';
+import { PaginatedList, Layout, NotFound, Confirmation, Button } from '../common';
 import Question from './Question';
 import ActionToast from '../common/ActionToast';
 import {
@@ -153,6 +152,46 @@ function Cloze({ match }) {
         return count % 2 === 0;
     };
 
+    const onAddNewQuestions = () => {
+        const existingWords = [...getQuestions()];
+        const newWords = [];
+        const text = controls.getValues('text');
+        let segment = '';
+        let bracketOpen = false;
+        for (let i = 0; i < text.length; ++i) {
+            const word = text[i];
+            if (word === '*' && !bracketOpen) {
+                segment = '';
+                bracketOpen = true;
+            } else if (word === '*' && bracketOpen) {
+                newWords.push(segment);
+                segment = '';
+                bracketOpen = false;
+            } else {
+                segment += word;
+            }
+        }
+        const newQuestions = [];
+        newWords.forEach(word => {
+            const wordThatWasFound = _.find(existingWords, o => o.text === word);
+            // Word is now in the list, it's a new word
+            if (_.isNil(wordThatWasFound)) {
+                newQuestions.push({
+                    text: word,
+                    options: [{ text: word }],
+                    correct: 1,
+                });
+            } else {
+                // Word has been found. Why shift? it's becaue the new words will always contain our existing words.
+                // Which means ff we are iterating the new list forwards, we will always find an existing word which
+                // will be the first element in our old list.
+                const existingWord = existingWords.shift();
+                newQuestions.push(existingWord);
+            }
+        });
+        setQuestions(newQuestions);
+    };
+
     const onUpdateQuestion = (data, updatedData) => {
         updatedData.options = _.map(updatedData.options, option => (_.isObject(option) ? option : { text: option }));
         const questions = getQuestions();
@@ -214,18 +253,26 @@ function Cloze({ match }) {
                                 label: 'Typed',
                             }}
                         />
-                        <div>
-                            <Button
-                                color='primary'
-                                onClick={
-                                    _.isEmpty(getQuestions())
-                                        ? generateQuestions
-                                        : () => showDialog('Generating the cloze will wipe out your current questions, are you sure?')
-                                }
-                            >
-                                Generate Cloze
-                            </Button>
-                        </div>
+                    </div>
+                    <div className='d-flex align-items-start'>
+                        <Button
+                            color='primary'
+                            inline
+                            onClick={
+                                _.isEmpty(getQuestions())
+                                    ? generateQuestions
+                                    : () => showDialog('Generating the cloze will wipe out your current questions, are you sure?')
+                            }
+                        >
+                            Generate Cloze
+                        </Button>
+                        <Button
+                            color='primary'
+                            inline
+                            onClick={onAddNewQuestions}
+                        >
+                            Add New Questions
+                        </Button>
                     </div>
                     <div className='my-3 mb-3'>
                         <div className='cloze-sub-title mb-4'><u>All Questions</u></div>

@@ -12,7 +12,7 @@ function Button(props) {
     const { className, children, onClick, disabled, inline } = props;
     const isMounted = useMountedState();
     return (
-        <span className={clsx({ 'd-flex justify-content-center align-items-center': inline })}>
+        <span className={clsx({ 'd-flex align-items-center': inline })}>
             <MuiButton
                 className={`${className} button`}
                 disabled={loading || disabled}

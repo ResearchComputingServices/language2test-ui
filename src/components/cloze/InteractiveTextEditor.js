@@ -231,7 +231,7 @@ function InteractiveTextEditor({ controls }) {
         <>
             <div
                 ref={ref}
-                className='my-2'
+                className='mt-2 mb-1'
             >
                 <Paper>
                     <Tabs
