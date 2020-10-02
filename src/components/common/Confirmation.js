@@ -29,7 +29,10 @@ function Confirmation() {
             </DialogContent>
             <DialogActions>
                 {loading && (
-                    <Ripple size={30} />
+                    <Ripple
+                        className='confirmation-ripple'
+                        size={30}
+                    />
                 )}
                 <Button
                     color='primary'

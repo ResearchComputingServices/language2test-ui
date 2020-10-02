@@ -187,10 +187,8 @@ function Cloze({ match }) {
 
     const onGenerateOptions = async word => {
         try {
-            if (_.isEmpty(word)) {
-                return ToastsStore.warning('Text to generate the cloze is empty');
-            }
-            return service.generateOptions({ word });
+            const result = await service.generateOptions({ word });
+            return result;
         } catch (err) {
             ToastsStore.error('An error occured while genearting options');
         }
