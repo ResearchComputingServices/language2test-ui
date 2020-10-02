@@ -31,7 +31,7 @@ function Confirmation() {
                 {loading && (
                     <Ripple
                         className='confirmation-ripple'
-                        size={30}
+                        size={50}
                     />
                 )}
                 <Button

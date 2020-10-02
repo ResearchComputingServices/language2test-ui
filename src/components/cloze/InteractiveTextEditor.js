@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
@@ -244,10 +243,7 @@ function InteractiveTextEditor({ controls }) {
                         />
                     </Tabs>
                 </Paper>
-                <TabPanel
-                    index='text'
-                    value={value}
-                >
+                <div className='ml-3 mt-2'>
                     <div className='row mb-3'>
                         {editMode && (
                             <Tooltip title='Stop Editing'>
@@ -273,27 +269,30 @@ function InteractiveTextEditor({ controls }) {
                     <div className='cloze-interactive-text-editor-container'>
                         {!editMode && (
                             <ContextMenuTrigger id='cloze-interactive-text'>
-                                <Typography
+                                <div
                                     className='cloze-interactive-text-editor-text'
                                     onClick={onSelectText}
+                                    onKeyDown={_.noop}
+                                    role='textbox'
+                                    tabIndex={0}
                                 >
                                     {data.present}
-                                </Typography>
+                                </div>
                             </ContextMenuTrigger>
 
                         )}
                         {editMode && (
-                            <Typography>
+                            <div>
                                 <TextareaAutosize
                                     className='cloze-interactive-text-editor-edit'
                                     defaultValue={textarea}
                                     name='text'
                                     onChange={onChangeTextarea}
                                 />
-                            </Typography>
+                            </div>
                         )}
                     </div>
-                </TabPanel>
+                </div>
                 <ContextMenu id='cloze-interactive-text'>
                     <Paper>
                         {!unMarkAsBlank && (
