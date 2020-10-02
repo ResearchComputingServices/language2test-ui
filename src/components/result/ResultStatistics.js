@@ -32,7 +32,7 @@ function ResultStatistics({ startDatetime, endDatetime, result, gradedBy, pendin
                 <p className='mt-3'>
                     <strong>
                         {pending && 'This section will be graded manually.'}
-                        {!pending && `Grade: ${result.score}/${result.total}`}
+                        {!pending && `Score: ${result.score}/${result.total}`}
                     </strong>
                 </p>
             </Card>
