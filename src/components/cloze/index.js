@@ -152,7 +152,7 @@ function Cloze({ match }) {
         return count % 2 === 0;
     };
 
-    const onAddNewQuestions = () => {
+    const onUpdateClozeQuestions = () => {
         const existingWords = [...getQuestions()];
         const newWords = [];
         const text = controls.getValues('text');
@@ -190,6 +190,7 @@ function Cloze({ match }) {
             }
         });
         setQuestions(newQuestions);
+        ToastsStore.success('Successfully added new questions');
     };
 
     const onUpdateQuestion = (data, updatedData) => {
@@ -217,6 +218,7 @@ function Cloze({ match }) {
             });
             setQuestions(newQuestions);
             setQuestionIsGenerated(true);
+            ToastsStore.success('Successfully generated cloze');
         } catch (err) {
             ToastsStore.error('An error occured while genearting questions, please double check the cloze text');
         }
@@ -269,9 +271,9 @@ function Cloze({ match }) {
                         <Button
                             color='primary'
                             inline
-                            onClick={onAddNewQuestions}
+                            onClick={onUpdateClozeQuestions}
                         >
-                            Add New Questions
+                            Update Cloze Questions
                         </Button>
                     </div>
                     <div className='my-3 mb-3'>
