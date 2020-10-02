@@ -164,6 +164,10 @@ function Cloze({ match }) {
                 segment = '';
                 bracketOpen = true;
             } else if (word === '*' && bracketOpen) {
+                const previousLetter = text[i - segment.length - 2];
+                if (previousLetter !== ' ' && previousLetter !== '') {
+                    segment = previousLetter + segment;
+                }
                 newWords.push(segment);
                 segment = '';
                 bracketOpen = false;
@@ -172,10 +176,12 @@ function Cloze({ match }) {
             }
         }
         const newQuestions = [];
+        let numQuestionsAdded = 0;
         newWords.forEach(word => {
             const wordThatWasFound = _.find(existingWords, o => o.text === word);
             // Word is now in the list, it's a new word
             if (_.isNil(wordThatWasFound)) {
+                ++numQuestionsAdded;
                 newQuestions.push({
                     text: word,
                     options: [{ text: word }],
@@ -189,8 +195,12 @@ function Cloze({ match }) {
                 newQuestions.push(existingWord);
             }
         });
-        setQuestions(newQuestions);
-        ToastsStore.success('Successfully added new questions');
+        if (numQuestionsAdded) {
+            setQuestions(newQuestions);
+            ToastsStore.success('Successfully cloze with new questions');
+        } else {
+            ToastsStore.warning('No new questions have been added');
+        }
     };
 
     const onUpdateQuestion = (data, updatedData) => {
