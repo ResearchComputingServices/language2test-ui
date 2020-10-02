@@ -197,7 +197,7 @@ function Cloze({ match }) {
         });
         if (numQuestionsAdded) {
             setQuestions(newQuestions);
-            ToastsStore.success('Successfully cloze with new questions');
+            ToastsStore.success('Updated cloze with new questions');
         } else {
             ToastsStore.warning('No new questions have been added');
         }
