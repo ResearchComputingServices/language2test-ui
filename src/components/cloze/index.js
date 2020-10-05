@@ -241,6 +241,10 @@ function Cloze({ match }) {
         }
     };
 
+    const onClone = () => {
+        alert('cloning...');
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -250,6 +254,7 @@ function Cloze({ match }) {
                     controls={controls}
                     data={data}
                     layout={layout}
+                    onClone={onClone}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Cloze`}
                 >
                     <InteractiveTextEditor controls={controls} />

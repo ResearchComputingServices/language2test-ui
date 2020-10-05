@@ -1,6 +1,6 @@
 import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
-import { FormPaper, InUse } from '../common';
+import { FormPaper, CloneButton, InUse } from '../common';
 import Form from '../form';
 
 function ClozeForm({
@@ -10,6 +10,7 @@ function ClozeForm({
     buttons,
     controls,
     children,
+    onClone,
 }) {
     const ref = createRef();
     const getUsedIn = data => {
@@ -26,7 +27,10 @@ function ClozeForm({
     return (
         <FormPaper ref={ref}>
             <div className='form-body'>
-                <h6 className='cloze-form-title'>{title}</h6>
+                <div className='d-flex flex-direction-column justify-content-between'>
+                    <h6 className='form-title'>{title}</h6>
+                    <CloneButton onClick={onClone} />
+                </div>
                 <InUse
                     msg={`Currently being used in one or more ${getUsedIn(data)}`}
                     show={data.immutable || data.unremovable}
@@ -55,12 +59,14 @@ ClozeForm.propTypes = {
     buttons: PropTypes.array,
     controls: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
+    onClone: PropTypes.func,
 };
 
 ClozeForm.defaultProps = {
     title: 'Cloze Question',
     data: {},
     buttons: [],
+    onClone: undefined,
 };
 
 export default ClozeForm;

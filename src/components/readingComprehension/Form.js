@@ -1,6 +1,6 @@
 import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
-import { FormPaper, InUse } from '../common';
+import { FormPaper, CloneButton, InUse } from '../common';
 import Form from '../form';
 
 function ReadingComprehensionForm({
@@ -10,6 +10,7 @@ function ReadingComprehensionForm({
     dynamicLayout,
     controls,
     buttons,
+    onClone,
     children,
 }) {
     const ref = createRef();
@@ -27,7 +28,10 @@ function ReadingComprehensionForm({
     return (
         <FormPaper ref={ref}>
             <div className='form-body'>
-                <h6 className='form-title'>{title}</h6>
+                <div className='d-flex flex-direction-column justify-content-between'>
+                    <h6 className='form-title'>{title}</h6>
+                    <CloneButton onClick={onClone} />
+                </div>
                 <InUse
                     msg={`Currently being used in one or more ${getUsedIn(data)}`}
                     show={data.immutable || data.unremovable}
@@ -57,12 +61,14 @@ ReadingComprehensionForm.propTypes = {
     buttons: PropTypes.array,
     controls: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
+    onClone: PropTypes.func,
 };
 
 ReadingComprehensionForm.defaultProps = {
     title: 'Reading Comprehension Question',
     data: {},
     buttons: [],
+    onClone: undefined,
 };
 
 export default ReadingComprehensionForm;

@@ -44,6 +44,10 @@ function Vocabulary({ match }) {
         },
     }, data.immutable, data.unremovable);
 
+    const onClone = () => {
+        alert('cloning');
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -53,6 +57,7 @@ function Vocabulary({ match }) {
                     controls={controls}
                     data={data}
                     layout={layout}
+                    onClone={onClone}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Vocabulary`}
                 />
             ));

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormPaper, InUse } from '../common';
+import { FormPaper, CloneButton, InUse } from '../common';
 import Form from '../form';
 
 function VocabularyForm({
@@ -8,6 +8,7 @@ function VocabularyForm({
     data,
     layout,
     buttons,
+    onClone,
     controls,
 }) {
     const getUsedIn = data => {
@@ -24,7 +25,10 @@ function VocabularyForm({
     return (
         <FormPaper>
             <div className='form-body'>
-                <h6 className='form-title'>{title}</h6>
+                <div className='d-flex flex-direction-column justify-content-between'>
+                    <h6 className='form-title'>{title}</h6>
+                    <CloneButton onClick={onClone} />
+                </div>
                 <InUse
                     msg={`Currently being used in one or more ${getUsedIn(data)}`}
                     show={data.immutable || data.unremovable}
@@ -46,12 +50,14 @@ VocabularyForm.propTypes = {
     layout: PropTypes.array.isRequired,
     controls: PropTypes.object.isRequired,
     buttons: PropTypes.array,
+    onClone: PropTypes.func,
 };
 
 VocabularyForm.defaultProps = {
     title: 'Vocabulary Question',
     data: {},
     buttons: [],
+    onClone: undefined,
 };
 
 export default VocabularyForm;

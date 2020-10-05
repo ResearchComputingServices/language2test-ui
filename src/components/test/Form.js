@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import _ from 'lodash';
-import { FormPaper, InUse } from '../common';
+import { FormPaper, InUse, CloneButton } from '../common';
 import Form from '../form';
 
 function TestForm({
@@ -15,13 +15,17 @@ function TestForm({
     onRemoveStep,
     controls,
     disableRemoveStep,
+    onClone,
     buttons,
 }) {
     const ref = createRef();
     return (
         <FormPaper ref={ref}>
             <div className='form-body'>
-                <h6 className='form-title'>{title}</h6>
+                <div className='d-flex flex-direction-column justify-content-between'>
+                    <h6 className='form-title'>{title}</h6>
+                    <CloneButton onClick={onClone} />
+                </div>
                 <InUse
                     msg='Currently being used in one or more Test Session(s)'
                     show={data.immutable || data.unremovable}
@@ -88,11 +92,13 @@ TestForm.propTypes = {
     onRemoveStep: PropTypes.func.isRequired,
     controls: PropTypes.object.isRequired,
     disableRemoveStep: PropTypes.bool.isRequired,
+    onClone: PropTypes.func,
 };
 
 TestForm.defaultProps = {
     title: 'Test',
     buttons: [],
+    onClone: undefined,
 };
 
 export default TestForm;

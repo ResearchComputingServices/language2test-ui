@@ -233,6 +233,10 @@ function Test({ match }) {
         },
     }, data.immutable, data.unremovable);
 
+    const onClone = () => {
+        alert('cloning...');
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -247,6 +251,7 @@ function Test({ match }) {
                     dynamicLayout={dynamicLayoutRef.current}
                     layout={layoutRef.current}
                     onAddStep={addStep}
+                    onClone={onClone}
                     onRemoveStep={removeStep}
                     staticSteps={false}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Test`}

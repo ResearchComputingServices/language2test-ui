@@ -150,6 +150,10 @@ function ReadingComprehension({ match }) {
         setActionToastMessage(`Question-${index + 1} has been updated`);
     };
 
+    const onClone = () => {
+        alert('cloning');
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -160,6 +164,7 @@ function ReadingComprehension({ match }) {
                     data={data}
                     dynamicLayout={dynamicLayout}
                     layout={layout}
+                    onClone={onClone}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Reading Comprehension`}
                 >
                     <div className='reading-comprehension-sub-title mb-4'><u>Add Question</u></div>

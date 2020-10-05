@@ -72,6 +72,10 @@ function Writing({ match }) {
         },
     }, data.immutable, data.unremovable);
 
+    const onClone = () => {
+        alert('cloning...');
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -82,6 +86,7 @@ function Writing({ match }) {
                     data={data}
                     dynamicLayout={dynamicLayout}
                     layout={layout}
+                    onClone={onClone}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Writing`}
                 />
             ));
