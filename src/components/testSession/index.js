@@ -27,7 +27,7 @@ function TestSession({ match }) {
     const buttons = useFormButtons(id, entity, {
         ...actions,
         download: data => actions.download(data, 'application/zip', 'zip'),
-    });
+    }, data.immutable, data.unremovable);
 
     return (
         <Layout

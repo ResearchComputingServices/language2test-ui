@@ -102,7 +102,7 @@ function Cloze({ match }) {
                     actions.cancel();
                 }
             },
-    });
+    }, data.immutable, data.unremovable);
 
     const onRemoveQuestion = data => {
         const questions = getQuestions();

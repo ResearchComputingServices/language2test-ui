@@ -12,12 +12,30 @@ function ClozeForm({
     children,
 }) {
     const ref = createRef();
+    const getUsedIn = data => {
+        if (data.immutable && data.unremovable) {
+            return 'Test and Test Session';
+        }
+        if (data.immutable) {
+            return 'Test';
+        }
+        if (data.unremovable) {
+            return 'Test Session';
+        }
+    };
     return (
         <FormPaper ref={ref}>
             <div className='form-body'>
-                <h6 className='cloze-form-title'>
-                    {title}
-                </h6>
+                <h6 className='cloze-form-title'>{title}</h6>
+                <div className='pb-2'>
+                    <h6 className='field error-text'>
+                        <b>
+                            <i>
+                                {`Currently used in one or more ${getUsedIn(data)}`}
+                            </i>
+                        </b>
+                    </h6>
+                </div>
                 <Form
                     buttons={buttons}
                     controls={controls}
