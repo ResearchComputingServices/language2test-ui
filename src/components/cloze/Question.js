@@ -13,7 +13,7 @@ import PicklistField from '../form/fields/PicklistField';
 import NumberField from '../form/fields/NumberField';
 import Checkbox from '../form/fields/Checkbox';
 import { Button as CommonButton, Ripple } from '../common';
-import { useForm, useState } from '../../hooks';
+import useQuestion from './useQuestion';
 
 function Question({
     sequence,
@@ -27,8 +27,11 @@ function Question({
     onRemove,
     children,
 }) {
-    const controls = useForm();
-    const [loading, setLoading] = useState(false);
+    const {
+        controls,
+        getLoading,
+        setLoading,
+    } = useQuestion();
 
     const typedWatch = controls.watch('typed');
 
@@ -137,7 +140,7 @@ function Question({
                         )}
                         {children}
                     </div>
-                    {loading && (
+                    {getLoading() && (
                         <Ripple size={35} />
                     )}
                     <Button

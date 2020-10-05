@@ -4,19 +4,19 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import HelpIcon from '@material-ui/icons/Help';
 import ListModal from './ListModal';
-import useListModal from './useListModal';
+import useTypedListModal from './useTypedListModal';
 
 function ClozeQuestionPendingTyped({ id }) {
     const {
-        show,
+        getShow,
+        getLoading,
+        getError,
+        getRefreshCounter,
         onShow,
         onHide,
         onAccept,
         onReject,
-        loading,
-        error,
-        refreshCounter,
-    } = useListModal('pending');
+    } = useTypedListModal('pending');
 
     return (
         <>
@@ -30,17 +30,17 @@ function ClozeQuestionPendingTyped({ id }) {
                     <HelpIcon className='indicisive-icon' />
                 </IconButton>
             </Tooltip>
-            {show && (
+            {getShow() && (
                 <ListModal
-                    error={error}
+                    error={getError()}
                     id={id}
-                    loading={loading}
+                    loading={getLoading()}
                     onAccept={onAccept}
                     onHide={onHide}
                     onReject={onReject}
                     // TODO Hack
-                    refreshCounter={refreshCounter}
-                    show={show}
+                    refreshCounter={getRefreshCounter()}
+                    show={getShow()}
                     storeName='clozeQuestionPendingTyped'
                     title='Pending Typed Answers'
                 />

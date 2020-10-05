@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { ToastsStore } from 'react-toasts';
@@ -19,31 +19,27 @@ import ClozeQuestionIncorrectlyTyped from './ClozeQuestionIncorrectlyTyped';
 import ClozeQuestionPendingTyped from './ClozeQuestionPendingTyped';
 import Checkbox from '../form/fields/Checkbox';
 import InteractiveTextEditor from './InteractiveTextEditor';
+import useCloze from './useCloze';
 
 function Cloze({ match }) {
     const entity = 'cloze';
     const id = _.get(match, 'params.id');
     const controls = useForm();
-    const [questions, setQuestions] = useState([]);
-    const [previousQuestions, setPreviousQuestions] = useState([]);
-    const [previousText, setPreviousText] = useState('');
-    const [openActionToast, setOpenActionToast] = useState(false);
-    const [actionToastMessage, setActionToastMessage] = useState('');
-    const [questionIsGenerated, setQuestionIsGenerated] = useState(false);
-    const questionsRef = useRef(null);
-    const previousQuestionsRef = useRef(null);
-    const previousTextRef = useRef(null);
-    previousTextRef.current = previousText;
-    questionsRef.current = questions;
-    previousQuestionsRef.current = previousQuestions;
-
-    const getQuestions = () => questionsRef.current || [];
-
-    const getPreviousQuestions = () => previousQuestionsRef.current || [];
-
-    const getPreviousText = () => previousTextRef.current || '';
-
     const layout = useFormLayout(entity);
+    const {
+        getQuestions,
+        getPreviousQuestions,
+        getPreviousText,
+        getOpenActionToast,
+        getActionToastMessage,
+        getQuestionIsGenerated,
+        setQuestions,
+        setPreviousQuestions,
+        setPreviousText,
+        setOpenActionToast,
+        setActionToastMessage,
+        setQuestionIsGenerated,
+    } = useCloze();
 
     const pageSize = 5;
     const {
@@ -309,7 +305,7 @@ function Cloze({ match }) {
                                         text={data.text}
                                         typed={data.typed}
                                     >
-                                        {questionId && isTyped && !questionIsGenerated && (
+                                        {questionId && isTyped && !getQuestionIsGenerated() && (
                                             <div className='field cloze-question-lists'>
                                                 <ClozeQuestionPendingTyped id={questionId} />
                                                 <ClozeQuestionIncorrectlyTyped id={questionId} />
@@ -331,7 +327,7 @@ function Cloze({ match }) {
         >
             {getForm(id)}
             <ActionToast
-                message={actionToastMessage}
+                message={getActionToastMessage()}
                 onClose={() => {
                     setOpenActionToast(false);
                 }}
@@ -340,7 +336,7 @@ function Cloze({ match }) {
                     setQuestions(getPreviousQuestions());
                     controls.setValue('text', getPreviousText() || controls.getValues('text'));
                 }}
-                open={openActionToast}
+                open={getOpenActionToast()}
             />
             <Confirmation />
         </Layout>

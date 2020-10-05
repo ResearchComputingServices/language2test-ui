@@ -9,7 +9,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import { ModalInfo, PaginatedList } from '../common';
-import { useList, useEffect, useState } from '../../hooks';
+import useListModal from './useListModal';
+import { useList, useEffect } from '../../hooks';
 
 function ListModal({
     id,
@@ -38,16 +39,17 @@ function ListModal({
         dependencies: [refreshCounter],
     });
 
-    const [checked, setChecked] = useState(_.map(data, () => false));
+    const [getChecked, setChecked] = useListModal(data);
 
     const handleToggle = index => () => {
-        const newChecked = [...checked];
+        const newChecked = [...getChecked()];
         newChecked[index] = !newChecked[index];
         setChecked(newChecked);
     };
 
     useEffect(() => {
         setChecked(_.map(data, () => false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     return (
@@ -62,15 +64,15 @@ function ListModal({
                     actions={_.compact([
                         !_.isNil(onAccept) && {
                             Icon: <CheckIcon className='correct-icon' />,
-                            onClick: data => onAccept(data, checked),
+                            onClick: data => onAccept(data, getChecked()),
                         },
                         !_.isNil(onReject) && {
                             Icon: <ClearIcon className='incorrect-icon' />,
-                            onClick: data => onReject(data, checked),
+                            onClick: data => onReject(data, getChecked()),
                         },
                         !_.isNil(onPending) && {
                             Icon: <HelpIcon className='indicisive-icon' />,
-                            onClick: data => onPending(data, checked),
+                            onClick: data => onPending(data, getChecked()),
                         },
                     ])}
                     count={count}
@@ -89,7 +91,7 @@ function ListModal({
                             >
                                 <ListItemIcon>
                                     <Checkbox
-                                        checked={checked[index]}
+                                        checked={getChecked()[index]}
                                         tabIndex={-1}
                                     />
                                 </ListItemIcon>

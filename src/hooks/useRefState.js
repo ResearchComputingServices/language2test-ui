@@ -1,13 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
-export default function useRefState(initialValue) {
-    const [state, setState] = useState(initialValue);
+export default function useRefState(initialState) {
+    const [state, setState] = useState(initialState);
     const stateRef = useRef(state);
-    useEffect(
-        () => {
-            stateRef.current = state;
-        },
-        [state],
-    );
+    stateRef.current = state;
     return [() => stateRef.current, setState];
 }

@@ -4,19 +4,19 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import ClearIcon from '@material-ui/icons/Clear';
 import ListModal from './ListModal';
-import useListModal from './useListModal';
+import useTypedListModal from './useTypedListModal';
 
 function ClozeQuestionPendingTyped({ id }) {
     const {
-        show,
+        getShow,
+        getLoading,
+        getError,
+        getRefreshCounter,
         onShow,
         onHide,
         onAccept,
         onPending,
-        loading,
-        error,
-        refreshCounter,
-    } = useListModal('incorrect');
+    } = useTypedListModal('incorrect');
 
     return (
         <>
@@ -30,17 +30,17 @@ function ClozeQuestionPendingTyped({ id }) {
                     <ClearIcon className='incorrect-icon' />
                 </IconButton>
             </Tooltip>
-            {show && (
+            {getShow() && (
                 <ListModal
-                    error={error}
+                    error={getError()}
                     id={id}
-                    loading={loading}
+                    loading={getLoading()}
                     onAccept={onAccept}
                     onHide={onHide}
                     onPending={onPending}
                     // TODO Hack
-                    refreshCounter={refreshCounter}
-                    show={show}
+                    refreshCounter={getRefreshCounter}
+                    show={getShow()}
                     storeName='clozeQuestionIncorrectlyTyped'
                     title='Incorrectly Typed Answers'
                 />
