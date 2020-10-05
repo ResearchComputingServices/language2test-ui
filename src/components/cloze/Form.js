@@ -15,13 +15,13 @@ function ClozeForm({
     const ref = createRef();
     const getUsedIn = data => {
         if (data.immutable && data.unremovable) {
-            return 'Test and Test Session(s)';
+            return 'Test(s) and Test Session(s)';
         }
         if (data.immutable) {
-            return 'Test(s)';
+            return 'Test Session(s)';
         }
         if (data.unremovable) {
-            return 'Test Session(s)';
+            return 'Test(s)';
         }
     };
     return (

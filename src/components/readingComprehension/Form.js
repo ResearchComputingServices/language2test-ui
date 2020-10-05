@@ -19,10 +19,10 @@ function ReadingComprehensionForm({
             return 'Test(s) and Test Session(s)';
         }
         if (data.immutable) {
-            return 'Test(s)';
+            return 'Test Session(s)';
         }
         if (data.unremovable) {
-            return 'Test Session(s)';
+            return 'Test(s)';
         }
     };
     return (
