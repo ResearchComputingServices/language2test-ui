@@ -142,7 +142,7 @@ function Role({ match }) {
                 }
             }
         },
-    }), action => {
+    }, data.immutable, data.unremovable), action => {
         const immutableActionAndImmutable = (_.isObject(action) && immutableActions.includes(action.title) && immutable);
         return !immutableActionAndImmutable;
     });

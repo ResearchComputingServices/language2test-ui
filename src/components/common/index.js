@@ -17,6 +17,7 @@ import PermissionDenied from './PermissionDenied';
 import ProgressWatch from './ProgressWatch';
 import Ripple from './Ripple';
 import Spinner from './Spinner';
+import InUse from './InUse';
 
 export {
     AdministratorGrid,
@@ -38,4 +39,5 @@ export {
     ProgressWatch,
     Ripple,
     Spinner,
+    InUse,
 };

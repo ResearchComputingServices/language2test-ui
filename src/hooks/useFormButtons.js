@@ -22,7 +22,7 @@ function getButton(authorizationCheckerService, title, handler, options = {}) {
     };
 }
 
-export default function useFormButtons(id, entity, handlers, disableMutation = false) {
+export default function useFormButtons(id, entity, handlers, disableMutation = false, disableDelete = false) {
     const authorizationCheckerService = useAuthorizationCheckerService();
     const { create, update, remove, download, cancel } = handlers;
     entity = _.kebabCase(entity);
@@ -36,7 +36,7 @@ export default function useFormButtons(id, entity, handlers, disableMutation = f
             authorization: `update-${entity}`,
         }),
         _.isNil(id) ? null : getButton(authorizationCheckerService, 'Delete', remove, {
-            disabled: disableMutation,
+            disabled: disableDelete,
             authorization: `delete-${entity}`,
         }),
         _.isNil(id) ? null : getButton(authorizationCheckerService, 'Export', download, { authorization: `export-${entity}` }),

@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import _ from 'lodash';
-import { FormPaper } from '../common';
+import { FormPaper, InUse } from '../common';
 import Form from '../form';
 
 function TestForm({
@@ -21,9 +21,11 @@ function TestForm({
     return (
         <FormPaper ref={ref}>
             <div className='form-body'>
-                <h6 className='form-title'>
-                    {title}
-                </h6>
+                <h6 className='form-title'>{title}</h6>
+                <InUse
+                    msg='Currently being used in one or more Test Session(s)'
+                    show={data.immutable || data.unremovable}
+                />
                 <Form
                     buttons={buttons}
                     controls={controls}
