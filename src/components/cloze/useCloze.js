@@ -7,6 +7,7 @@ export default function useCloze() {
     const [getOpenActionToast, setOpenActionToast] = useRefState(false);
     const [getActionToastMessage, setActionToastMessage] = useRefState('');
     const [getQuestionIsGenerated, setQuestionIsGenerated] = useRefState(false);
+    const [getClone, setClone] = useRefState(false);
 
     return {
         getQuestions,
@@ -15,11 +16,13 @@ export default function useCloze() {
         getOpenActionToast,
         getActionToastMessage,
         getQuestionIsGenerated,
+        getClone,
         setQuestions,
         setPreviousQuestions,
         setPreviousText,
         setOpenActionToast,
         setActionToastMessage,
         setQuestionIsGenerated,
+        setClone,
     };
 }

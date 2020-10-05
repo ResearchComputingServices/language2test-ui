@@ -18,6 +18,7 @@ import ProgressWatch from './ProgressWatch';
 import Ripple from './Ripple';
 import Spinner from './Spinner';
 import InUse from './InUse';
+import CloneButton from './CloneButton';
 
 export {
     AdministratorGrid,
@@ -40,4 +41,5 @@ export {
     Ripple,
     Spinner,
     InUse,
+    CloneButton,
 };

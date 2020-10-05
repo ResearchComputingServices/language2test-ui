@@ -5,6 +5,10 @@ import { Layout, NotFound } from '../common';
 import Form from './Form';
 import {
     useForm,
+    useStore,
+    useActions,
+    useService,
+    useRefState,
     useFormData,
     useFormLayout,
     useFormActions,
@@ -16,13 +20,24 @@ function Vocabulary({ match }) {
     const id = _.get(match, 'params.id');
     const layout = useFormLayout(entity);
     const controls = useForm();
+    const cloneStore = useStore('clone');
+    const cloneActions = useActions('clone');
+    const historyService = useService('history');
+    const [getClone, setClone] = useRefState(false);
 
     const {
         data,
         loading,
         error,
         setData,
-    } = useFormData(entity, id);
+    } = useFormData(entity, id, () => {
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'word']);
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setClone(true);
+        }
+    });
 
     const actions = useFormActions(entity);
 
@@ -32,7 +47,7 @@ function Vocabulary({ match }) {
             const result = await actions.create(data);
             if (!_.isNil(result)) {
                 setData(result);
-                actions.cancel();
+                getClone() ? historyService.go('/admin/vocabularies') : actions.cancel();
             }
         },
         update: async data => {
@@ -44,6 +59,11 @@ function Vocabulary({ match }) {
         },
     }, data.immutable, data.unremovable);
 
+    const onClone = () => {
+        cloneActions.setData(controls.getValues({ nested: true }));
+        historyService.go('/admin/vocabularies/vocabulary');
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -53,6 +73,7 @@ function Vocabulary({ match }) {
                     controls={controls}
                     data={data}
                     layout={layout}
+                    onClone={!getClone() ? onClone : undefined}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Vocabulary`}
                 />
             ));

@@ -8,7 +8,10 @@ import Question from './Question';
 import ActionToast from '../common/ActionToast';
 import {
     useForm,
+    useStore,
     useDialog,
+    useActions,
+    useService,
     useFormData,
     useFormLayout,
     usePagination,
@@ -33,13 +36,19 @@ function Cloze({ match }) {
         getOpenActionToast,
         getActionToastMessage,
         getQuestionIsGenerated,
+        getClone,
         setQuestions,
         setPreviousQuestions,
         setPreviousText,
         setOpenActionToast,
         setActionToastMessage,
         setQuestionIsGenerated,
+        setClone,
     } = useCloze();
+
+    const cloneStore = useStore('clone');
+    const cloneActions = useActions('clone');
+    const historyService = useService('history');
 
     const pageSize = 5;
     const {
@@ -53,6 +62,14 @@ function Cloze({ match }) {
         if (!_.isEmpty(cloze)) {
             setQuestions(cloze.questions);
         }
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            controls.register({ name: 'text' });
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setQuestions(initializationData.questions);
+            setClone(true);
+        }
     };
 
     const {
@@ -64,8 +81,10 @@ function Cloze({ match }) {
     } = useFormData(entity, id, initialize);
 
     useEffect(() => {
-        controls.register({ name: 'text' });
-        controls.setValue('text', !_.isEmpty(data.text) && !_.isNil(data.text) ? data.text : '');
+        if (_.isNil(controls.getValues('text'))) {
+            controls.register({ name: 'text' });
+            controls.setValue('text', !_.isEmpty(data.text) && !_.isNil(data.text) ? data.text : '');
+        }
         return () => controls.unregister('text');
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [controls.register, controls.unregister]);
@@ -85,10 +104,11 @@ function Cloze({ match }) {
             ? false
             : async data => {
                 data.questions = getQuestions();
+                data.text = controls.getValues('text');
                 const result = await actions.create(data);
                 if (!_.isNil(result)) {
                     setData(result);
-                    actions.cancel();
+                    getClone() ? historyService.go('/admin/clozes') : actions.cancel();
                 }
             },
         update: _.isEmpty(getQuestions())
@@ -241,6 +261,17 @@ function Cloze({ match }) {
         }
     };
 
+    const onClone = () => {
+        const dataToClone = controls.getValues({ nested: true });
+        dataToClone.questions = _.map(getQuestions(), question => {
+            const newQuestion = _.omit(question, ['id', 'clozeId', 'cloze']);
+            newQuestion.options = _.map(newQuestion.options, option => ({ text: option.text }));
+            return newQuestion;
+        });
+        cloneActions.setData(dataToClone);
+        historyService.go('/admin/clozes/cloze');
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -250,6 +281,7 @@ function Cloze({ match }) {
                     controls={controls}
                     data={data}
                     layout={layout}
+                    onClone={!getClone() ? onClone : undefined}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Cloze`}
                 >
                     <InteractiveTextEditor controls={controls} />

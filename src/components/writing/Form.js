@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormPaper, InUse } from '../common';
+import { FormPaper, CloneButton, InUse } from '../common';
 import Form from '../form';
 
 function WritingForm({
@@ -10,6 +10,7 @@ function WritingForm({
     dynamicLayout,
     buttons,
     controls,
+    onClone,
 }) {
     const getUsedIn = data => {
         if (data.immutable && data.unremovable) {
@@ -25,7 +26,10 @@ function WritingForm({
     return (
         <FormPaper>
             <div className='form-body'>
-                <h6 className='form-title'>{title}</h6>
+                <div className='d-flex flex-direction-column justify-content-between'>
+                    <h6 className='form-title'>{title}</h6>
+                    {onClone && <CloneButton onClick={onClone} />}
+                </div>
                 <InUse
                     msg={`Currently being used in one or more ${getUsedIn(data)}`}
                     show={data.immutable || data.unremovable}
@@ -48,6 +52,7 @@ WritingForm.propTypes = {
     dynamicLayout: PropTypes.array,
     controls: PropTypes.object.isRequired,
     buttons: PropTypes.array,
+    onClone: PropTypes.func,
 };
 
 WritingForm.defaultProps = {
@@ -55,6 +60,7 @@ WritingForm.defaultProps = {
     data: {},
     dynamicLayout: [],
     buttons: [],
+    onClone: undefined,
 };
 
 export default WritingForm;

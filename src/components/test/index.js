@@ -5,6 +5,10 @@ import Form from './Form';
 import { Layout, NotFound } from '../common';
 import {
     useForm,
+    useStore,
+    useActions,
+    useService,
+    useRefState,
     useFormData,
     useFormLayout,
     useFormActions,
@@ -43,6 +47,10 @@ function Test({ match }) {
     const [disableRemoveStep, setDisableRemoveStep] = useState(true);
     const [dynamicLayout, setDynamicLayout] = useState([]);
     const [dynamicData, setDynamicData] = useState({});
+    const cloneStore = useStore('clone');
+    const cloneActions = useActions('clone');
+    const historyService = useService('history');
+    const [getClone, setClone] = useRefState(false);
 
     const layoutRef = useRef();
     const dynamicDataRef = useRef();
@@ -177,6 +185,12 @@ function Test({ match }) {
             return data;
         }, {}));
         configureDemographicQuestionnaireFields(data);
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setClone(true);
+        }
     };
 
     const addStep = () => {
@@ -221,7 +235,7 @@ function Test({ match }) {
             const result = await actions.create(data);
             if (!_.isNil(result)) {
                 setData(result);
-                actions.cancel();
+                getClone() ? historyService.go('/admin/writings') : actions.cancel();
             }
         },
         update: async data => {
@@ -232,6 +246,11 @@ function Test({ match }) {
             }
         },
     }, data.immutable, data.unremovable);
+
+    const onClone = () => {
+        cloneActions.setData(controls.getValues({ nested: true }));
+        historyService.go('/admin/tests/test');
+    };
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
@@ -247,6 +266,7 @@ function Test({ match }) {
                     dynamicLayout={dynamicLayoutRef.current}
                     layout={layoutRef.current}
                     onAddStep={addStep}
+                    onClone={!getClone() ? onClone : undefined}
                     onRemoveStep={removeStep}
                     staticSteps={false}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Test`}

@@ -19,7 +19,9 @@ function InUse({ msg, show }) {
 
 InUse.propTypes = {
     msg: PropTypes.string.isRequired,
-    show: PropTypes.bool.isRequired,
+    show: PropTypes.bool,
 };
+
+InUse.defaultProps = { show: false };
 
 export default InUse;
