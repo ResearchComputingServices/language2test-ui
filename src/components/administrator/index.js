@@ -1,24 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Switch } from 'react-router-dom';
 import _ from 'lodash';
 import Drawer from '../drawer';
-import {
-    useService,
-    useRoutes,
-    useDrawer,
-    useProvider,
-} from '../../hooks';
+import { useService } from '../../hooks';
+import useAdministrator from './useAdministrator';
 
 export default function() {
     const historyService = useService('history');
-    const routes = useRoutes('administrator');
-    const administratorPanels = useDrawer('administrator');
-    const routesAssemblerService = useProvider('route')();
-    const drawerAssemblerService = useProvider('drawer')();
-    // These are declared as state, because we don't want to compute the expensive operations when component re-renders.
-    const [panelList] = useState(drawerAssemblerService.flattenItems(administratorPanels));
-    const [drawerItems] = useState(drawerAssemblerService.assembleItems(administratorPanels));
-    const [drawerRoutes] = useState(routesAssemblerService.assemble(routes));
+    const {
+        getPanelList,
+        getDrawerItems,
+        getDrawerRoutes,
+    } = useAdministrator();
 
     const getPanelPathFromIndex = (panelList, index) => (panelList[index] || {}).path || '/';
 
@@ -27,6 +20,7 @@ export default function() {
     const fixInvalidRouting = () => {
         const fragments = historyService.getUrlFragments();
         const panelName = fragments[1];
+        const panelList = getPanelList();
         let isPanelNameValid = _.isEmpty(panelList);
         if (!isPanelNameValid && _.isNil(panelName)) {
             historyService.go(getPanelPathFromIndex(panelList, 0));
@@ -48,11 +42,11 @@ export default function() {
     return (
         <>
             <Drawer
-                items={drawerItems}
+                items={getDrawerItems()}
                 onItemClick={onItemClick}
             />
             <Switch>
-                {drawerRoutes}
+                {getDrawerRoutes()}
             </Switch>
         </>
     );
