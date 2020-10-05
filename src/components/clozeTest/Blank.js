@@ -1,15 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
 import { useEventListener } from '../../hooks';
+import useBlank from './useBlank';
 
-function Blank({ hint, defaultValue, onChange, typed, options }) {
-    const [width, setWidth] = useState(100);
-    const [toggle, setToggle] = useState(false);
-    const [value, setValue] = useState(hint + defaultValue);
+function Blank({
+    hint,
+    defaultValue,
+    onChange,
+    typed,
+    options,
+}) {
     const ref = useRef();
+    const {
+        getWidth,
+        getToggle,
+        getValue,
+        setWidth,
+        setToggle,
+        setValue,
+        getJustSelected,
+        setJustSelected,
+    } = useBlank(hint + defaultValue);
 
     const onPicklistClick = value => {
         setToggle(false);
@@ -24,15 +38,16 @@ function Blank({ hint, defaultValue, onChange, typed, options }) {
         onChange(value);
     };
 
-    useEventListener('click', () => toggle && setToggle(false));
+    useEventListener('click', () => getToggle() && !getJustSelected() && setToggle(false));
 
     useEffect(() => {
-        if (value.length > 10) {
-            setWidth(100 + value.length * 5);
+        if (getValue().length > 10) {
+            setWidth(100 + getValue().length * 5);
         } else {
             setWidth(100);
         }
-    }, [value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [getValue()]);
 
     return (
         <span
@@ -43,19 +58,21 @@ function Blank({ hint, defaultValue, onChange, typed, options }) {
                 className='no-outline cloze-blank'
                 onChange={onInputChange}
                 onClick={() => {
-                    setToggle(!toggle);
+                    setToggle(!getToggle());
+                    setJustSelected(true);
+                    setImmediate(() => setJustSelected(false));
                 }}
-                style={{ width }}
+                style={{ width: getWidth() }}
                 type='text'
-                value={value}
+                value={getValue()}
             />
-            {toggle && (
+            {getToggle() && (
                 <Paper style={{
                     zIndex: 1000,
                     position: 'absolute',
                     top: ref.current.offsetTop + 35,
                     left: ref.current.offsetLeft,
-                    minWidth: width,
+                    minWidth: getWidth(),
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
