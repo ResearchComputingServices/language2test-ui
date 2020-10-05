@@ -161,7 +161,7 @@ function Cloze({ match }) {
                 bracketOpen = true;
             } else if (word === '*' && bracketOpen) {
                 const previousLetter = text[i - segment.length - 2];
-                if (previousLetter !== ' ' && previousLetter !== '') {
+                if (previousLetter !== ' ' && previousLetter !== '' && !_.isNil(previousLetter)) {
                     segment = previousLetter + segment;
                 }
                 newWords.push(segment);
