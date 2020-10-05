@@ -1,6 +1,6 @@
 import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
-import { FormPaper } from '../common';
+import { FormPaper, InUse } from '../common';
 import Form from '../form';
 
 function ClozeForm({
@@ -14,28 +14,23 @@ function ClozeForm({
     const ref = createRef();
     const getUsedIn = data => {
         if (data.immutable && data.unremovable) {
-            return 'Test and Test Session';
+            return 'Test and Test Session(s)';
         }
         if (data.immutable) {
-            return 'Test';
+            return 'Test(s)';
         }
         if (data.unremovable) {
-            return 'Test Session';
+            return 'Test Session(s)';
         }
     };
     return (
         <FormPaper ref={ref}>
             <div className='form-body'>
                 <h6 className='cloze-form-title'>{title}</h6>
-                <div className='pb-2'>
-                    <h6 className='field error-text'>
-                        <b>
-                            <i>
-                                {`Currently used in one or more ${getUsedIn(data)}`}
-                            </i>
-                        </b>
-                    </h6>
-                </div>
+                <InUse
+                    msg={`Currently being used in one or more ${getUsedIn(data)}`}
+                    show={data.immutable || data.unremovable}
+                />
                 <Form
                     buttons={buttons}
                     controls={controls}

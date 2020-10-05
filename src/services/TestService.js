@@ -12,6 +12,8 @@ class TestService extends RestService {
         'mandatoryTestUserFieldCategory',
         'testStudent',
         'testStudentClass',
+        'immutable',
+        'unremovable',
     ]
 
     _responeTransformer = data => {
