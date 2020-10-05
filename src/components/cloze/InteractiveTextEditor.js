@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ToastsStore } from 'react-toasts';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +14,7 @@ import { ContextMenu, ContextMenuTrigger, MenuItem as ContextMenuItem } from 're
 import MenuItem from '@material-ui/core/MenuItem';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { useEventListener } from '../../hooks';
+import useInteractiveTextEditor from './useInteractiveTextEditor';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -47,64 +48,59 @@ TabPanel.defaultProps = { children: undefined };
 function InteractiveTextEditor({ controls }) {
     const text = controls.getValues('text');
     const ref = useRef(null);
-    const [textarea, setTextarea] = useState(text);
-    const [data, setData] = useState({
-        present: text || '',
-        undo: [],
-        redo: [],
-    });
-    const [value, setValue] = useState('text');
-    const [selected, setSelected] = useState({
-        selected: '',
-        startIndex: 0,
-        endIndex: 0,
-    });
-    const [editMode, setEditMode] = useState(!data.present);
-    const [unMarkAsBlank, setUnMarkAsBlank] = useState(false);
-    const selectedRef = useRef(null);
-    const dataRef = useRef(null);
-    const unMarkAsBlankRef = useRef(null);
-    selectedRef.current = selected;
-    dataRef.current = data;
-    unMarkAsBlankRef.current = unMarkAsBlank;
+    const {
+        getSelected,
+        getData,
+        getUnMarkAsBlank,
+        getValue,
+        getEditMode,
+        getTextarea,
+        setTextarea,
+        setData,
+        setValue,
+        setSelected,
+        setEditMode,
+        setUnMarkAsBlank,
+    } = useInteractiveTextEditor(text);
 
     useEffect(() => {
-        if (!_.isNil(data.present) && !_.isEmpty(data.present)) {
-            controls.setValue('text', data.present);
-            setTextarea(data.present);
+        if (!_.isNil(getData().present) && !_.isEmpty(getData().present)) {
+            controls.setValue('text', getData().present);
+            setTextarea(getData().present);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data.present]);
+    }, [getData().present]);
 
     useEffect(() => {
-        if (!_.isNil(textarea) && !_.isEmpty(textarea)) {
-            controls.setValue('text', textarea);
+        if (!_.isNil(getTextarea()) && !_.isEmpty(getTextarea())) {
+            controls.setValue('text', getTextarea());
             setData(d => ({
                 ...d,
-                present: textarea,
+                present: getTextarea(),
             }));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [textarea]);
+    }, [getTextarea()]);
 
     useEffect(() => {
         setData(data => ({
             ...data,
             present: text,
         }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [text]);
 
     const onSelectText = () => {
-        if (value !== 'text' && !editMode) return;
+        if (getValue() !== 'text' && !getEditMode()) return;
         const selection = window.getSelection();
         const startIndex = window.getSelection().anchorOffset;
         const endIndex = window.getSelection().focusOffset;
         const newStartIndex = startIndex > endIndex ? endIndex : startIndex;
         const newEndIndex = endIndex < startIndex ? startIndex : endIndex;
-        if (dataRef.current.present[startIndex - 1] === '*' && dataRef.current.present[endIndex] === '*') {
-            !unMarkAsBlankRef.current && setUnMarkAsBlank(true);
+        if (getData().present[startIndex - 1] === '*' && getData().present[endIndex] === '*') {
+            !getUnMarkAsBlank() && setUnMarkAsBlank(true);
         } else {
-            unMarkAsBlankRef.current && setUnMarkAsBlank(false);
+            getUnMarkAsBlank() && setUnMarkAsBlank(false);
         }
         const text = selection.toString();
         if (!_.isEmpty(text) && _.eq(selection.type, 'Range') && !selection.isCollapsed && selection.anchorNode) {
@@ -113,7 +109,7 @@ function InteractiveTextEditor({ controls }) {
                 startIndex: newStartIndex,
                 endIndex: newEndIndex,
             });
-        } else if (!_.isEmpty(selected)) {
+        } else if (!_.isEmpty(getSelected())) {
             setSelected({
                 selected: '',
                 startIndex: 0,
@@ -125,16 +121,16 @@ function InteractiveTextEditor({ controls }) {
     useEventListener('click', onSelectText);
 
     useEventListener('keydown', e => {
-        if (value === 'text' && editMode) return;
+        if (getValue() === 'text' && getEditMode()) return;
         // Redo
         if ((window.navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey) && e.shiftKey && e.keyCode === 90) {
             e.preventDefault();
-            if (!_.isEmpty(dataRef.current.redo)) {
+            if (!_.isEmpty(getData().redo)) {
                 // When we redo, we pop the redo stack which will become our present.
                 // The current present item which will get replaced will become the next thing we can undo into.
                 setData(data => {
                     const redoItem = data.redo.pop();
-                    data.undo.push(data.present);
+                    data.undo.push(getData().present);
                     return ({
                         ...data,
                         present: redoItem,
@@ -146,13 +142,13 @@ function InteractiveTextEditor({ controls }) {
         // Undo
         if ((window.navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey) && e.keyCode === 90) {
             e.preventDefault();
-            if (!_.isEmpty(dataRef.current.undo)) {
+            if (!_.isEmpty(getData().undo)) {
                 // Redo stack will only get populated when we perform the undo action.
                 // When we undo we remove the last element from the undo stack which becomes our current present.
                 // The current present item which will get replaced will become the next thing we can redo into.
                 setData(data => {
                     const undoItem = data.undo.pop();
-                    data.redo.push(data.present);
+                    data.redo.push(getData().present);
                     return ({
                         ...data,
                         present: undoItem,
@@ -188,20 +184,19 @@ function InteractiveTextEditor({ controls }) {
     };
 
     const onMarkAsBlank = () => {
-        const selected = selectedRef.current;
-        const data = dataRef.current;
-        const lengthOfData = data.present.length;
-        const firstSegment = data.present.substring(0, selected.startIndex);
-        const lastSegment = data.present.substring(selected.endIndex, lengthOfData);
-        const selectedText = data.present.substring(selected.startIndex, selected.endIndex);
-        if (!isBlankValid(data.present)) return ToastsStore.error('Please double check the text, it has invalid format');
+        const selected = getSelected();
+        const lengthOfData = getData().present.length;
+        const firstSegment = getData().present.substring(0, selected.startIndex);
+        const lastSegment = getData().present.substring(selected.endIndex, lengthOfData);
+        const selectedText = getData().present.substring(selected.startIndex, selected.endIndex);
+        if (!isBlankValid(getData().present)) return ToastsStore.error('Please double check the text, it has invalid format');
         const newData = `${firstSegment}*${selectedText}*${lastSegment}`;
         if (_.isEmpty(selectedText)) {
             return;
         }
         // Undo stack will only get populated when perform an add or remove action.
         setData(data => {
-            data.undo.push(data.present);
+            data.undo.push(getData().present);
             return ({
                 ...data,
                 present: newData,
@@ -210,15 +205,14 @@ function InteractiveTextEditor({ controls }) {
     };
 
     const onUnmarkAsBlank = () => {
-        const selected = selectedRef.current;
-        const text = dataRef.current.present;
+        const selected = getSelected();
         const startBracketIndex = selected.startIndex - 1;
         const endBracketIndex = selected.endIndex - 1;
         let newText = text.substring(0, startBracketIndex) + text.substring(startBracketIndex + 1, text.length);
         newText = newText.substring(0, endBracketIndex) + newText.substring(endBracketIndex + 1, newText.length);
         // Undo stack will only get populated when perform an add or remove action.
         setData(data => {
-            data.undo.push(data.present);
+            data.undo.push(getData().present);
             return ({
                 ...data,
                 present: newText,
@@ -235,7 +229,7 @@ function InteractiveTextEditor({ controls }) {
                 <Paper>
                     <Tabs
                         onChange={handleChange}
-                        value={value}
+                        value={getValue()}
                     >
                         <Tab
                             label='Cloze Text'
@@ -245,7 +239,7 @@ function InteractiveTextEditor({ controls }) {
                 </Paper>
                 <div className='ml-3 mt-2'>
                     <div className='row mb-3'>
-                        {editMode && (
+                        {getEditMode() && (
                             <Tooltip title='Stop Editing'>
                                 <IconButton
                                     color='secondary'
@@ -255,7 +249,7 @@ function InteractiveTextEditor({ controls }) {
                                 </IconButton>
                             </Tooltip>
                         )}
-                        {!editMode && (
+                        {!getEditMode() && (
                             <Tooltip title='Edit'>
                                 <IconButton
                                     color='secondary'
@@ -267,7 +261,7 @@ function InteractiveTextEditor({ controls }) {
                         )}
                     </div>
                     <div className='cloze-interactive-text-editor-container'>
-                        {!editMode && (
+                        {!getEditMode() && (
                             <ContextMenuTrigger id='cloze-interactive-text'>
                                 <div
                                     className='cloze-interactive-text-editor-text'
@@ -276,16 +270,16 @@ function InteractiveTextEditor({ controls }) {
                                     role='textbox'
                                     tabIndex={0}
                                 >
-                                    {data.present}
+                                    {getData().present}
                                 </div>
                             </ContextMenuTrigger>
 
                         )}
-                        {editMode && (
+                        {getEditMode() && (
                             <div>
                                 <TextareaAutosize
                                     className='cloze-interactive-text-editor-edit'
-                                    defaultValue={textarea}
+                                    defaultValue={getTextarea()}
                                     name='text'
                                     onChange={onChangeTextarea}
                                 />
@@ -295,12 +289,12 @@ function InteractiveTextEditor({ controls }) {
                 </div>
                 <ContextMenu id='cloze-interactive-text'>
                     <Paper>
-                        {!unMarkAsBlank && (
+                        {!getUnMarkAsBlank() && (
                             <ContextMenuItem onClick={onMarkAsBlank}>
                                 <MenuItem>Mark as blank</MenuItem>
                             </ContextMenuItem>
                         )}
-                        {unMarkAsBlank && (
+                        {getUnMarkAsBlank() && (
                             <ContextMenuItem onClick={onUnmarkAsBlank}>
                                 <MenuItem>Unmark as blank</MenuItem>
                             </ContextMenuItem>

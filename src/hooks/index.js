@@ -40,6 +40,7 @@ import useEventListener from './useEventListener';
 import useGridActions from './useGridActions';
 import usePagination from './usePagination';
 import useDialog from './useDialog';
+import useRefState from './useRefState';
 
 export {
     useEffect,
@@ -84,4 +85,5 @@ export {
     useGridActions,
     usePagination,
     useDialog,
+    useRefState,
 };

@@ -14,7 +14,8 @@
         "jest": true,
         "describe": true,
         "beforeEach": true,
-        "before": true
+        "before": true,
+        "afterEach": true
     },
     "parser": "babel-eslint",
     "parserOptions": {
