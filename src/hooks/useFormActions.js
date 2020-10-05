@@ -36,6 +36,7 @@ export default function(entity, locale) {
             ToastsStore.success(`Successfully created ${locale}`);
             return result;
         } catch (err) {
+            console.log(err);
             ToastsStore.error(`Failed to create ${locale}`);
         }
     };

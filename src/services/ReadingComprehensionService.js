@@ -5,6 +5,7 @@ class ReadingComprehension extends RestService {
     prefix = `${this.prefix}/rc`
 
     _requestTransformer = data => {
+        data = _.cloneDeep(data);
         if (_.isArray(data)) return data;
         const name = _.get(data, 'name');
         const questions = _.get(data, 'questions', []);

@@ -74,7 +74,7 @@ function Writing({ match }) {
             const result = await actions.create(data);
             if (!_.isNil(result)) {
                 setData(result);
-                actions.cancel();
+                getClone() ? historyService.go('/admin/writings') : actions.cancel();
             }
         },
         update: async data => {
@@ -88,7 +88,8 @@ function Writing({ match }) {
 
     const onClone = () => {
         cloneActions.setData(controls.getValues({ nested: true }));
-        getClone() ? historyService.go('/admin/writings') : actions.cancel();
+        console.log(getClone());
+        historyService.go('/admin/writings/writing');
     };
 
     const getForm = id => (

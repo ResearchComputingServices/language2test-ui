@@ -88,6 +88,7 @@ function ReadingComprehension({ match }) {
             const initializationData = _.omit(cloneStore.data, ['id', 'name']);
             cloneActions.reset();
             controls.reset(initializationData);
+            setQuestions(initializationData.questions);
             setClone(true);
         }
     };
@@ -165,7 +166,13 @@ function ReadingComprehension({ match }) {
     };
 
     const onClone = () => {
-        cloneActions.setData(controls.getValues({ nested: true }));
+        const dataToClone = controls.getValues({ nested: true });
+        dataToClone.questions = _.map(getQuestions(), question => {
+            const newQuestion = _.omit(question, ['id', 'rcId', 'rc']);
+            newQuestion.options = _.map(newQuestion.options, option => ({ text: option.text }));
+            return newQuestion;
+        });
+        cloneActions.setData(dataToClone);
         historyService.go('/admin/reading-comprehensions/reading-comprehension');
     };
 
