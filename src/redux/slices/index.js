@@ -26,7 +26,7 @@ export const actions = {
     timer: timer.actions,
     dialog: dialog.actions,
     drawer: drawer.actions,
-    clone: drawer.actions,
+    clone: clone.actions,
 };
 
 export const reducers = {
@@ -40,5 +40,5 @@ export const reducers = {
     timer: timer.reducer,
     dialog: dialog.reducer,
     drawer: drawer.reducer,
-    clone: drawer.reducer,
+    clone: clone.reducer,
 };
