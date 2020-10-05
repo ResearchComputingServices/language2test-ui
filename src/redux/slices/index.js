@@ -9,6 +9,7 @@ import writingTest from './writingTest';
 import timer from './timer';
 import dialog from './dialog';
 import drawer from './drawer';
+import clone from './clone';
 import { logout, resetTestWizardSession, endTestWizardSession } from '../actions';
 
 export const actions = {
@@ -25,6 +26,7 @@ export const actions = {
     timer: timer.actions,
     dialog: dialog.actions,
     drawer: drawer.actions,
+    clone: drawer.actions,
 };
 
 export const reducers = {
@@ -38,4 +40,5 @@ export const reducers = {
     timer: timer.reducer,
     dialog: dialog.reducer,
     drawer: drawer.reducer,
+    clone: drawer.reducer,
 };
