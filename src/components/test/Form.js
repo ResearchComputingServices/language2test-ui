@@ -24,7 +24,7 @@ function TestForm({
             <div className='form-body'>
                 <div className='d-flex flex-direction-column justify-content-between'>
                     <h6 className='form-title'>{title}</h6>
-                    <CloneButton onClick={onClone} />
+                    {onClone && <CloneButton onClick={onClone} />}
                 </div>
                 <InUse
                     msg='Currently being used in one or more Test Session(s)'

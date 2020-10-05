@@ -6,6 +6,10 @@ import Form from './Form';
 import ImageUploader from '../imageUploader';
 import {
     useForm,
+    useStore,
+    useActions,
+    useService,
+    useRefState,
     useFormData,
     useFormLayout,
     useFormActions,
@@ -19,6 +23,10 @@ function Writing({ match }) {
     const { setValue, getValues, clearError, register, unregister } = controls;
     const layout = useFormLayout(entity);
     const [dynamicLayout, setDynamicLayout] = useState([]);
+    const cloneStore = useStore('clone');
+    const cloneActions = useActions('clone');
+    const historyService = useService('history');
+    const [getClone, setClone] = useRefState(false);
 
     // Registering a field that is hidden on the form.
     useEffect(() => {
@@ -43,6 +51,12 @@ function Writing({ match }) {
                 </div>
             ),
         }]);
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setClone(true);
+        }
     };
 
     const {
@@ -73,7 +87,8 @@ function Writing({ match }) {
     }, data.immutable, data.unremovable);
 
     const onClone = () => {
-        alert('cloning...');
+        cloneActions.setData(controls.getValues({ nested: true }));
+        getClone() ? historyService.go('/admin/writings') : actions.cancel();
     };
 
     const getForm = id => (
@@ -86,7 +101,7 @@ function Writing({ match }) {
                     data={data}
                     dynamicLayout={dynamicLayout}
                     layout={layout}
-                    onClone={onClone}
+                    onClone={!getClone() ? onClone : undefined}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Writing`}
                 />
             ));

@@ -8,7 +8,10 @@ import Question from './Question';
 import ActionToast from '../common/ActionToast';
 import {
     useForm,
+    useStore,
     useDialog,
+    useActions,
+    useService,
     useFormData,
     useFormLayout,
     usePagination,
@@ -33,13 +36,19 @@ function Cloze({ match }) {
         getOpenActionToast,
         getActionToastMessage,
         getQuestionIsGenerated,
+        getClone,
         setQuestions,
         setPreviousQuestions,
         setPreviousText,
         setOpenActionToast,
         setActionToastMessage,
         setQuestionIsGenerated,
+        setClone,
     } = useCloze();
+
+    const cloneStore = useStore('clone');
+    const cloneActions = useActions('clone');
+    const historyService = useService('history');
 
     const pageSize = 5;
     const {
@@ -52,6 +61,12 @@ function Cloze({ match }) {
     const initialize = cloze => {
         if (!_.isEmpty(cloze)) {
             setQuestions(cloze.questions);
+        }
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setClone(true);
         }
     };
 
@@ -88,7 +103,7 @@ function Cloze({ match }) {
                 const result = await actions.create(data);
                 if (!_.isNil(result)) {
                     setData(result);
-                    actions.cancel();
+                    getClone() ? historyService.go('/admin/clozes') : actions.cancel();
                 }
             },
         update: _.isEmpty(getQuestions())
@@ -242,7 +257,8 @@ function Cloze({ match }) {
     };
 
     const onClone = () => {
-        alert('cloning...');
+        cloneActions.setData(controls.getValues({ nested: true }));
+        historyService.go('/admin/clozes/cloze');
     };
 
     const getForm = id => (
@@ -254,7 +270,7 @@ function Cloze({ match }) {
                     controls={controls}
                     data={data}
                     layout={layout}
-                    onClone={onClone}
+                    onClone={!getClone() ? onClone : undefined}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Cloze`}
                 >
                     <InteractiveTextEditor controls={controls} />

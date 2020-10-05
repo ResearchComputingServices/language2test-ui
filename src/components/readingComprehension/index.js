@@ -10,8 +10,12 @@ import ActionToast from '../common/ActionToast';
 import {
     useRef,
     useForm,
+    useStore,
     useState,
     useEffect,
+    useActions,
+    useService,
+    useRefState,
     useFormData,
     usePagination,
     useFormLayout,
@@ -28,6 +32,9 @@ function ReadingComprehension({ match }) {
         register,
         unregister,
     } = controls;
+    const cloneStore = useStore('clone');
+    const cloneActions = useActions('clone');
+    const historyService = useService('history');
     const [dynamicLayout, setDynamicLayout] = useState([]);
     const [questions, setQuestions] = useState([]);
     const [previousQuestions, setPreviousQuestions] = useState([]);
@@ -37,6 +44,7 @@ function ReadingComprehension({ match }) {
     const previousQuestionsRef = useRef(null);
     questionsRef.current = questions;
     previousQuestionsRef.current = previousQuestions;
+    const [getClone, setClone] = useRefState(false);
 
     const getQuestions = () => questionsRef.current || [];
 
@@ -76,6 +84,12 @@ function ReadingComprehension({ match }) {
         });
         setDynamicLayout(dynamicLayout);
         setQuestions(readingComprehension.questions);
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setClone(true);
+        }
     };
 
     const layout = useFormLayout(entity);
@@ -98,7 +112,7 @@ function ReadingComprehension({ match }) {
                 const result = await actions.create(data);
                 if (!_.isNil(result)) {
                     setData(result);
-                    actions.cancel();
+                    getClone() ? historyService.go('/admin/reading-comprehensions') : actions.cancel();
                 }
             },
         update: _.isEmpty(getQuestions())
@@ -151,7 +165,8 @@ function ReadingComprehension({ match }) {
     };
 
     const onClone = () => {
-        alert('cloning');
+        cloneActions.setData(controls.getValues({ nested: true }));
+        historyService.go('/admin/reading-comprehensions/reading-comprehension');
     };
 
     const getForm = id => (
@@ -164,7 +179,7 @@ function ReadingComprehension({ match }) {
                     data={data}
                     dynamicLayout={dynamicLayout}
                     layout={layout}
-                    onClone={onClone}
+                    onClone={!getClone() ? onClone : undefined}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Reading Comprehension`}
                 >
                     <div className='reading-comprehension-sub-title mb-4'><u>Add Question</u></div>
