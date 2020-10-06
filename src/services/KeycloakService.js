@@ -34,6 +34,7 @@ class KeycloakService {
         const authenticated = await this._keycloakAuth.init({
             onLoad: 'login-required',
             promiseType: 'native',
+            checkLoginIframe: false,
         });
         if (!authenticated) {
             const authError = new Error();
