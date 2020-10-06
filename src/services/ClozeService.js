@@ -6,6 +6,7 @@ class ClozeService extends RestService {
     prefix = `${this.prefix}/cloze`
 
     _requestTransformer(data) {
+        data = _.cloneDeep(data);
         const itemTransformer = item => {
             if (!_.isObject(item) && !_.isNil(item)) {
                 return { text: item };

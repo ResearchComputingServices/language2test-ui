@@ -87,7 +87,7 @@ function Writing({ match }) {
     }, data.immutable, data.unremovable);
 
     const onClone = () => {
-        cloneActions.setData(controls.getValues({ nested: true }));
+        cloneActions.setData(controls.getValues());
         console.log(getClone());
         historyService.go('/admin/writings/writing');
     };

@@ -248,7 +248,7 @@ function Test({ match }) {
     }, data.immutable, data.unremovable);
 
     const onClone = () => {
-        cloneActions.setData(controls.getValues({ nested: true }));
+        cloneActions.setData(controls.getValues());
         historyService.go('/admin/tests/test');
     };
 

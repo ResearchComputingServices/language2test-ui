@@ -269,7 +269,7 @@ function Cloze({ match }) {
     };
 
     const onClone = () => {
-        const dataToClone = controls.getValues({ nested: true });
+        const dataToClone = controls.getValues();
         dataToClone.questions = _.map(getQuestions(), question => {
             const newQuestion = _.omit(question, ['id', 'clozeId', 'cloze']);
             newQuestion.options = _.map(newQuestion.options, option => ({ text: option.text }));
