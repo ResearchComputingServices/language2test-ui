@@ -173,6 +173,21 @@ function Test({ match }) {
     };
 
     const initialize = async data => {
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setClone(true);
+            const layout = dynamicLayoutRef.current;
+            _.each(initializationData.steps, (step, index) => createStep(index, step.type, layout, data));
+            setDynamicLayout([...layout]);
+            setDynamicData(_.reduce(initializationData.steps, (data, step, index) => {
+                initializationData[`steps.${index}.type`] = step.type;
+                initializationData[`steps.${index}.values`] = step.values;
+                return data;
+            }, {}));
+            return configureDemographicQuestionnaireFields(data);
+        }
         if (_.isNil(data)) {
             return configureDemographicQuestionnaireFields();
         }
@@ -185,12 +200,6 @@ function Test({ match }) {
             return data;
         }, {}));
         configureDemographicQuestionnaireFields(data);
-        if (_.isNil(id)) {
-            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
-            cloneActions.reset();
-            controls.reset(initializationData);
-            setClone(true);
-        }
     };
 
     const addStep = () => {
@@ -248,7 +257,7 @@ function Test({ match }) {
     }, data.immutable, data.unremovable);
 
     const onClone = () => {
-        cloneActions.setData(controls.getValues());
+        cloneActions.setData(controls.getValues({ nest: true }));
         historyService.go('/admin/tests/test');
     };
 
