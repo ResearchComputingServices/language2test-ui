@@ -181,9 +181,10 @@ function Cloze({ match }) {
                 bracketOpen = true;
             } else if (word === '*' && bracketOpen) {
                 const previousLetter = text[i - segment.length - 2];
-                if (previousLetter !== ' ' && previousLetter !== '' && !_.isNil(previousLetter)) {
+                if (previousLetter !== ' ' && previousLetter !== '' && !_.isNil(previousLetter) && previousLetter !== '\n') {
                     segment = previousLetter + segment;
                 }
+                segment = _.trim(segment);
                 newWords.push(segment);
                 segment = '';
                 bracketOpen = false;
@@ -194,7 +195,7 @@ function Cloze({ match }) {
         const newQuestions = [];
         let numQuestionsAdded = 0;
         newWords.forEach(word => {
-            const wordThatWasFound = _.find(existingWords, o => o.text === word);
+            const wordThatWasFound = _.find(existingWords, o => _.trim(o.text) === _.trim(word));
             // Word is now in the list, it's a new word
             if (_.isNil(wordThatWasFound)) {
                 ++numQuestionsAdded;
@@ -225,6 +226,8 @@ function Cloze({ match }) {
             updatedData.acceptedAnswers,
             acceptedAnswer => (_.isObject(acceptedAnswer) ? acceptedAnswer : { text: acceptedAnswer }),
         );
+        data.id && (updatedData.id = data.id);
+        data.clozeId && (updatedData.clozeId = data.clozeId);
         const questions = getQuestions();
         const index = questions.indexOf(data);
         _.defaults(updatedData, data);
@@ -332,7 +335,8 @@ function Cloze({ match }) {
                                 const isTyped = data.typed;
                                 return (
                                     <Question
-                                        key={`cloze-question-${index}`}
+                                        key={`cloze-question-${index}-${data.text}`}
+                                        acceptedAnswers={data.acceptedAnswers}
                                         correct={data.correct}
                                         onGenerateOptions={onGenerateOptions}
                                         onRemove={() => onRemoveQuestion(data)}

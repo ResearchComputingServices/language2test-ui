@@ -39,7 +39,7 @@ function ClozeQuestionPendingTyped({ id }) {
                     onHide={onHide}
                     onPending={onPending}
                     // TODO Hack
-                    refreshCounter={getRefreshCounter}
+                    refreshCounter={getRefreshCounter()}
                     show={getShow()}
                     storeName='clozeQuestionIncorrectlyTyped'
                     title='Incorrectly Typed Answers'

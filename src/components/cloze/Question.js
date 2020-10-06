@@ -57,7 +57,7 @@ function Question({
             typed: !!typed,
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [correct, options, typed]);
+    }, [correct, options, acceptedAnswers, typed]);
 
     const title = `${sequence}. "${text}"`;
     return (
