@@ -221,6 +221,10 @@ function Cloze({ match }) {
 
     const onUpdateQuestion = (data, updatedData) => {
         updatedData.options = _.map(updatedData.options, option => (_.isObject(option) ? option : { text: option }));
+        updatedData.acceptedAnswers = _.map(
+            updatedData.acceptedAnswers,
+            acceptedAnswer => (_.isObject(acceptedAnswer) ? acceptedAnswer : { text: acceptedAnswer }),
+        );
         const questions = getQuestions();
         const index = questions.indexOf(data);
         _.defaults(updatedData, data);
@@ -266,6 +270,7 @@ function Cloze({ match }) {
         dataToClone.questions = _.map(getQuestions(), question => {
             const newQuestion = _.omit(question, ['id', 'clozeId', 'cloze']);
             newQuestion.options = _.map(newQuestion.options, option => ({ text: option.text }));
+            newQuestion.acceptedAnswers = _.map(newQuestion.acceptedAnswers, acceptedAnswer => ({ text: acceptedAnswer.text }));
             return newQuestion;
         });
         cloneActions.setData(dataToClone);
