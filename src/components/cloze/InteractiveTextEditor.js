@@ -188,7 +188,8 @@ function InteractiveTextEditor({ controls }) {
         const lengthOfData = getData().present.length;
         const firstSegment = getData().present.substring(0, selected.startIndex);
         const lastSegment = getData().present.substring(selected.endIndex, lengthOfData);
-        const selectedText = getData().present.substring(selected.startIndex, selected.endIndex);
+        let selectedText = getData().present.substring(selected.startIndex, selected.endIndex);
+        selectedText = _.trim(selectedText);
         if (!isBlankValid(getData().present)) return ToastsStore.error('Please double check the text, it has invalid format');
         const newData = `${firstSegment}*${selectedText}*${lastSegment}`;
         if (_.isEmpty(selectedText)) {
