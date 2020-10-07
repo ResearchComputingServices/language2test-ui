@@ -18,8 +18,6 @@ import {
     useFormActions,
     useFormButtons,
 } from '../../hooks';
-import ClozeQuestionIncorrectlyTyped from './ClozeQuestionIncorrectlyTyped';
-import ClozeQuestionPendingTyped from './ClozeQuestionPendingTyped';
 import Checkbox from '../form/fields/Checkbox';
 import InteractiveTextEditor from './InteractiveTextEditor';
 import useCloze from './useCloze';
@@ -35,14 +33,12 @@ function Cloze({ match }) {
         getPreviousText,
         getOpenActionToast,
         getActionToastMessage,
-        getQuestionIsGenerated,
         getClone,
         setQuestions,
         setPreviousQuestions,
         setPreviousText,
         setOpenActionToast,
         setActionToastMessage,
-        setQuestionIsGenerated,
         setClone,
     } = useCloze();
 
@@ -250,7 +246,6 @@ function Cloze({ match }) {
                 typed: controls.getValues('typed'),
             });
             setQuestions(newQuestions);
-            setQuestionIsGenerated(true);
             ToastsStore.success('Successfully generated cloze');
         } catch (err) {
             ToastsStore.error('An error occured while genearting questions, please double check the cloze text');
@@ -330,31 +325,22 @@ function Cloze({ match }) {
                             emptyTitle='This cloze has no questions'
                             onPaginationChange={pageNumber => setPage(pageNumber)}
                             page={page}
-                            renderRow={(data, index) => {
-                                const questionId = data.id;
-                                const isTyped = data.typed;
-                                return (
-                                    <Question
-                                        key={`cloze-question-${index}-${data.text}`}
-                                        acceptedAnswers={data.acceptedAnswers}
-                                        correct={data.correct}
-                                        onGenerateOptions={onGenerateOptions}
-                                        onRemove={() => onRemoveQuestion(data)}
-                                        onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
-                                        options={data.options}
-                                        sequence={((page - 1) * (pageSize)) + index + 1}
-                                        text={data.text}
-                                        typed={data.typed}
-                                    >
-                                        {questionId && isTyped && !getQuestionIsGenerated() && (
-                                            <div className='field cloze-question-lists'>
-                                                <ClozeQuestionPendingTyped id={questionId} />
-                                                <ClozeQuestionIncorrectlyTyped id={questionId} />
-                                            </div>
-                                        )}
-                                    </Question>
-                                );
-                            }}
+                            renderRow={(data, index) => (
+                                <Question
+                                    key={`cloze-question-${index}-${data.text}`}
+                                    acceptedAnswers={data.acceptedAnswers}
+                                    clozeId={data.clozeId}
+                                    correct={data.correct}
+                                    id={data.id}
+                                    onGenerateOptions={onGenerateOptions}
+                                    onRemove={() => onRemoveQuestion(data)}
+                                    onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
+                                    options={data.options}
+                                    sequence={((page - 1) * (pageSize)) + index + 1}
+                                    text={data.text}
+                                    typed={data.typed}
+                                />
+                            )}
                         />
                     </div>
                 </ClozeForm>

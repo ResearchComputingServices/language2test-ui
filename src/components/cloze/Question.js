@@ -14,6 +14,8 @@ import NumberField from '../form/fields/NumberField';
 import Checkbox from '../form/fields/Checkbox';
 import { Button as CommonButton, Ripple } from '../common';
 import useQuestion from './useQuestion';
+import ClozeQuestionPendingTyped from './ClozeQuestionPendingTyped';
+import ClozeQuestionIncorrectlyTyped from './ClozeQuestionIncorrectlyTyped';
 
 function Question({
     sequence,
@@ -25,7 +27,8 @@ function Question({
     onGenerateOptions,
     onUpdate,
     onRemove,
-    children,
+    id,
+    clozeId,
 }) {
     const {
         controls,
@@ -124,7 +127,7 @@ function Question({
                 <Divider />
                 <ExpansionPanelActions>
                     <div className='cloze-question-children'>
-                        {!typed && !typedWatch && (
+                        {!typedWatch && (
                             <div className='d-flex justify-content-center align-items-center'>
                                 <CommonButton
                                     inline
@@ -138,7 +141,12 @@ function Question({
                                 </CommonButton>
                             </div>
                         )}
-                        {children}
+                        {(clozeId && id) && typedWatch && (
+                            <div className='field cloze-question-lists'>
+                                <ClozeQuestionPendingTyped id={(clozeId && id)} />
+                                <ClozeQuestionIncorrectlyTyped id={(clozeId && id)} />
+                            </div>
+                        )}
                     </div>
                     {getLoading() && (
                         <Ripple size={35} />
@@ -177,10 +185,11 @@ Question.propTypes = {
     onUpdate: PropTypes.func,
     onGenerateOptions: PropTypes.func,
     sequence: PropTypes.number.isRequired,
-    children: PropTypes.node,
     typed: PropTypes.bool,
     text: PropTypes.string,
     acceptedAnswers: PropTypes.array,
+    id: PropTypes.number,
+    clozeId: PropTypes.number,
 };
 
 Question.defaultProps = {
@@ -190,9 +199,10 @@ Question.defaultProps = {
     onRemove: _.noop,
     onUpdate: _.noop,
     onGenerateOptions: _.noop,
-    children: undefined,
     acceptedAnswers: [],
     text: '',
+    id: undefined,
+    clozeId: undefined,
 };
 
 export default Question;
