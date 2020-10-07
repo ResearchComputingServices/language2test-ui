@@ -237,7 +237,11 @@ function Cloze({ match }) {
                 typed: controls.getValues('typed'),
             });
             setQuestions(newQuestions);
-            ToastsStore.success('Successfully generated cloze');
+            if (!_.isEmpty(newQuestions)) {
+                ToastsStore.success('Successfully generated cloze');
+            } else {
+                ToastsStore.warning('There are no blanks in the text');
+            }
         } catch (err) {
             ToastsStore.error('An error occured while genearting questions, please double check the cloze text');
         }
