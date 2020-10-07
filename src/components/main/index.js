@@ -72,7 +72,7 @@ function Main({ authenticate }) {
         } catch (err) {
             ToastsStore.error('Failed to logout');
         }
-    }, [keycloakService, logoutUser, historyService]);
+    }, [historyService, keycloakService, logoutUser]);
 
     const login = async () => {
         if (_.eq(authenticate, false)) {
@@ -89,7 +89,12 @@ function Main({ authenticate }) {
             }
         }
         interceptorService.registerTokenInterceptor(request => (request.headers.Authorization = `Bearer ${keycloakService.getToken()}`));
-        interceptorService.registerUnauthorizedInterceptor(logout);
+        interceptorService.registerUnauthorizedInterceptor(async () => {
+            try {
+                logoutUser();
+                await keycloakService.logout();
+            } catch (err) {}
+        });
         const user = await fetchUser(authenticatedUser);
         if (!_.isNil(user)) {
             loginUser(user);
@@ -121,11 +126,14 @@ function Main({ authenticate }) {
 
     useMount(async () => {
         disableDrawer();
+        const lastVisitedRoute = localStorage.getItem('$lastVisitedRoute');
         // If we left off at a wizard session we should always go back to it.
-        if (_.eq(localStorage.getItem('$lastVisitedRoute'), '/test/wizard')) {
+        if (_.eq(lastVisitedRoute, '/test/wizard')) {
             if (!_.eq(historyService.getUrl(), '/test/wizard')) {
                 historyService.go('/test/wizard');
             }
+        } else if (!_.eq(lastVisitedRoute, historyService.getUrl())) {
+            historyService.go(localStorage.getItem('$lastVisitedRoute'));
         }
         // Responsible for parsing all request from camel case to snake case and responses from snake case to camel case.
         interceptorService.registerDataTransformInterceptor();
