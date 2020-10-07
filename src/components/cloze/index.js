@@ -156,7 +156,7 @@ function Cloze({ match }) {
     };
 
     const onUpdateClozeQuestions = () => {
-        const existingWords = [...getQuestions()];
+        let existingWords = [...getQuestions()];
         const newWords = [];
         const text = controls.getValues('text');
         let segment = '';
@@ -180,6 +180,7 @@ function Cloze({ match }) {
             }
         }
         const newQuestions = [];
+        existingWords = _.filter(existingWords, existingWord => _.find(newWords, existingWord));
         let numQuestionsAdded = 0;
         newWords.forEach(word => {
             const wordThatWasFound = _.find(existingWords, o => _.trim(o.text) === _.trim(word));
