@@ -249,10 +249,13 @@ function Cloze({ match }) {
 
     const showDialog = useDialog({ onConfirm: generateQuestions });
 
-    const onGenerateOptions = async word => {
+    const onGenerateOptions = async data => {
         try {
-            const result = await service.generateOptions({ word });
-            return result;
+            const [options, correct] = await service.generateOptions({ word: data.text });
+            const updatedData = { ...data };
+            updatedData.options = _.map(options, option => _.get(option, 'text'));
+            updatedData.correct = correct;
+            onUpdateQuestion(data, updatedData);
         } catch (err) {
             ToastsStore.error('An error occured while genearting options');
         }
@@ -324,7 +327,7 @@ function Cloze({ match }) {
                                     clozeId={data.clozeId}
                                     correct={data.correct}
                                     id={data.id}
-                                    onGenerateOptions={onGenerateOptions}
+                                    onGenerateOptions={() => onGenerateOptions(data)}
                                     onRemove={() => onRemoveQuestion(data)}
                                     onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
                                     options={data.options}

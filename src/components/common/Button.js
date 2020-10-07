@@ -20,9 +20,12 @@ function Button(props) {
                     _.isFunction(onClick)
                         ? async () => {
                             setLoading(true);
-                            await onClick();
-                            if (isMounted()) {
-                                setLoading(false);
+                            try {
+                                await onClick();
+                            } catch (err) {} finally {
+                                if (isMounted()) {
+                                    setLoading(false);
+                                }
                             }
                         }
                         : undefined

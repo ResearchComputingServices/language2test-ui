@@ -131,11 +131,7 @@ function Question({
                             <div className='d-flex justify-content-center align-items-center'>
                                 <CommonButton
                                     inline
-                                    onClick={async () => {
-                                        const [options, correct] = await onGenerateOptions(text);
-                                        controls.setValue('options', _.map(options, option => _.get(option, 'text')));
-                                        controls.setValue('correct', correct);
-                                    }}
+                                    onClick={onGenerateOptions}
                                 >
                                     Generate Options
                                 </CommonButton>
