@@ -3,7 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { ToastsStore } from 'react-toasts';
 import ClozeForm from './Form';
-import { PaginatedList, Layout, NotFound, Confirmation, Button } from '../common';
+import { List, Layout, NotFound, Confirmation, Button } from '../common';
 import Question from './Question';
 import ActionToast from '../common/ActionToast';
 import {
@@ -14,7 +14,6 @@ import {
     useService,
     useFormData,
     useFormLayout,
-    usePagination,
     useFormActions,
     useFormButtons,
 } from '../../hooks';
@@ -45,14 +44,6 @@ function Cloze({ match }) {
     const cloneStore = useStore('clone');
     const cloneActions = useActions('clone');
     const historyService = useService('history');
-
-    const pageSize = 5;
-    const {
-        page,
-        count,
-        setPage,
-        data: paginatedData,
-    } = usePagination(getQuestions(), pageSize);
 
     const initialize = cloze => {
         if (!_.isEmpty(cloze)) {
@@ -319,13 +310,10 @@ function Cloze({ match }) {
                     </div>
                     <div className='my-3 mb-3'>
                         <div className='cloze-sub-title mb-4'><u>All Questions</u></div>
-                        <PaginatedList
-                            count={Math.ceil(count / pageSize) || 1}
-                            data={paginatedData}
+                        <List
+                            data={getQuestions()}
                             emptyTitle='This cloze has no questions'
-                            onPaginationChange={pageNumber => setPage(pageNumber)}
-                            page={page}
-                            renderRow={(data, index) => (
+                            renderRow={(data, index, sequence) => (
                                 <Question
                                     key={`cloze-question-${index}-${data.text}`}
                                     acceptedAnswers={data.acceptedAnswers}
@@ -336,7 +324,7 @@ function Cloze({ match }) {
                                     onRemove={() => onRemoveQuestion(data)}
                                     onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
                                     options={data.options}
-                                    sequence={((page - 1) * (pageSize)) + index + 1}
+                                    sequence={sequence}
                                     text={data.text}
                                     typed={data.typed}
                                 />

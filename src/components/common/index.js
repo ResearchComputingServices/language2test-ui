@@ -19,6 +19,7 @@ import Ripple from './Ripple';
 import Spinner from './Spinner';
 import InUse from './InUse';
 import CloneButton from './CloneButton';
+import List from './List';
 
 export {
     AdministratorGrid,
@@ -42,4 +43,5 @@ export {
     Spinner,
     InUse,
     CloneButton,
+    List,
 };
