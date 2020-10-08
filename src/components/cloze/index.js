@@ -17,7 +17,6 @@ import {
     useFormActions,
     useFormButtons,
 } from '../../hooks';
-import Checkbox from '../form/fields/Checkbox';
 import InteractiveTextEditor from './InteractiveTextEditor';
 import useCloze from './useCloze';
 
@@ -132,7 +131,23 @@ function Cloze({ match }) {
                 bracketOpen = true;
             } else if (word === '*' && bracketOpen) {
                 if (index === blankCount++) {
-                    newText += segment;
+                    // replace <typed/> and <> options.
+                    let bracketOpen = false;
+                    let newSegment = '';
+                    for (let i = 0; i < segment.length; ++i) {
+                        const letter = segment[i];
+                        if (letter === '<') {
+                            bracketOpen = true;
+                            continue;
+                        } else if (letter === '>') {
+                            bracketOpen = false;
+                            continue;
+                        }
+                        if (!bracketOpen) {
+                            newSegment += letter;
+                        }
+                    }
+                    newText += newSegment;
                 } else {
                     newText += `*${segment}*`;
                 }
@@ -179,10 +194,7 @@ function Cloze({ match }) {
                 return ToastsStore.warning('Text to generate the cloze is empty');
             }
             if (!isTextValid(text)) throw new Error();
-            const newQuestions = await service.generateQuestions({
-                text,
-                typed: controls.getValues('typed'),
-            });
+            const newQuestions = await service.generateQuestions({ text });
             setQuestions(newQuestions);
             if (!_.isEmpty(newQuestions)) {
                 ToastsStore.success('Successfully generated cloze');
@@ -232,16 +244,10 @@ function Cloze({ match }) {
                     onClone={!getClone() ? onClone : undefined}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Cloze`}
                 >
-                    <InteractiveTextEditor controls={controls} />
-                    <div className='d-flex flex-direction-row w-100 align-items-center'>
-                        <Checkbox
-                            controls={controls}
-                            field={{
-                                name: 'typed',
-                                label: 'Typed',
-                            }}
-                        />
-                    </div>
+                    <InteractiveTextEditor
+                        controls={controls}
+                        questions={getQuestions()}
+                    />
                     <div className='d-flex align-items-start'>
                         <Button
                             color='primary'

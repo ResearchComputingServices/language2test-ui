@@ -9,13 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import { useForm } from 'react-hook-form';
 import PicklistField from '../form/fields/PicklistField';
 import NumberField from '../form/fields/NumberField';
 import Checkbox from '../form/fields/Checkbox';
-import { Button as CommonButton, Ripple } from '../common';
-import useQuestion from './useQuestion';
-import ClozeQuestionPendingTyped from './ClozeQuestionPendingTyped';
-import ClozeQuestionIncorrectlyTyped from './ClozeQuestionIncorrectlyTyped';
 
 function Question({
     sequence,
@@ -24,18 +21,9 @@ function Question({
     options,
     typed,
     acceptedAnswers,
-    onGenerateOptions,
-    onUpdate,
     onRemove,
-    id,
-    clozeId,
 }) {
-    const {
-        controls,
-        getLoading,
-        setLoading,
-    } = useQuestion();
-
+    const controls = useForm();
     const typedWatch = controls.watch('typed');
 
     useEffect(() => {
@@ -87,6 +75,7 @@ function Question({
                                 multiple: true,
                                 freeSolo: true,
                                 options: [],
+                                disabled: true,
                             }}
                         />
                     )}
@@ -101,6 +90,7 @@ function Question({
                                 multiple: true,
                                 freeSolo: true,
                                 options: [],
+                                disabled: true,
                             }}
                         />
                     )}
@@ -113,6 +103,7 @@ function Question({
                                 variant: 'outlined',
                                 required: true,
                                 fullWidth: true,
+                                disabled: true,
                             }}
                         />
                     )}
@@ -121,47 +112,12 @@ function Question({
                         field={{
                             name: 'typed',
                             label: 'Typed',
+                            disabled: true,
                         }}
                     />
                 </ExpansionPanelDetails>
                 <Divider />
                 <ExpansionPanelActions>
-                    <div className='cloze-question-children'>
-                        {!typedWatch && (
-                            <div className='d-flex justify-content-center align-items-center'>
-                                <CommonButton
-                                    inline
-                                    onClick={onGenerateOptions}
-                                >
-                                    Generate Options
-                                </CommonButton>
-                            </div>
-                        )}
-                        {(clozeId && id) && typedWatch && (
-                            <div className='field cloze-question-lists'>
-                                <ClozeQuestionPendingTyped id={(clozeId && id)} />
-                                <ClozeQuestionIncorrectlyTyped id={(clozeId && id)} />
-                            </div>
-                        )}
-                    </div>
-                    {getLoading() && (
-                        <Ripple size={35} />
-                    )}
-                    <Button
-                        color='primary'
-                        onClick={async () => {
-                            setLoading(true);
-                            const update = controls.handleSubmit(onUpdate);
-                            await update();
-                            // For aesthetics
-                            setTimeout(() => {
-                                setLoading(false);
-                            }, 250);
-                        }}
-                        size='small'
-                    >
-                        Update
-                    </Button>
                     <Button
                         onClick={onRemove}
                         size='small'
@@ -178,14 +134,10 @@ Question.propTypes = {
     correct: PropTypes.number,
     options: PropTypes.array,
     onRemove: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onGenerateOptions: PropTypes.func,
     sequence: PropTypes.number.isRequired,
     typed: PropTypes.bool,
     text: PropTypes.string,
     acceptedAnswers: PropTypes.array,
-    id: PropTypes.number,
-    clozeId: PropTypes.number,
 };
 
 Question.defaultProps = {
@@ -193,12 +145,8 @@ Question.defaultProps = {
     options: [],
     typed: undefined,
     onRemove: _.noop,
-    onUpdate: _.noop,
-    onGenerateOptions: _.noop,
     acceptedAnswers: [],
     text: '',
-    id: undefined,
-    clozeId: undefined,
 };
 
 export default Question;
