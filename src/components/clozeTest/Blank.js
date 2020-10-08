@@ -74,9 +74,9 @@ function Blank({
                     left: ref.current.offsetLeft,
                     minWidth: getWidth(),
                     display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                     flexDirection: 'column',
+                    overflowY: 'scroll',
+                    maxHeight: 400,
                 }}
                 >
                     {!typed
@@ -84,13 +84,9 @@ function Blank({
                             <MenuItem
                                 key={index}
                                 onClick={() => onPicklistClick(option.text)}
-                                style={{ minWidth: '100%' }}
+                                style={{ maxHeight: 20, padding: 20, minWidth: '100%' }}
                             >
-                                <div style={{
-                                    minWidth: '100%',
-                                    textAlign: 'center',
-                                }}
-                                >
+                                <div style={{ minWidth: '100%' }}>
                                     {option.text}
                                 </div>
                             </MenuItem>

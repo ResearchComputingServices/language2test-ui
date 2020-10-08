@@ -166,7 +166,7 @@ function ReadingComprehension({ match }) {
     };
 
     const onClone = () => {
-        const dataToClone = controls.getValues({  });
+        const dataToClone = controls.getValues();
         dataToClone.questions = _.map(getQuestions(), question => {
             const newQuestion = _.omit(question, ['id', 'rcId', 'rc']);
             newQuestion.options = _.map(newQuestion.options, option => ({ text: option.text }));

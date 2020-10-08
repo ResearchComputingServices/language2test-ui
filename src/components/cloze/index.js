@@ -155,59 +155,6 @@ function Cloze({ match }) {
         return count % 2 === 0;
     };
 
-    const onUpdateClozeQuestions = () => {
-        let existingWords = [...getQuestions()];
-        const newWords = [];
-        const text = controls.getValues('text');
-        let segment = '';
-        let bracketOpen = false;
-        for (let i = 0; i < text.length; ++i) {
-            const word = text[i];
-            if (word === '*' && !bracketOpen) {
-                segment = '';
-                bracketOpen = true;
-            } else if (word === '*' && bracketOpen) {
-                const previousLetter = text[i - segment.length - 2];
-                if (previousLetter !== ' ' && previousLetter !== '' && !_.isNil(previousLetter) && previousLetter !== '\n') {
-                    segment = previousLetter + segment;
-                }
-                segment = _.trim(segment);
-                newWords.push(segment);
-                segment = '';
-                bracketOpen = false;
-            } else {
-                segment += word;
-            }
-        }
-        const newQuestions = [];
-        existingWords = _.filter(existingWords, existingWord => _.find(newWords, existingWord));
-        let numQuestionsAdded = 0;
-        newWords.forEach(word => {
-            const wordThatWasFound = _.find(existingWords, o => _.trim(o.text) === _.trim(word));
-            // Word is now in the list, it's a new word
-            if (_.isNil(wordThatWasFound)) {
-                ++numQuestionsAdded;
-                newQuestions.push({
-                    text: word,
-                    options: [{ text: word }],
-                    correct: 1,
-                });
-            } else {
-                // Word has been found. Why shift? it's becaue the new words will always contain our existing words.
-                // Which means ff we are iterating the new list forwards, we will always find an existing word which
-                // will be the first element in our old list.
-                const existingWord = existingWords.shift();
-                newQuestions.push(existingWord);
-            }
-        });
-        if (numQuestionsAdded) {
-            setQuestions(newQuestions);
-            ToastsStore.success('Updated cloze with new questions');
-        } else {
-            ToastsStore.warning('No new questions have been added');
-        }
-    };
-
     const onUpdateQuestion = (data, updatedData) => {
         updatedData.options = _.map(updatedData.options, option => (_.isObject(option) ? option : { text: option }));
         updatedData.acceptedAnswers = _.map(
@@ -307,13 +254,6 @@ function Cloze({ match }) {
                             }
                         >
                             Generate Cloze
-                        </Button>
-                        <Button
-                            color='primary'
-                            inline
-                            onClick={onUpdateClozeQuestions}
-                        >
-                            Update Cloze Questions
                         </Button>
                     </div>
                     <div className='my-3 mb-3'>

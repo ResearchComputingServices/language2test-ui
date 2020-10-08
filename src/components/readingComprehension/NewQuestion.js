@@ -41,7 +41,7 @@ function NewQuestion({ onAdd, totalQuestions }) {
                         fullWidth: true,
                         onChange: _.debounce(value => {
                             value = _.parseInt(value);
-                            if (_.eq(value, 0)) {
+                            if (value <= 0) {
                                 controls.setValue('sequence', getLastIndex());
                             } else if (value > getLastIndex()) {
                                 controls.setValue('sequence', getLastIndex());
