@@ -81,7 +81,6 @@ function Writing({ match }) {
             const result = await actions.update(data);
             if (!_.isNil(result)) {
                 setData(result);
-                actions.cancel();
             }
         },
     }, data.immutable, data.unremovable);

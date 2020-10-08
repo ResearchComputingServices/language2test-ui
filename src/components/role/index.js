@@ -136,7 +136,6 @@ function Role({ match }) {
             const result = await actions.update(data);
             if (!_.isNil(result)) {
                 setData(result);
-                actions.cancel();
                 if (roleInUserSession(data)) {
                     refreshPage();
                 }
