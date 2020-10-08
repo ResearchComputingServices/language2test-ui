@@ -244,14 +244,13 @@ function Test({ match }) {
             const result = await actions.create(data);
             if (!_.isNil(result)) {
                 setData(result);
-                getClone() ? historyService.go('/admin/writings') : actions.cancel();
+                getClone() ? historyService.go('/admin/tests') : actions.cancel();
             }
         },
         update: async data => {
             const result = await actions.update(data);
             if (!_.isNil(result)) {
                 setData(result);
-                actions.cancel();
             }
         },
     }, data.immutable, data.unremovable);

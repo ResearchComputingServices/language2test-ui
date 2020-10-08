@@ -205,7 +205,6 @@ function User({ match }) {
                 if (_.eq(data.id, userSession.id)) {
                     assignUserSession(data);
                 }
-                actions.cancel();
                 if (userInUsersession(data)) {
                     refreshPage();
                 }
