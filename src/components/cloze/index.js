@@ -244,10 +244,7 @@ function Cloze({ match }) {
                     onClone={!getClone() ? onClone : undefined}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Cloze`}
                 >
-                    <InteractiveTextEditor
-                        controls={controls}
-                        questions={getQuestions()}
-                    />
+                    <InteractiveTextEditor controls={controls} />
                     <div className='d-flex align-items-start'>
                         <Button
                             color='primary'

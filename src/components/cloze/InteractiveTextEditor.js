@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import useInteractiveTextEditor from './useInteractiveTextEditor';
 import Blank from '../clozeTest/Blank';
 
-function InteractiveTextEditor({ controls, questions }) {
+function InteractiveTextEditor({ controls }) {
     const text = controls.getValues('text');
     const {
         getData,
@@ -77,30 +77,67 @@ function InteractiveTextEditor({ controls, questions }) {
         let newText = '';
         let segment = '';
         let bracketOpen = false;
+        const questions = [];
         for (let i = 0; i < text.length; ++i) {
-            const word = text[i];
-            if (word === '*' && !bracketOpen) {
+            const letter = text[i];
+            if (letter === '*' && !bracketOpen) {
                 newText += segment;
                 segment = '';
                 bracketOpen = true;
-            } else if (word === '*' && bracketOpen) {
+            } else if (letter === '*' && bracketOpen) {
                 newText += blankDashes;
+                let hint = false;
+                const previousLetter = getTextarea()[i - segment.length - 2] || '';
+                const hasPreviousLetter = previousLetter !== ' ' && previousLetter !== '' && previousLetter !== '*';
+                if (hasPreviousLetter) {
+                    segment = previousLetter + segment;
+                    hint = true;
+                }
+                const newWord = segment.replace('<typed/>', '');
+                const typed = segment.length !== newWord.length;
+                let optionBracketOpen = false;
+                let optionSegment = '';
+                let innerSegment = '';
+                for (let i = 0; i < newWord.length; ++i) {
+                    const letter = newWord[i];
+                    if (letter === '<') {
+                        optionBracketOpen = true;
+                        continue;
+                    }
+                    if (letter === '>') {
+                        optionBracketOpen = false;
+                        continue;
+                    }
+                    if (optionBracketOpen) {
+                        optionSegment += letter;
+                    } else if (innerSegment !== '<' && innerSegment !== '>') {
+                        innerSegment += letter;
+                    }
+                }
+                const options = _.compact(optionSegment.split(',')).map(text => ({ text }));
+                options.push({ text: innerSegment });
+                questions.push({
+                    hint,
+                    typed,
+                    text: innerSegment,
+                    options,
+                });
                 segment = '';
                 bracketOpen = false;
             } else {
-                segment += word;
+                segment += letter;
             }
         }
         text = newText + segment;
         text = text.split(blankDashes);
         const formattedText = [];
-        _.each(text, (word, index) => {
+        _.each(text, (segment, index) => {
             let firstLetterHint = '';
-            if (word[word.length - 1] !== '' && word[word.length - 2] === ' ') {
-                firstLetterHint = word[word.length - 1];
-                word = word.substring(0, word.length - 1);
+            if (segment[segment.length - 1] !== '' && segment[segment.length - 2] === ' ') {
+                firstLetterHint = segment[segment.length - 1];
+                segment = segment.substring(0, segment.length - 1);
             }
-            formattedText.push(word);
+            formattedText.push(segment);
             if (index !== text.length - 1) {
                 indicesWithBlanks.push(formattedText.length);
                 formattedText.push(
@@ -182,9 +219,6 @@ function InteractiveTextEditor({ controls, questions }) {
     );
 }
 
-InteractiveTextEditor.propTypes = {
-    controls: PropTypes.object.isRequired,
-    questions: PropTypes.array.isRequired,
-};
+InteractiveTextEditor.propTypes = { controls: PropTypes.object.isRequired };
 
 export default InteractiveTextEditor;
