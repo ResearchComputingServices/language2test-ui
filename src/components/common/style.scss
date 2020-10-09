@@ -70,7 +70,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 3rem !important;
+    padding: 1rem !important;
 }
 
 .form-body-wide {
@@ -97,7 +97,7 @@
     font-size: 23px;
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 1005px) {
     .form-paper {
         width: 98vw;
         min-width: 450px;
