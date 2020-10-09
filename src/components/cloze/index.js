@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { ToastsStore } from 'react-toasts';
@@ -44,43 +44,30 @@ function Cloze({ match }) {
     const cloneActions = useActions('clone');
     const historyService = useService('history');
 
-    const initialize = cloze => {
-        if (!_.isEmpty(cloze)) {
-            setQuestions(cloze.questions);
-        }
-        if (_.isNil(id)) {
-            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
-            controls.register({ name: 'text' });
-            cloneActions.reset();
-            controls.reset(initializationData);
-            setQuestions(initializationData.questions);
-            setClone(true);
-        }
-    };
-
     const {
         data,
         error,
         loading,
         setData,
         service,
-    } = useFormData(entity, id, initialize);
-
-    useEffect(() => {
-        if (_.isNil(controls.getValues('text'))) {
-            controls.register({ name: 'text' });
-            controls.setValue('text', !_.isEmpty(data.text) && !_.isNil(data.text) ? data.text : '');
+    } = useFormData(entity, id, cloze => {
+        controls.register({ name: 'text' });
+        if (!_.isEmpty(cloze)) {
+            controls.setValue('text', cloze.text);
+            setQuestions(cloze.questions);
         }
-        return () => controls.unregister('text');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [controls.register, controls.unregister]);
+    });
 
-    useEffect(() => {
-        if (!_.isEmpty(data.text) && !_.isNil(data.text)) {
-            controls.setValue('text', data.text);
+    useLayoutEffect(() => {
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setQuestions(initializationData.questions);
+            setClone(true);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data.text]);
+    }, []);
 
     const actions = useFormActions(entity);
 
