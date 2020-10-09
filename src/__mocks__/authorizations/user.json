@@ -1,7 +1,0 @@
-[
-    { "name": "create_user" },
-    { "name": "create_user" },
-    { "name": "read_user" },
-    { "name": "update_user" },
-    { "name": "delete_user" }
-]

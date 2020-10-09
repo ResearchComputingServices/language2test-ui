@@ -5,6 +5,8 @@ import constants from '../constants';
 export default class RestService {
     prefix = `${constants.API_PREFIX_URL}`;
 
+    getUrl = () => this.prefix;
+
     _transform = (data, transformers = []) => {
         const transform = _.flow(transformers);
         return transform(data);
