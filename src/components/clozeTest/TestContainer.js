@@ -17,10 +17,7 @@ const TestContainer = ({
             current={current}
             total={total}
         />
-        <Paper
-            className='cloze-test-content'
-            elevation={1}
-        >
+        <Paper className='cloze-test-content'>
             {children}
         </Paper>
         <TestControls

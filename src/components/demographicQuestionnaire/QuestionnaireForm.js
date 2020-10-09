@@ -15,10 +15,7 @@ const QuestionnaireForm = ({
         <div className='text-center'>
             <h1 className='mb-3'>Please fill in the necessary Demographic Information below.</h1>
         </div>
-        <Paper
-            className='demographic-questionnaire-form-container'
-            elevation={2}
-        >
+        <Paper className='demographic-questionnaire-form-container'>
             <div className='demographic-questionnaire-form'>
                 <Form
                     buttons={[{

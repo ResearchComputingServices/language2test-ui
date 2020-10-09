@@ -9,7 +9,7 @@ const FormPaper = forwardRef((props, ref) => (
     >
         <Paper
             className='form-paper'
-            elevation={3}
+            elevation={2}
         >
             {props.children}
         </Paper>

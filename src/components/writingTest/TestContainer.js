@@ -16,10 +16,7 @@ const TestContainer = ({
             current={current}
             total={total}
         />
-        <Card
-            className='writing-test-content'
-            elevation={1}
-        >
+        <Card className='writing-test-content'>
             {children}
         </Card>
         <TestControls

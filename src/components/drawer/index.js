@@ -34,7 +34,7 @@ function CustomDrawer({
     return (
         <Drawer
             anchor='left'
-            classes={{ paper: 'drawer' }}
+            classes={{ paper: 'drawer MuiPaper-elevation2' }}
             open={open}
             variant='persistent'
         >

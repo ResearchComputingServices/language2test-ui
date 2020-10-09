@@ -17,10 +17,7 @@ const TestContainer = ({
             current={current}
             total={total}
         />
-        <Paper
-            className='reading-comprehension-test-content'
-            elevation={1}
-        >
+        <Paper className='reading-comprehension-test-content'>
             {children}
         </Paper>
         <TestControls
