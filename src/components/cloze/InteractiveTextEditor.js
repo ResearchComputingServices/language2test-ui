@@ -16,40 +16,34 @@ import Blank from '../clozeTest/Blank';
 function InteractiveTextEditor({ controls }) {
     const text = controls.getValues('text');
     const {
-        getData,
+        getText,
         getValue,
         getEditMode,
         getTextarea,
         setTextarea,
-        setData,
+        setText,
         setValue,
         setEditMode,
     } = useInteractiveTextEditor(text);
 
     useEffect(() => {
-        if (!_.isNil(getData().present) && !_.isEmpty(getData().present)) {
-            controls.setValue('text', getData().present);
-            setTextarea(getData().present);
+        if (!_.isNil(getText()) && !_.isEmpty(getText())) {
+            controls.setValue('text', getText());
+            setTextarea(getText());
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [getData().present]);
+    }, [getText()]);
 
     useEffect(() => {
         if (!_.isNil(getTextarea()) && !_.isEmpty(getTextarea())) {
             controls.setValue('text', getTextarea());
-            setData(d => ({
-                ...d,
-                present: getTextarea(),
-            }));
+            setText(getTextarea());
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getTextarea()]);
 
     useEffect(() => {
-        setData(data => ({
-            ...data,
-            present: text,
-        }));
+        setText(text);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [text]);
 

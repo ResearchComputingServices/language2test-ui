@@ -24,13 +24,14 @@ function List({ data, pageSize, emptyTitle, renderRow }) {
 }
 
 List.propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.array,
     pageSize: PropTypes.number,
     emptyTitle: PropTypes.string,
     renderRow: PropTypes.func.isRequired,
 };
 
 List.defaultProps = {
+    data: [],
     pageSize: 5,
     emptyTitle: undefined,
 };
