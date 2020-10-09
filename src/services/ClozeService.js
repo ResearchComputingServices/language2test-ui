@@ -32,11 +32,7 @@ class ClozeService extends RestService {
     update = data => this._update(data, { requestTransformers: [this._requestTransformer] });
 
     generateQuestions = data => axios
-        .post(`${this.prefix}/generate_questions`, this._processRequest(data, {}))
-        .then(data => this._processResponse(data, {}));
-
-    generateOptions = data => axios
-        .post(`${this.prefix}/generate_options`, this._processRequest(data, {}))
+        .post(`${this.prefix}/generate`, this._processRequest(data, {}))
         .then(data => this._processResponse(data, {}));
 
     remove = this._remove;
