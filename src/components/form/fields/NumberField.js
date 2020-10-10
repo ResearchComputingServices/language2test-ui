@@ -39,7 +39,7 @@ function NumberField({ field, controls: { control, errors, getValues } }) {
                     required: field.required,
                     maxLength,
                     validate: () => {
-                        const stringValue = getValues(field.field);
+                        const stringValue = getValues(field.name);
                         const value = _.parseInt(stringValue);
                         if (_.parseInt(min) && value < min) {
                             return false;

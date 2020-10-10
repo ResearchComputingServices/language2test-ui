@@ -39,6 +39,10 @@ function NewQuestion({ onAdd, totalQuestions }) {
                         helperText: 'The order in which you would like this question to appear (should not exceed total number of questions)',
                         variant: 'outlined',
                         fullWidth: true,
+                        range: {
+                            min: 1,
+                            max: getLastIndex(),
+                        },
                         onChange: _.debounce(value => {
                             value = _.parseInt(value);
                             if (value <= 0) {
