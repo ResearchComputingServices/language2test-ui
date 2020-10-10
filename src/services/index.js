@@ -15,9 +15,6 @@ import demographicQuestionnaireField from './DemographicQuestionnaireFieldServic
 import userFieldType from './UserFieldTypeService';
 import writing from './WritingService';
 import enumeration from './EnumerationService';
-import clozeQuestionPendingTyped from './ClozeQuestionPendingTypedService';
-import clozeQuestionCorrectlyTyped from './ClozeQuestionCorrectlyTypedService';
-import clozeQuestionIncorrectlyTyped from './ClozeQuestionIncorrectlyTypedService';
 import authorizationChecker from './AuthorizationCheckerService';
 import routesAssembler from './RoutesAssemblerService';
 import drawerAssembler from './DrawerAssemblerService';
@@ -42,9 +39,6 @@ export {
     userFieldType,
     writing,
     enumeration,
-    clozeQuestionPendingTyped,
-    clozeQuestionCorrectlyTyped,
-    clozeQuestionIncorrectlyTyped,
     authorizationChecker,
     routesAssembler,
     drawerAssembler,

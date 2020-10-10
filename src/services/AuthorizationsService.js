@@ -11,8 +11,6 @@ class AuthorizationService extends RestService {
 
     remove = this._remove;
 
-    export = this._export;
-
     count = this._count;
 }
 

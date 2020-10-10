@@ -1,6 +1,6 @@
 import { authorizationChecker as authorizationCheckerProvider } from '../../providers';
 
-describe('AuthorizationService', () => {
+describe('AuthorizationCheckerService', () => {
     let authorizationChecker;
 
     beforeEach(() => {
