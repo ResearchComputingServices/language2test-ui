@@ -6,7 +6,7 @@ import { FormPaper } from '../common';
 import Form from '../form';
 
 const enumerationValuesTableStyle = {
-    width: '60vw',
+    width: '98%',
     minWidth: 450,
     padding: 20,
 };
