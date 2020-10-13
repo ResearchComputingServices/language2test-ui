@@ -75,7 +75,7 @@ function Blank({
                     minWidth: getWidth(),
                     display: 'flex',
                     flexDirection: 'column',
-                    overflowY: 'scroll',
+                    overflowY: 'auto',
                     maxHeight: 400,
                 }}
                 >
