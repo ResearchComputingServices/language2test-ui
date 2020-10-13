@@ -132,9 +132,9 @@ function Main({ authenticate }) {
             if (!_.eq(historyService.getUrl(), '/test/wizard')) {
                 historyService.go('/test/wizard');
             }
-        }// else if (!_.eq(lastVisitedRoute, historyService.getUrl())) {
-        //    historyService.go(localStorage.getItem('$lastVisitedRoute'));
-        //}
+        } else if (!_.isNil(lastVisitedRoute) && !_.eq(lastVisitedRoute, historyService.getUrl())) {
+            historyService.go(localStorage.getItem('$lastVisitedRoute'));
+        }
         // Responsible for parsing all request from camel case to snake case and responses from snake case to camel case.
         interceptorService.registerDataTransformInterceptor();
         interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
