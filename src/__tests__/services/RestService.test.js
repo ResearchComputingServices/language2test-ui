@@ -41,6 +41,10 @@ describe('RestService', () => {
         mock.onPost(route).reply(config => [200, config.data]);
         mock.onPut(route).reply(config => [200, config.data]);
         mock.onGet(`${route}/count`).reply(200, { count: 7 });
+        mock.onGet(`${route}?id=7`).reply(200, {
+            id: 1,
+            items: ['Lorem Ipsum'],
+        });
         mock.onGet(`${route}/export`).reply(config => [200, {
             responseType: config.responseType,
             headers: config.headers,
@@ -54,10 +58,6 @@ describe('RestService', () => {
             responseType: config.responseType,
             headers: config.headers,
         }]);
-        mock.onGet(`${route}?id=7`).reply(200, {
-            id: 1,
-            items: ['Lorem Ipsum'],
-        });
     });
 
     beforeEach(() => {
