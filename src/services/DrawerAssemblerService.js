@@ -1,23 +1,27 @@
 import _ from 'lodash';
-import authorizationProvider from '../providers/AuthorizationCheckerProvider';
+import authorizationCheckerProvider from '../providers/AuthorizationCheckerProvider';
 
 class DrawerAssemblerService {
+    constructor(authorizations) {
+        this.authorizations = authorizations;
+    }
+
     isItemAuthorized(item) {
         const {
             authorization,
             authorizations,
-            authorizationOperator,
+            operator,
         } = item;
         let auth = [];
         if (_.isString(authorization)) {
             auth.push(authorization);
         }
         if (_.isArray(authorizations)) {
-            auth.concat(authorizations);
+            auth = auth.concat(authorizations);
         }
         auth = _.uniq(auth);
-        const options = _.isNil(authorizationOperator) ? undefined : authorizationOperator;
-        return authorizationProvider().contains(auth, options);
+        const options = _.isNil(operator) ? undefined : { operator };
+        return authorizationCheckerProvider(this.authorizations).contains(auth, options);
     }
 
     flattenItems(items) {

@@ -32,6 +32,10 @@ describe('AuthorizationCheckerService', () => {
         expect(authorizationChecker.has(['create_user', 'read_user', 'destroy_user'], { operator: 'or' })).toBe(true);
     });
 
+    test('should return false if "has" method argument has one element missing when operator is "and"', () => {
+        expect(authorizationChecker.has(['create_user', 'read_user', 'destroy_user', 'something_made_up'], { operator: 'and' })).toBe(false);
+    });
+
     test('should be able to query roles passed as an array to the "has" method', () => {
         expect(authorizationChecker.has(['create_user'])).toBe(true);
     });
