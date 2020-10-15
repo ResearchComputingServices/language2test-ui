@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import PaginatedList from './PaginatedList';
 import { usePagination } from '../../hooks';
 
-function List({ data, pageSize, emptyTitle, renderRow }) {
+function List({
+    data,
+    pageSize,
+    emptyTitle,
+    renderRow,
+    paginationAlignment,
+}) {
     const {
         page,
         count,
@@ -18,6 +24,7 @@ function List({ data, pageSize, emptyTitle, renderRow }) {
             emptyTitle={emptyTitle}
             onPaginationChange={pageNumber => setPage(pageNumber)}
             page={page}
+            paginationAlignment={paginationAlignment}
             renderRow={(data, index) => renderRow(data, index, ((page - 1) * (pageSize)) + index + 1)}
         />
     );
@@ -28,12 +35,14 @@ List.propTypes = {
     pageSize: PropTypes.number,
     emptyTitle: PropTypes.string,
     renderRow: PropTypes.func.isRequired,
+    paginationAlignment: PropTypes.string,
 };
 
 List.defaultProps = {
     data: [],
     pageSize: 5,
     emptyTitle: undefined,
+    paginationAlignment: 'left',
 };
 
 export default List;
