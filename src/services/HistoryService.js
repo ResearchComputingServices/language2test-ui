@@ -1,12 +1,19 @@
 import { createBrowserHistory } from 'history';
 import _ from 'lodash';
 
-class InterceptorService {
+class HistoryService {
+    routes = [];
+
     history = createBrowserHistory()
 
     constructor() {
-        this.history.listen(location => localStorage.setItem('$lastVisitedRoute', location.pathname));
+        this.history.listen(location => {
+            this.routes.push(location);
+            localStorage.setItem('$lastVisitedRoute', location.pathname);
+        });
     }
+
+    getRoutes = () => this.routes;
 
     getHistory = () => this.history;
 
@@ -16,15 +23,18 @@ class InterceptorService {
 
     go = route => this.history.push(route);
 
-    goBack = () => this.history.goBack();
+    goBack = () => {
+        this.history.goBack();
+        return this.routes.pop();
+    }
 
-    size = () => this.history.length;
+    size = () => this.routes.length;
 }
 
-const interceptorService = new InterceptorService();
+const historyService = new HistoryService();
 
-Object.freeze(interceptorService);
+Object.freeze(historyService);
 
-export default interceptorService;
+export default historyService;
 
-export { InterceptorService };
+export { HistoryService };
