@@ -101,7 +101,7 @@ class InterceptorService {
         return obj;
     }
 
-    registerTokenInterceptor = callback => {
+    registerRequestInterceptor = callback => {
         if (_.isNil(callback)) throw new Error('Missing callback');
         axios.interceptors.request.use(request => {
             callback(request);

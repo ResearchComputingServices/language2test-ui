@@ -88,7 +88,7 @@ function Main({ authenticate }) {
                 });
             }
         }
-        interceptorService.registerTokenInterceptor(request => (request.headers.Authorization = `Bearer ${keycloakService.getToken()}`));
+        interceptorService.registerRequestInterceptor(request => (request.headers.Authorization = `Bearer ${keycloakService.getToken()}`));
         interceptorService.registerUnauthorizedInterceptor(async () => {
             try {
                 logoutUser();
