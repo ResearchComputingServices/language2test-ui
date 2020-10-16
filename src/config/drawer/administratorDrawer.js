@@ -27,6 +27,10 @@ export default [
                 authorization: 'read-test',
             },
             {
+                path: '/admin/test-assignations/',
+                title: 'Assignations',
+            },
+            {
                 path: '/admin/test-sessions/',
                 title: 'Sessions',
                 authorization: 'read-test-session',
