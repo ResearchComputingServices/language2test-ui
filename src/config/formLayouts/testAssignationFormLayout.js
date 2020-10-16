@@ -12,13 +12,13 @@ export default [
         className: 'form-row',
         elements: [
             {
-                field: 'startDateTime',
+                field: 'startDatetime',
                 title: 'Start Date Time',
                 type: 'datetime',
                 required: true,
             },
             {
-                field: 'endDateTime',
+                field: 'endDatetime',
                 title: 'End Date Time',
                 type: 'datetime',
                 required: true,
@@ -30,10 +30,11 @@ export default [
         title: 'Test',
         type: 'api-picklist',
         entity: 'test',
+        disabled: data => !_.isNil(data.id),
         required: true,
     },
     {
-        field: 'studentClasses',
+        field: 'studentClass',
         title: 'Student Classes',
         type: 'grid-select',
         entity: 'studentClasses',

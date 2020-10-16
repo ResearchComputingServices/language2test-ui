@@ -1,13 +1,34 @@
+import moment from 'moment';
 import RestService from './RestService';
 
 class TestAssignation extends RestService {
     prefix = `${this.prefix}/test_assignation`;
 
-    get = this._get;
+    _responseTransformer(data) {
+        if (data.startDatetime) {
+            data.startDatetime = moment.utc(data.startDatetime).local().toISOString();
+        }
+        if (data.endDatetime) {
+            data.endDatetime = moment.utc(data.endDatetime).local().toISOString();
+        }
+        return data;
+    }
 
-    add = this._add;
+    _requestTransformer(data) {
+        if (data.startDatetime instanceof moment) {
+            data.startDatetime = data.startDatetime.toISOString();
+        }
+        if (data.endDatetime instanceof moment) {
+            data.endDatetime = data.endDatetime.toISOString();
+        }
+        return data;
+    }
 
-    update = this._update;
+    get = data => this._get(data, { responseTransformers: [this._responseTransformer] });
+
+    add = data => this._add(data, { requestTransformers: [this._requestTransformer] });
+
+    update = data => this._update(data, { requestTransformers: [this._requestTransformer] });
 
     remove = this._remove;
 

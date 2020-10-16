@@ -10,6 +10,8 @@ describe('HistoryService', () => {
         expect(service.history.location.pathname).toEqual(`/${route}`);
     });
 
+    test('size', () => expect(service.size()).toEqual(3));
+
     test('getRoutes', () => {
         expect(service.getRoutes().map(route => route.pathname)).toEqual(expect.arrayContaining([
             '/users',
@@ -17,8 +19,8 @@ describe('HistoryService', () => {
         ]));
     });
 
-    test('size', () => {
-        expect(service.size()).toEqual(2);
+    test('routesLength', () => {
+        expect(service.routesLength()).toEqual(2);
     });
 
     test('goBack', () => {
@@ -30,7 +32,7 @@ describe('HistoryService', () => {
             service.goBack();
         }
         expect();
-        expect(service.size()).toEqual(3);
+        expect(service.routesLength()).toEqual(3);
     });
 
     test('getHistory', () => {

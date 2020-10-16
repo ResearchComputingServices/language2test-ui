@@ -28,7 +28,9 @@ class HistoryService {
         return this.routes.pop();
     }
 
-    size = () => this.routes.length;
+    routesLength = () => this.routes.length;
+
+    size = () => this.history.length;
 }
 
 const historyService = new HistoryService();

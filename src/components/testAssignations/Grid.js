@@ -1,5 +1,7 @@
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { AdministratorGrid } from '../common';
 
 function TestAssignationGrid({
@@ -8,7 +10,14 @@ function TestAssignationGrid({
     onExport,
     onRowClick,
 }) {
-    const format = datum => datum;
+    const format = datum => {
+        datum.test = _.get(datum, 'test.name');
+        datum.studentClass = _.map(datum.studentClass, stuClass => stuClass.display);
+        datum.studentClass = datum.studentClass.join(',');
+        datum.startDatetime = moment.utc(datum.startDatetime).local().format('LLLL');
+        datum.endDatetime = moment.utc(datum.endDatetime).local().format('LLLL');
+        return datum;
+    };
     return (
         <AdministratorGrid
             entity='testAssignation'
