@@ -4,7 +4,7 @@ import TestAssignationGrid from './Grid';
 import { useGridActions } from '../../hooks';
 
 export default function() {
-    const actions = useGridActions('studentClasses');
+    const actions = useGridActions('testAssignations');
 
     return (
         <Layout className='my-5'>
