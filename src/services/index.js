@@ -20,6 +20,7 @@ import routesAssembler from './RoutesAssemblerService';
 import drawerAssembler from './DrawerAssemblerService';
 import authorization from './AuthorizationsService';
 import studentClass from './StudentClassService';
+import testAssignation from './TestAssignationService';
 
 export {
     history,
@@ -44,4 +45,5 @@ export {
     drawerAssembler,
     authorization,
     studentClass,
+    testAssignation,
 };
