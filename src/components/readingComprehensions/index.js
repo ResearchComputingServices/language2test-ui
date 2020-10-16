@@ -8,7 +8,7 @@ export default function() {
     const actions = useGridActions('readingComprehensions');
 
     return (
-        <Layout className='my-5'>
+        <Layout className='my-4'>
             <ReadingComprehensionsGrid
                 onCreate={authorizationCheckerService.has('create-reading-comprehension') ? actions.onCreate : undefined}
                 onExport={authorizationCheckerService.has('export-reading-comprehension') ? actions.onExport : undefined}

@@ -8,7 +8,7 @@ export default function() {
     const authorizationCheckerService = useAuthorizationCheckerService();
 
     return (
-        <Layout className='my-5'>
+        <Layout className='my-4'>
             <TestSessionsGrid
                 onExport={authorizationCheckerService.has('export-test-session') ? actions.onExport : undefined}
                 onRowClick={actions.onRowClick}

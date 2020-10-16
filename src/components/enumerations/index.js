@@ -8,7 +8,7 @@ export default function() {
     const authorizationCheckerService = useAuthorizationCheckerService();
 
     return (
-        <Layout className='my-5'>
+        <Layout className='my-4'>
             <EnumerationsGrid
                 onCreate={authorizationCheckerService.has('create-enumeration') ? actions.onCreate : undefined}
                 onExport={authorizationCheckerService.has('export-enumeration') ? actions.onExport : undefined}

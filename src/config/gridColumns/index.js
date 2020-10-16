@@ -11,6 +11,7 @@ import writings from './writingsGridColumns';
 import enumerations from './enumerationsColumns';
 import userFieldTypes from './userFieldTypesColumns';
 import roles from './rolesGridColumns';
+import testAssignations from './testAssignationsGridColumns';
 
 export {
     clozes,
@@ -26,4 +27,5 @@ export {
     enumerations,
     userFieldTypes,
     roles,
+    testAssignations,
 };

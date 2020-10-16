@@ -16,7 +16,7 @@ export default function() {
     });
     const authorizationCheckerService = useAuthorizationCheckerService();
     return (
-        <Layout className='my-5'>
+        <Layout className='my-4'>
             <UsersGrid
                 onCreate={authorizationCheckerService.has('create-user') ? actions.onCreate : undefined}
                 onExport={authorizationCheckerService.has('export-user') ? actions.onExport : undefined}

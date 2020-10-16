@@ -25,6 +25,8 @@ import UserFieldTypes from '../../components/userFieldTypes';
 import UserFieldType from '../../components/userFieldType';
 import Role from '../../components/role';
 import Roles from '../../components/roles';
+import TestAssignations from '../../components/testAssignations';
+import TestAssignation from '../../components/testAssignation';
 
 export default [
     {
@@ -156,6 +158,18 @@ export default [
         path: '/admin/student-classes/student-class/:id',
         component: StudentClass,
         authorization: 'read-student-class',
+    },
+    {
+        path: '/admin/test-assignations',
+        component: TestAssignations,
+    },
+    {
+        path: '/admin/test-assignations/test-assignation',
+        component: TestAssignation,
+    },
+    {
+        path: '/admin/test-assignations/test-assignation/:id',
+        component: TestAssignation,
     },
     {
         path: '/admin/writings',

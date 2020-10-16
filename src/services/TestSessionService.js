@@ -1,6 +1,6 @@
 import RestService from './RestService';
 
-class UserService extends RestService {
+class TestSessionService extends RestService {
     prefix = `${this.prefix}/test_sessions`;
 
     get = this._get;
@@ -16,10 +16,10 @@ class UserService extends RestService {
     count = this._count;
 }
 
-const userService = new UserService();
+const testSessionService = new TestSessionService();
 
-Object.freeze(userService);
+Object.freeze(testSessionService);
 
-export default userService;
+export default testSessionService;
 
-export { userService };
+export { testSessionService };
