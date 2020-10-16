@@ -52,7 +52,7 @@ export default function(controls) {
         ),
         datetime: (key, field) => {
             const defaultValue = _.get(field, 'defaultValue');
-            if (!_.isNil(defaultValue) && !_.isEmpty(defaultValue)) {
+            if (_.isNil(defaultValue) && _.isEmpty(defaultValue)) {
                 field.defaultValue = moment.utc(field.defaultValue).local().toISOString();
             }
             return (

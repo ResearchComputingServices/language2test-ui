@@ -13,6 +13,7 @@ import writing from './writingFormLayout';
 import enumeration from './enumerationFormLayout';
 import userFieldType from './userFieldTypeLayout';
 import role from './roleFormLayout';
+import testAssignation from './testAssignationFormLayout';
 
 export {
     cloze,
@@ -30,4 +31,5 @@ export {
     enumeration,
     userFieldType,
     role,
+    testAssignation,
 };
