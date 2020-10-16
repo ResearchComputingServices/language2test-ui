@@ -2,15 +2,15 @@ import _ from 'lodash';
 
 export default [
     {
-        field: 'id',
-        title: 'Id',
-        disabled: data => !_.isNil(data.id),
-        display: data => !_.isNil(data.id),
-    },
-    {
         type: 'section',
         className: 'form-row',
         elements: [
+            {
+                field: 'id',
+                title: 'Id',
+                disabled: data => !_.isNil(data.id),
+                display: data => !_.isNil(data.id),
+            },
             {
                 field: 'startDatetime',
                 title: 'Start Date Time',
@@ -39,5 +39,6 @@ export default [
         type: 'grid-select',
         entity: 'studentClasses',
         required: true,
+        identifierKey: 'display',
     },
 ];

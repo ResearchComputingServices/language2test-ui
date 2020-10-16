@@ -10,7 +10,7 @@ function StudentClassesGrid({
     onRowClick,
 }) {
     const format = datum => {
-        datum.instructor = _.get(datum, 'instructor.name');
+        datum.instructor = `${_.get(datum, 'instructor.firstName')} ${_.get(datum, 'instructor.lastName')}`;
         return datum;
     };
     return (
