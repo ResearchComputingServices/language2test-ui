@@ -7,7 +7,7 @@ export default function() {
     const actions = useGridActions('testAssignations');
 
     return (
-        <Layout className='my-5'>
+        <Layout className='my-4'>
             <TestAssignationGrid
                 onCreate={actions.onCreate}
                 onRowClick={actions.onRowClick}

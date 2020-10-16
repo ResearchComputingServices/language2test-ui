@@ -8,7 +8,7 @@ export default function() {
     const authorizationCheckerService = useAuthorizationCheckerService();
 
     return (
-        <Layout className='my-5'>
+        <Layout className='my-4'>
             <UserFieldTypesGrid
                 onCreate={authorizationCheckerService.has('create-user-field-type') ? actions.onCreate : undefined}
                 onRowClick={actions.onRowClick}

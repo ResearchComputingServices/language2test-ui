@@ -8,7 +8,7 @@ export default function() {
     const authorizationCheckerService = useAuthorizationCheckerService();
 
     return (
-        <Layout className='my-5'>
+        <Layout className='my-4'>
             <TestCategoriesGrid
                 onCreate={authorizationCheckerService.has('create-test-category') ? actions.onCreate : undefined}
                 onExport={authorizationCheckerService.has('export-test-category') ? actions.onExport : undefined}

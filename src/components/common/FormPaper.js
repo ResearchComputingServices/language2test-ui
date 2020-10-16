@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const FormPaper = forwardRef((props, ref) => (
     <Paper
         ref={ref}
-        className='form-paper my-5'
+        className='form-paper my-3'
         elevation={2}
     >
         {props.children}

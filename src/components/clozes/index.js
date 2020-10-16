@@ -8,7 +8,7 @@ export default function() {
     const actions = useGridActions('clozes');
 
     return (
-        <Layout className='my-5'>
+        <Layout className='my-4'>
             <ClozesGrid
                 onCreate={authorizationCheckerService.has('create-cloze') ? actions.onCreate : undefined}
                 onExport={authorizationCheckerService.has('export-cloze') ? actions.onExport : undefined}
