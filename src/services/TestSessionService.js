@@ -3,13 +3,13 @@ import RestService from './RestService';
 class UserService extends RestService {
     prefix = `${this.prefix}/test_sessions`;
 
-    get = (query, options = {}) => this._get(query, { ...options });
+    get = this._get;
 
-    add = data => this._add(data)
+    add = this._add;
 
-    update = data => this._update(data)
+    update = this._update;
 
-    remove = data => this._remove(data);
+    remove = this._remove;
 
     export = this._export;
 
