@@ -1,0 +1,17 @@
+.test-schedule-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.test-schedule-container h1 {
+    padding: 25px;
+    font-size: 25px;
+}
+
+.test-schedule {
+    padding: 25px;
+    height: 84vh !important;
+    width: 98vw !important;
+    background: #ffffff;
+}

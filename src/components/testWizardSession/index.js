@@ -1,8 +1,8 @@
 import _ from 'lodash';
+import moment from 'moment';
 import React, { useState } from 'react';
 import { Layout } from '../common';
-import TermsAndConditions from './TermsAndConditions';
-import TestSelector from './TestSelector';
+import TestSchedule from '../testSchedule';
 import {
     useStore,
     useActions,
@@ -14,9 +14,10 @@ import {
 
 function TestWizardSession() {
     const isMounted = useMountedState();
-    const [testService, historyService] = useService(['test', 'history']);
+    const [service, historyService] = useService(['test', 'history']);
     const storeActions = useTestWizardActions();
     const { error, loading } = useStore('testWizardSession');
+    const { displayName } = useStore('userSession');
     const {
         startTestWizardSession,
         startFetch,
@@ -25,13 +26,8 @@ function TestWizardSession() {
         resetTestWizardSession,
     } = useActions('testWizardSession');
     const [tests, setTests] = useState([]);
-    const [selectedTest, setSelectedTest] = useState(null);
 
-    const onTermsAndConditonsChange = _.noop;
-
-    const onTestChange = (event, data) => setSelectedTest(data);
-
-    const onTestStart = () => {
+    const onTestStart = selectedTest => {
         // We reset everything related to testWizardSessions
         resetTestWizardSession();
         const { id, name, steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = selectedTest;
@@ -69,12 +65,40 @@ function TestWizardSession() {
         historyService.go('/test/wizard');
     };
 
+    const getTests = (current, future) => {
+        console.log(current, future);
+        return [
+            {
+                title: 'Beginner Test',
+                start: moment().toDate(),
+                end: moment().add(60, 'minutes').toDate(),
+                'allDay?': false,
+                resource: { groot: true },
+            },
+            {
+                title: 'Medium Test',
+                start: moment().add(120, 'minutes').toDate(),
+                end: moment().add(120, 'minutes').add(60, 'minutes').toDate(),
+                'allDay?': false,
+                resource: { groot: true },
+            },
+            {
+                title: 'Advanced Test',
+                start: moment().add(1, 'days').toDate(),
+                end: moment().add(1, 'days').add(60, 'minutes').toDate(),
+                'allDay?': false,
+                resource: { groot: true },
+            },
+        ];
+    };
+
     useMount(async () => {
         startFetch();
         try {
-            const tests = await testService.get({ url: 'wizard' });
             if (isMounted()) {
-                setTests(tests);
+                const current = moment();
+                const future = moment().add(1, 'months');
+                setTests(await getTests(current, future));
             }
         } catch (err) {
             setError(_.get(err, 'response.status', true) || true);
@@ -88,12 +112,13 @@ function TestWizardSession() {
             error={error}
             loading={loading}
         >
-            <TermsAndConditions onChange={onTermsAndConditonsChange} />
-            <TestSelector
-                disableStart={_.isNil(selectedTest)}
-                onChange={onTestChange}
-                onStart={onTestStart}
-                tests={tests}
+            <TestSchedule
+                displayName={displayName}
+                events={tests}
+                onChange={async (current, future) => setTests(await getTests(current, future))}
+                onSelectEvent={event => {
+                    console.log(event);
+                }}
             />
         </Layout>
     );

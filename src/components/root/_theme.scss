@@ -7,6 +7,7 @@ $border-color: rgba(0, 0, 0, 0.12);
 $font-color: #ffffff;
 $text-font-color: rgba(0, 0, 0, 0.87);
 $font: Oxygen;
+$disabled-color: #bdbdbd;
 
 :export {
     primary: $primary;
@@ -17,4 +18,5 @@ $font: Oxygen;
     borderColor: $border-color;
     fontColor: $font-color;
     textFontColor: $text-font-color;
+    disabledColor: $disabled-color;
 }
