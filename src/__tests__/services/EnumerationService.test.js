@@ -104,13 +104,71 @@ describe('EnumerationService', () => {
     test('add', async () => {
         const request = data[1];
         const response = await service.add(request);
-        expect(response).toEqual(expect.objectContaining(response));
+        expect(response).toEqual(expect.objectContaining({
+            id: 2,
+            name: 'Language',
+            values: [
+                {
+                    enumeration: 2,
+                    enumeration_id: 2,
+                    id: 5,
+                    text: 'English',
+                },
+                {
+                    enumeration: 2,
+                    enumeration_id: 2,
+                    id: 6,
+                    text: 'Mandarin',
+                },
+                {
+                    enumeration: 2,
+                    enumeration_id: 2,
+                    id: 7,
+                    text: 'Hindi',
+                },
+                {
+                    enumeration: 2,
+                    enumeration_id: 2,
+                    id: 8,
+                    text: 'German',
+                },
+            ],
+        }));
     });
 
     test('update', async () => {
         const request = data[1];
         const response = await service.update(request);
-        expect(response).toEqual(expect.objectContaining(response));
+        expect(response).toEqual(expect.objectContaining({
+            id: 2,
+            name: 'Language',
+            values: [
+                {
+                    enumeration: 2,
+                    enumeration_id: 2,
+                    id: 5,
+                    text: 'English',
+                },
+                {
+                    enumeration: 2,
+                    enumeration_id: 2,
+                    id: 6,
+                    text: 'Mandarin',
+                },
+                {
+                    enumeration: 2,
+                    enumeration_id: 2,
+                    id: 7,
+                    text: 'Hindi',
+                },
+                {
+                    enumeration: 2,
+                    enumeration_id: 2,
+                    id: 8,
+                    text: 'German',
+                },
+            ],
+        }));
     });
 
     test('count', async () => {
