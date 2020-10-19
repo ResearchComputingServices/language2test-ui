@@ -27,7 +27,7 @@ function TestForm({
                     {onClone && <CloneButton onClick={onClone} />}
                 </div>
                 <InUse
-                    msg='Currently being used in one or more Test Session(s)'
+                    msg='Test is currently in use'
                     show={data.immutable || data.unremovable}
                 />
                 <Form

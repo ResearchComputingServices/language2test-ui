@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormPaper } from '../common';
+import { FormPaper, InUse } from '../common';
 import Form from '../form';
 
 function StudentClassForm({
@@ -16,6 +16,10 @@ function StudentClassForm({
                 <h6 className='form-title'>
                     {title}
                 </h6>
+                <InUse
+                    msg='Currently being used in one or more Test Assignation(s)'
+                    show={data.immutable || data.unremovable}
+                />
                 <Form
                     buttons={buttons}
                     controls={controls}
