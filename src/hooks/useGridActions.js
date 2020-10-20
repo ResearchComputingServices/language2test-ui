@@ -32,18 +32,20 @@ export default function useGridActions(entity, options = {}) {
         }
     };
 
-    const onExport = async () => {
+    const onExport = async (type, extension) => {
         try {
             const file = await service.export();
+            type = !_.isNil(type) ? type : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+            extension = !_.isNil(extension) ? extension : 'xlsx';
             if (_.isFunction(exportCallback)) {
                 await exportCallback(file);
                 return ToastsStore.success(`Successfully exported ${locale}`);
             }
             const blob = new Blob(
                 [file],
-                { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+                { type },
             );
-            FileSaver.saveAs(blob, '.xlsx');
+            FileSaver.saveAs(blob, `${_.kebabCase(locale)}.${extension}`);
             ToastsStore.success(`Successfully exported ${locale}`);
         } catch (err) {
             ToastsStore.error(`Failed to export ${locale}`);

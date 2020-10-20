@@ -10,7 +10,7 @@ export default function() {
     return (
         <Layout className='my-4'>
             <TestSessionsGrid
-                onExport={authorizationCheckerService.has('export-test-session') ? actions.onExport : undefined}
+                onExport={authorizationCheckerService.has('export-test-session') ? () => actions.onExport('application/zip', 'zip') : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>
