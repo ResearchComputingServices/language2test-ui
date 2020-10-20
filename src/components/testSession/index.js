@@ -22,12 +22,9 @@ function TestSession({ match }) {
         error,
     } = useFormData(entity, id);
 
-    const actions = useFormActions(entity, 'test session');
+    const actions = _.omit(useFormActions(entity, 'test session'), ['download']);
 
-    const buttons = useFormButtons(id, entity, {
-        ...actions,
-        download: data => actions.download(data, 'application/zip', 'zip'),
-    }, data.immutable, data.unremovable);
+    const buttons = useFormButtons(id, entity, actions, data.immutable, data.unremovable);
 
     return (
         <Layout
