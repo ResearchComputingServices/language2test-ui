@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React, { useState } from 'react';
+import { ToastsStore } from 'react-toasts';
 import { Layout } from '../common';
 import TestSchedule from '../testSchedule';
 import {
@@ -14,7 +15,7 @@ import {
 
 function TestWizardSession() {
     const isMounted = useMountedState();
-    const [service, historyService] = useService(['test', 'history']);
+    const [testService, testAssignationService, historyService] = useService(['test', 'testAssignation', 'history']);
     const storeActions = useTestWizardActions();
     const { error, loading } = useStore('testWizardSession');
     const { displayName } = useStore('userSession');
@@ -65,31 +66,20 @@ function TestWizardSession() {
         historyService.go('/test/wizard');
     };
 
-    const getTests = (current, future) => {
-        console.log(current, future);
-        return [
-            {
-                title: 'Beginner Test',
-                start: moment().toDate(),
-                end: moment().add(60, 'minutes').toDate(),
+    const getTests = async (current, future) => {
+        try {
+            const schedule = await testAssignationService.getSchedule(current, future);
+            return schedule.map(agenda => ({
+                title: agenda.testName,
+                start: moment(agenda.startDatetime).toDate(),
+                end: moment(agenda.endDatetime).toDate(),
                 'allDay?': false,
-                resource: { groot: true },
-            },
-            {
-                title: 'Medium Test',
-                start: moment().add(120, 'minutes').toDate(),
-                end: moment().add(120, 'minutes').add(60, 'minutes').toDate(),
-                'allDay?': false,
-                resource: { groot: true },
-            },
-            {
-                title: 'Advanced Test',
-                start: moment().add(1, 'days').toDate(),
-                end: moment().add(1, 'days').add(60, 'minutes').toDate(),
-                'allDay?': false,
-                resource: { groot: true },
-            },
-        ];
+                resource: { ...agenda },
+            }));
+        } catch (err) {
+            ToastsStore.error('Failed to retrieve your test schedule');
+            return [];
+        }
     };
 
     useMount(async () => {
@@ -116,9 +106,6 @@ function TestWizardSession() {
                 displayName={displayName}
                 events={tests}
                 onChange={async (current, future) => setTests(await getTests(current, future))}
-                onSelectEvent={event => {
-                    console.log(event);
-                }}
             />
         </Layout>
     );
