@@ -70,7 +70,7 @@ function TestScheduleDetails({
                 )}
                 {canTakeTest && (
                     <Button
-                        className='my-4'
+                        className='my-3'
                         onClick={() => onTestStart(testId)}
                     >
                         Take Test
