@@ -62,3 +62,19 @@ table {
 .MuiButton-root {
 	text-transform: none !important;
 }
+
+* {
+    scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+    width: 3.5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: darken(#ffff, 3%);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: $disabled-color;
+}

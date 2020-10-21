@@ -1,4 +1,4 @@
-@import '../root/_theme.scss';
+@import "../root/_theme.scss";
 @import "../root/appData.scss";
 
 .administrator-grids {
@@ -104,12 +104,12 @@
         width: 97%;
         min-width: 450px;
     }
-    .form-body{
+    .form-body {
         display: flex;
         flex-direction: column;
         justify-content: center;
         padding: 0.8rem !important;
-    }    
+    }
 }
 
 .scale-down {
@@ -219,19 +219,19 @@
 }
 
 .expandable-info u {
-    text-decoration:none;
+    text-decoration: none;
     padding-bottom: 2px;
-    border-bottom:1.5px solid $primary;
+    border-bottom: 1.5px solid $primary;
 }
 
 .underline u {
-    text-decoration:none;
+    text-decoration: none;
     padding-bottom: 6px;
-    border-bottom:1.5px solid $primary;
+    border-bottom: 1.5px solid $primary;
 }
 
 .hover {
-    z-index: 1000000
+    z-index: 1000000;
 }
 
 .paginated-list-container {
@@ -277,8 +277,4 @@
 .form-action-button {
     height: 65px;
     width: 65px !important;
-}
-
-::-webkit-scrollbar {
-    width: 0px;
 }

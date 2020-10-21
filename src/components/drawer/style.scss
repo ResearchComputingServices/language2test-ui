@@ -57,3 +57,7 @@
     color: $primary;
     font-weight: bold;
 }
+
+.drawer::-webkit-scrollbar {
+    width: 0px;
+}
