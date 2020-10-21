@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import _ from 'lodash';
-import { FormPaper, InUse, CloneButton } from '../common';
+import { FormPaper, InUse, CloneButton, PreviewButton } from '../common';
 import Form from '../form';
 
 function TestForm({
@@ -17,6 +17,7 @@ function TestForm({
     disableRemoveStep,
     onClone,
     buttons,
+    readonly,
 }) {
     const ref = createRef();
     return (
@@ -24,7 +25,10 @@ function TestForm({
             <div className='form-body'>
                 <div className='d-flex flex-direction-column justify-content-between'>
                     <h6 className='form-title'>{title}</h6>
-                    {onClone && <CloneButton onClick={onClone} />}
+                    <div>
+                        <PreviewButton />
+                        {onClone && <CloneButton onClick={onClone} />}
+                    </div>
                 </div>
                 <InUse
                     msg='Test is currently in use'
@@ -42,6 +46,7 @@ function TestForm({
                                     <Button
                                         className='mr-3'
                                         color='primary'
+                                        disabled={readonly}
                                         onClick={() => {
                                             window.scroll({
                                                 top: ref.current.scrollHeight,
@@ -56,7 +61,7 @@ function TestForm({
                                     </Button>
                                     <Button
                                         color='primary'
-                                        disabled={disableRemoveStep}
+                                        disabled={disableRemoveStep || readonly}
                                         onClick={() => {
                                             window.scroll({
                                                 top: ref.current.scrollHeight,
@@ -93,12 +98,14 @@ TestForm.propTypes = {
     controls: PropTypes.object.isRequired,
     disableRemoveStep: PropTypes.bool.isRequired,
     onClone: PropTypes.func,
+    readonly: PropTypes.bool,
 };
 
 TestForm.defaultProps = {
     title: 'Test',
     buttons: [],
     onClone: undefined,
+    readonly: false,
 };
 
 export default TestForm;

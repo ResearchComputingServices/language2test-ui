@@ -1,6 +1,5 @@
 @import '../root/_theme.scss';
 @import "../root/appData.scss";
-@import 'react-big-calendar/lib/sass/styles';
 
 .administrator-grids {
     min-width: 100%;
@@ -275,7 +274,7 @@
     color: red;
 }
 
-.clone-button {
+.form-action-button {
     height: 65px;
     width: 65px !important;
 }

@@ -276,6 +276,7 @@ function Test({ match }) {
                     onAddStep={addStep}
                     onClone={!getClone() ? onClone : undefined}
                     onRemoveStep={removeStep}
+                    readonly={data.immutable}
                     staticSteps={false}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Test`}
                 />

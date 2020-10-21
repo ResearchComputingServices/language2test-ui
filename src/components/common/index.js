@@ -20,6 +20,7 @@ import Spinner from './Spinner';
 import InUse from './InUse';
 import CloneButton from './CloneButton';
 import List from './List';
+import PreviewButton from './PreviewButton';
 
 export {
     AdministratorGrid,
@@ -44,4 +45,5 @@ export {
     InUse,
     CloneButton,
     List,
+    PreviewButton,
 };

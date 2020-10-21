@@ -1,19 +1,19 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import CloneIcon from '@material-ui/icons/FileCopy';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import Tooltip from '@material-ui/core/Tooltip';
 
-function CloneButton(props) {
+function PreviewButton(props) {
     return (
-        <Tooltip title='Clone Form'>
+        <Tooltip title='Preview'>
             <IconButton
                 className='form-action-button'
                 {...props}
             >
-                <CloneIcon />
+                <VisibilityIcon />
             </IconButton>
         </Tooltip>
     );
 }
 
-export default CloneButton;
+export default PreviewButton;
