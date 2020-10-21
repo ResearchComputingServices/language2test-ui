@@ -1,8 +1,9 @@
 import _ from 'lodash';
+import moment from 'moment';
 import React, { useState } from 'react';
+import { ToastsStore } from 'react-toasts';
 import { Layout } from '../common';
-import TermsAndConditions from './TermsAndConditions';
-import TestSelector from './TestSelector';
+import TestSchedule from '../testSchedule';
 import {
     useStore,
     useActions,
@@ -14,9 +15,10 @@ import {
 
 function TestWizardSession() {
     const isMounted = useMountedState();
-    const [testService, historyService] = useService(['test', 'history']);
+    const [testScheduleService, testService, historyService] = useService(['testSchedule', 'test', 'history']);
     const storeActions = useTestWizardActions();
     const { error, loading } = useStore('testWizardSession');
+    const { displayName } = useStore('userSession');
     const {
         startTestWizardSession,
         startFetch,
@@ -25,17 +27,11 @@ function TestWizardSession() {
         resetTestWizardSession,
     } = useActions('testWizardSession');
     const [tests, setTests] = useState([]);
-    const [selectedTest, setSelectedTest] = useState(null);
 
-    const onTermsAndConditonsChange = _.noop;
-
-    const onTestChange = (event, data) => setSelectedTest(data);
-
-    const onTestStart = () => {
-        // We reset everything related to testWizardSessions
+    const onTestStart = async testId => {
+        const test = await testService.get({ id: testId });
         resetTestWizardSession();
-        const { id, name, steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = selectedTest;
-        // TODO - Maybe steps should come preconfigured with demographic questionnaire.
+        const { id, name, steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = test;
         const wizardSteps = [{
             type: 'demographicQuestionnaire',
             valid: _.isEmpty(mandatoryTestUserFieldCategory),
@@ -69,12 +65,33 @@ function TestWizardSession() {
         historyService.go('/test/wizard');
     };
 
+    const getTests = async (start, end) => {
+        try {
+            const schedule = await testScheduleService.get(start, end);
+            return schedule.map(agenda => {
+                agenda.startDatetime = moment.utc(agenda.startDatetime).local();
+                agenda.endDatetime = moment.utc(agenda.endDatetime).local();
+                return ({
+                    title: agenda.testName,
+                    start: agenda.startDatetime.toDate(),
+                    end: agenda.endDatetime.toDate(),
+                    'allDay?': false,
+                    resource: { ...agenda },
+                });
+            });
+        } catch (err) {
+            ToastsStore.error('Failed to retrieve your test schedule');
+            return [];
+        }
+    };
+
     useMount(async () => {
         startFetch();
         try {
-            const tests = await testService.get({ url: 'wizard' });
             if (isMounted()) {
-                setTests(tests);
+                const start = moment().startOf('month');
+                const end = moment().endOf('month');
+                setTests(await getTests(start, end));
             }
         } catch (err) {
             setError(_.get(err, 'response.status', true) || true);
@@ -88,12 +105,11 @@ function TestWizardSession() {
             error={error}
             loading={loading}
         >
-            <TermsAndConditions onChange={onTermsAndConditonsChange} />
-            <TestSelector
-                disableStart={_.isNil(selectedTest)}
-                onChange={onTestChange}
-                onStart={onTestStart}
-                tests={tests}
+            <TestSchedule
+                displayName={displayName}
+                events={tests}
+                onChange={async (start, end) => setTests(await getTests(start, end))}
+                onTestStart={onTestStart}
             />
         </Layout>
     );

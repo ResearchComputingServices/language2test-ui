@@ -1,0 +1,52 @@
+@import '../root/_theme.scss';
+
+.test-schedule-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.test-schedule-container h1 {
+    padding: 25px;
+    font-size: 25px;
+}
+
+.test-schedule {
+    padding: 25px;
+    height: 84vh !important;
+    width: 98vw !important;
+    background: #ffffff;
+}
+
+.test-schedule-details {
+    position: absolute;
+    width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    animation: scale 200ms ease-in-out forwards;
+}
+
+.test-schedule-details h1 {
+    font-size: 20px;
+    color: #3174ad;
+    padding-bottom: 20px;
+}
+
+.test-schedule-details h4 {
+    font-size: 17px;
+    padding-bottom: 17px
+}
+
+.test-schedule-highlighted-text {
+    padding-top: 5px;
+    color: $primary;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1.0);
+    }
+}
