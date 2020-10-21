@@ -27,6 +27,7 @@ describe('index', () => {
             'authorization',
             'studentClass',
             'testAssignation',
+            'testSchedule',
         ]);
         _.each(services, (value, service) => {
             expect(serviceSet.has(service)).toEqual(true);
