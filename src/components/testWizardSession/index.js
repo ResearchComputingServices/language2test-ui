@@ -15,7 +15,7 @@ import {
 
 function TestWizardSession() {
     const isMounted = useMountedState();
-    const [testService, testAssignationService, historyService] = useService(['test', 'testAssignation', 'history']);
+    const [testScheduleService, testService, historyService] = useService(['testSchedule', 'test', 'history']);
     const storeActions = useTestWizardActions();
     const { error, loading } = useStore('testWizardSession');
     const { displayName } = useStore('userSession');
@@ -28,11 +28,10 @@ function TestWizardSession() {
     } = useActions('testWizardSession');
     const [tests, setTests] = useState([]);
 
-    const onTestStart = selectedTest => {
-        // We reset everything related to testWizardSessions
+    const onTestStart = async testId => {
+        const test = await testService.get({ id: testId });
         resetTestWizardSession();
-        const { id, name, steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = selectedTest;
-        // TODO - Maybe steps should come preconfigured with demographic questionnaire.
+        const { id, name, steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = test;
         const wizardSteps = [{
             type: 'demographicQuestionnaire',
             valid: _.isEmpty(mandatoryTestUserFieldCategory),
@@ -66,16 +65,20 @@ function TestWizardSession() {
         historyService.go('/test/wizard');
     };
 
-    const getTests = async (current, future) => {
+    const getTests = async (start, end) => {
         try {
-            const schedule = await testAssignationService.getSchedule(current, future);
-            return schedule.map(agenda => ({
-                title: agenda.testName,
-                start: moment(agenda.startDatetime).toDate(),
-                end: moment(agenda.endDatetime).toDate(),
-                'allDay?': false,
-                resource: { ...agenda },
-            }));
+            const schedule = await testScheduleService.get(start, end);
+            return schedule.map(agenda => {
+                agenda.startDatetime = moment.utc(agenda.startDatetime).local();
+                agenda.endDatetime = moment.utc(agenda.endDatetime).local();
+                return ({
+                    title: agenda.testName,
+                    start: agenda.startDatetime.toDate(),
+                    end: agenda.endDatetime.toDate(),
+                    'allDay?': false,
+                    resource: { ...agenda },
+                });
+            });
         } catch (err) {
             ToastsStore.error('Failed to retrieve your test schedule');
             return [];
@@ -86,9 +89,9 @@ function TestWizardSession() {
         startFetch();
         try {
             if (isMounted()) {
-                const current = moment();
-                const future = moment().add(1, 'months');
-                setTests(await getTests(current, future));
+                const start = moment().startOf('month');
+                const end = moment().endOf('month');
+                setTests(await getTests(start, end));
             }
         } catch (err) {
             setError(_.get(err, 'response.status', true) || true);
@@ -105,7 +108,8 @@ function TestWizardSession() {
             <TestSchedule
                 displayName={displayName}
                 events={tests}
-                onChange={async (current, future) => setTests(await getTests(current, future))}
+                onChange={async (start, end) => setTests(await getTests(start, end))}
+                onTestStart={onTestStart}
             />
         </Layout>
     );

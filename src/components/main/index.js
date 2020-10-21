@@ -188,7 +188,7 @@ function Main({ authenticate }) {
                                             },
                                         },
                                         authenticated && authorizationCheckerService.has('test') && {
-                                            title: 'Test',
+                                            title: 'Test Schedule',
                                             Icon: <AssignmentIcon />,
                                             handler: () => {
                                                 historyService.go('/test');

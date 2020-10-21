@@ -30,39 +30,6 @@ class TestAssignation extends RestService {
 
     update = data => this._update(data, { requestTransformers: [this._requestTransformer] });
 
-    getSchedule = () => [
-        {
-            endDatetime: 'Thu, 22 Oct 2020 01:24:00 GMT',
-            startDatetime: 'Sun, 18 Oct 2020 13:24:00 GMT',
-            studentClassId: 1,
-            studentClassName: 'level_1_class_1_fall',
-            taken: true,
-            testAssignationId: 1,
-            testId: 1,
-            testName: 'Beginner',
-        },
-        {
-            endDatetime: 'Sun, 25 Oct 2020 01:25:00 GMT',
-            startDatetime: 'Thu, 22 Oct 2020 13:25:00 GMT',
-            studentClassId: 2,
-            studentClassName: 'level_1_class_1_winter',
-            taken: false,
-            testAssignationId: 2,
-            testId: 1,
-            testName: 'Beginner',
-        },
-        {
-            endDatetime: 'Wed, 21 Oct 2020 01:27:00 GMT',
-            startDatetime: 'Tue, 20 Oct 2020 01:27:25 GMT',
-            studentClassId: 2,
-            studentClassName: 'level_1_class_1_winter',
-            taken: false,
-            testAssignationId: 3,
-            testId: 2,
-            testName: 'Intermediate',
-        },
-    ]
-
     remove = this._remove;
 
     count = this._count;

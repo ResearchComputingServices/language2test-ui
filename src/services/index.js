@@ -21,6 +21,7 @@ import drawerAssembler from './DrawerAssemblerService';
 import authorization from './AuthorizationsService';
 import studentClass from './StudentClassService';
 import testAssignation from './TestAssignationService';
+import testSchedule from './TestScheduleService';
 
 export {
     history,
@@ -46,4 +47,5 @@ export {
     authorization,
     studentClass,
     testAssignation,
+    testSchedule,
 };
