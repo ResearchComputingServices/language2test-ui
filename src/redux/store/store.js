@@ -4,8 +4,8 @@ import {
     configureStore,
     getDefaultMiddleware,
 } from '@reduxjs/toolkit';
-import { reducers } from './slices';
-import userSession from './slices/userSession';
+import { reducers } from '../slices';
+import userSession from '../slices/userSession';
 
 function rehydrateStore() {
     const $appData = JSON.parse(localStorage.getItem('$appData'));
