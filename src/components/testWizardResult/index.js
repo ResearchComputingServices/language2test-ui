@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import Introduction from './Introduction';
+import SubmitTest from './SubmitTest';
 import Title from './Title';
 import ResultStatistics from '../result/ResultStatistics';
 import ResultPanel from '../result/ResultPanel';
@@ -152,14 +152,9 @@ export default function TestWizardResults() {
     const resultsEvaluated = !_.isNil(endDatetime);
 
     return !resultsEvaluated ? (
-        <Introduction
-            buttonTitle={error ? 'Resubmit Test' : 'Submit Test'}
-            introductionText={
-                error
-                    ? 'An error has occured and your test has not been saved, please resubmit your test.'
-                    : 'Submit your test scores to be evaluated.'
-            }
-            onEvaluateClick={onEvaluate}
+        <SubmitTest
+            error={error}
+            onClick={onEvaluate}
         />
     ) : (
         <div className='test-wizard-result'>

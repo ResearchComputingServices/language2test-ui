@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import TestContainer from './TestContainer';
-import TestIntroduction from '../testWizardUtilities/TestIntroduction';
+import TestIntroduction from './TestIntroduction';
 import Text from './Text';
 import Blank from './Blank';
 import {
@@ -187,9 +187,8 @@ export default function() {
 
         return {
             'not-started': <TestIntroduction
-                buttonTitle='Start the Test'
-                introductionText='Please start the cloze test whenever you are ready.'
                 onStartClick={onStartClick}
+                total={total}
             />,
             'in-progress': (
                 <TestContainer

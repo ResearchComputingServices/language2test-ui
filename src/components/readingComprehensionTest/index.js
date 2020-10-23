@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useEffect, useState, useCallback } from 'react';
 import Divider from '@material-ui/core/Divider';
 import TestContainer from './TestContainer';
-import TestIntroduction from '../testWizardUtilities/TestIntroduction';
+import TestIntroduction from './TestIntroduction';
 import Question from './Question';
 import Reading from './Reading';
 import QuestionControls from '../testWizardUtilities/QuestionControls';
@@ -202,9 +202,8 @@ export default function() {
 
         return {
             'not-started': <TestIntroduction
-                buttonTitle='Start the Test'
-                introductionText='Please start the reading comprehension test whenever you are ready.'
                 onStartClick={onStartClick}
+                total={total}
             />,
             'in-progress': (
                 <TestContainer

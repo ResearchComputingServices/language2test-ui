@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useEffect } from 'react';
-import TestIntroduction from '../testWizardUtilities/TestIntroduction';
+import TestIntroduction from './TestIntroduction';
 import TestContainer from './TestContainer';
 import Question from './Question';
 import {
@@ -130,9 +130,8 @@ export default function() {
 
         return {
             'not-started': <TestIntroduction
-                buttonTitle='Start the Test'
-                introductionText='Please start the writing test whenever you are ready.'
                 onStartClick={onStartClick}
+                total={total}
             />,
             'in-progress': (
                 <TestContainer
