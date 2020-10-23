@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useEffect } from 'react';
-import TestIntroduction from '../testWizardUtilities/TestIntroduction';
+import TestIntroduction from './TestIntroduction';
 import TestContainer from './TestContainer';
 import QuestionCard from './QuestionCard';
 import QuestionOption from '../testWizardUtilities/QuestionOption';
@@ -130,9 +130,8 @@ export default function() {
         const currentAnswerText = getCurrentAnswerText();
         return {
             'not-started': <TestIntroduction
-                buttonTitle='Start the Test'
-                introductionText='Please start the vocabulary test whenever you are ready.'
                 onStartClick={onStartClick}
+                total={total}
             />,
             'in-progress': (
                 <TestContainer

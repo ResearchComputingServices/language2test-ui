@@ -56,9 +56,20 @@
     font-size: 18px;
 }
 
+.vocabulary-test-introduction {
+    width: 95%;
+    padding-left: 6%;
+    padding-right: 6%;
+    justify-content: center;
+}
+
+.vocabulary-test-introduction p {
+    line-height: 1.5;
+}
+
 @media only screen and (max-width: 976px) {
     .vocabulary-test-question-content-large {
-        width: 60vw;
+        width: 90vw;
         margin: 20px;
         padding: 40px;
         background: $tertiary-background-color;
