@@ -186,7 +186,6 @@ export default function() {
         if (!timerActive && _.eq(getProgress(), 'in-progress')) {
             next();
         }
-    // TODO React Gurus might be mad.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timerActive]);
 
