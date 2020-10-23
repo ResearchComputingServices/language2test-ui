@@ -13,6 +13,7 @@ import {
     useFormLayout,
     useFormActions,
     useFormButtons,
+    useTestWizardActions,
 } from '../../hooks';
 
 function Test({ match }) {
@@ -51,6 +52,7 @@ function Test({ match }) {
     const cloneActions = useActions('clone');
     const historyService = useService('history');
     const [getClone, setClone] = useRefState(false);
+    const storeActions = useTestWizardActions();
 
     const layoutRef = useRef();
     const dynamicDataRef = useRef();
@@ -260,6 +262,35 @@ function Test({ match }) {
         historyService.go('/admin/tests/test');
     };
 
+    const onPreview = () => {
+        const { steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = getValues({ nest: true });
+        const wizardSteps = [{
+            type: 'demographicQuestionnaire',
+            valid: _.isEmpty(mandatoryTestUserFieldCategory),
+            fields: testUserFieldCategory,
+            mandatoryFields: _.reduce(mandatoryTestUserFieldCategory, (accumulator, field) => {
+                accumulator[field.name] = true;
+                return accumulator;
+            }, {}),
+        }];
+        _.each(steps, (step, index) => {
+            const { type } = step;
+            if (type) {
+                const { values: questions } = step;
+                step = {};
+                step.type = _.camelCase(type);
+                if (index !== 0) {
+                    step.dependency = index;
+                }
+                wizardSteps.push(step);
+                const action = storeActions[step.type];
+                if (!_.isNil(action)) {
+                    action.setQuestions(questions);
+                }
+            }
+        });
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -275,6 +306,7 @@ function Test({ match }) {
                     layout={layoutRef.current}
                     onAddStep={addStep}
                     onClone={!getClone() ? onClone : undefined}
+                    onPreview={onPreview}
                     onRemoveStep={removeStep}
                     readonly={data.immutable}
                     staticSteps={false}

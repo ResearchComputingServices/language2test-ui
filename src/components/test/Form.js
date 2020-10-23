@@ -16,6 +16,7 @@ function TestForm({
     controls,
     disableRemoveStep,
     onClone,
+    onPreview,
     buttons,
     readonly,
 }) {
@@ -26,7 +27,7 @@ function TestForm({
                 <div className='d-flex flex-direction-column justify-content-between'>
                     <h6 className='form-title'>{title}</h6>
                     <div>
-                        <PreviewButton />
+                        <PreviewButton onClick={onPreview} />
                         {onClone && <CloneButton onClick={onClone} />}
                     </div>
                 </div>
@@ -99,6 +100,7 @@ TestForm.propTypes = {
     disableRemoveStep: PropTypes.bool.isRequired,
     onClone: PropTypes.func,
     readonly: PropTypes.bool,
+    onPreview: PropTypes.func.isRequired,
 };
 
 TestForm.defaultProps = {
