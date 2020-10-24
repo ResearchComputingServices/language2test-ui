@@ -1,5 +1,9 @@
 @import '../root/_theme.scss';
 
+.vocabulary-test {
+    max-width: 90%;
+}
+
 .vocabulary-test-question {
     display: flex;
     flex-direction: column;
