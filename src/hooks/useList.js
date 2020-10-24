@@ -85,7 +85,6 @@ export default function useList(entity, options) {
     // Some components also provide support to change the entity after it has mounted, so when that happens we should fetch the data.
     useEffect(() => {
         fetchData();
-    // TODO - We are ignoring Dan Abramov himself.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [entity, page, ...additionalDependencies]);
 

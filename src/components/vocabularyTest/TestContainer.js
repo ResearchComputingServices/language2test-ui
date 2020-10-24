@@ -12,7 +12,7 @@ function TestContainer({
     children,
 }) {
     return (
-        <div className='vocabulary-test-TestContainer'>
+        <div className='vocabulary-test'>
             <TestProgress
                 current={current}
                 total={total}
