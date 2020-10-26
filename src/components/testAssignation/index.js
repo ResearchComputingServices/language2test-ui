@@ -20,7 +20,7 @@ function TestAssignation({ match }) {
     const controls = useForm();
     const layout = useFormLayout(entity);
     const startDatetime = controls.watch('startDatetime');
-    const endDatetime = controls.watch('endDatime');
+    const endDatetime = controls.watch('endDatetime');
 
     const {
         data,
@@ -31,10 +31,7 @@ function TestAssignation({ match }) {
 
     const actions = useFormActions(entity, 'test assignation');
 
-    const checkDatetimeValidation = (startDatetime, endDatetime) => {
-        if (_.isUndefined(startDatetime) && _.isUndefined(endDatetime)) {
-            return true;
-        }
+    const checkDatetimeValidation = (startDatetime = moment(), endDatetime = moment()) => {
         startDatetime = moment(startDatetime);
         endDatetime = moment(endDatetime);
         return startDatetime.isBefore(endDatetime);
