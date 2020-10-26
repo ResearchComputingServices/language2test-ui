@@ -1,27 +1,27 @@
 import _ from 'lodash';
-import authorizationCheckerProvider from '../providers/AuthorizationCheckerProvider';
+import { rolesChecker } from '../providers';
 
 class DrawerAssemblerService {
-    constructor(authorizations) {
-        this.authorizations = authorizations;
+    constructor(roles) {
+        this.roles = roles;
     }
 
     isItemAuthorized(item) {
         const {
-            authorization,
-            authorizations,
+            role,
+            roles,
             operator,
         } = item;
         let auth = [];
-        if (_.isString(authorization)) {
-            auth.push(authorization);
+        if (_.isString(role)) {
+            auth.push(role);
         }
-        if (_.isArray(authorizations)) {
-            auth = auth.concat(authorizations);
+        if (_.isArray(roles)) {
+            auth = auth.concat(roles);
         }
         auth = _.uniq(auth);
         const options = _.isNil(operator) ? undefined : { operator };
-        return authorizationCheckerProvider(this.authorizations).contains(auth, options);
+        return rolesChecker(this.roles).contains(auth, options);
     }
 
     flattenItems(items) {

@@ -2,12 +2,12 @@ import React from 'react';
 import _ from 'lodash';
 import { Route, Redirect } from 'react-router-dom';
 import historyService from './HistoryService';
-import authorizationProvider from '../providers/AuthorizationCheckerProvider';
+import { rolesChecker } from '../providers';
 
 class RoutesAssemblerService {
     assemble(routes) {
         const routeComponents = [];
-        const authorizationCheckerService = authorizationProvider();
+        const rolesCheckerService = rolesChecker();
         _.each(routes, route => {
             const {
                 path,
@@ -23,7 +23,7 @@ class RoutesAssemblerService {
             if (_.isFunction(conditional)) {
                 routeComponents.push(<Route
                     key={path}
-                    component={conditional({ authorizationCheckerService, historyService })}
+                    component={conditional({ rolesCheckerService, historyService })}
                     exact={isExact}
                     path={path}
                 />);
@@ -39,7 +39,7 @@ class RoutesAssemblerService {
             auth = _.uniq(auth);
             const options = _.isNil(authorizationOperator) ? undefined : authorizationOperator;
             if (!_.isNil(redirect)) {
-                authorizationCheckerService.contains(auth, options)
+                rolesCheckerService.contains(auth, options)
                     ? routeComponents.push(<Route
                         key={path}
                         component={component}
@@ -52,7 +52,7 @@ class RoutesAssemblerService {
                         to={redirect}
                     />);
             } else {
-                authorizationCheckerService.contains(auth, options) && routeComponents.push(<Route
+                rolesCheckerService.contains(auth, options) && routeComponents.push(<Route
                     key={path}
                     component={component}
                     exact={isExact}

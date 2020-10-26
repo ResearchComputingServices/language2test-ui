@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '../../../testUtilities';
-import Administrator from '../../../components/administrator';
+import MainDrawer from '../../../components/mainDrawer';
 
-describe('Administrator', () => {
+describe('MainDrawer', () => {
     test('Drawer should have all the necessary items available', () => {
-        const { getByText, getAllByText } = render(<Administrator />);
+        const { getByText, getAllByText } = render(<MainDrawer />);
         getAllByText('Users');
         getByText('Student Classes');
         getByText('Test');

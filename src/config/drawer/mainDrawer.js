@@ -14,13 +14,13 @@ export default [
         path: '/users',
         title: 'Users',
         Icon: PersonIcon,
-        authorization: 'read-user',
+        role: 'Administrator',
     },
     {
         path: '/student-classes',
         title: 'Student Classes',
         Icon: PeopleIcon,
-        authorization: 'read-student-class',
+        role: 'Administrator',
     },
     {
         name: 'test',
@@ -30,7 +30,7 @@ export default [
             {
                 path: '/tests/',
                 title: 'Instances',
-                authorization: 'read-test',
+                role: 'Administrator',
             },
             {
                 path: '/test-assignations/',
@@ -39,7 +39,7 @@ export default [
             {
                 path: '/test-sessions/',
                 title: 'Sessions',
-                authorization: 'read-test-session',
+                role: 'Administrator',
             },
             {
                 name: 'types',
@@ -48,22 +48,22 @@ export default [
                     {
                         path: '/vocabularies',
                         title: 'Vocabularies',
-                        authorization: 'read-vocabulary',
+                        role: 'Administrator',
                     },
                     {
                         path: '/reading-comprehensions',
                         title: 'Reading Comprehensions',
-                        authorization: 'read-reading-comprehension',
+                        role: 'Administrator',
                     },
                     {
                         path: '/clozes',
                         title: 'Clozes',
-                        authorization: 'read-cloze',
+                        role: 'Administrator',
                     },
                     {
                         path: '/writings',
                         title: 'Writings',
-                        authorization: 'read-writing',
+                        role: 'Administrator',
                     },
                 ],
             },
@@ -78,27 +78,27 @@ export default [
             {
                 path: '/test-categories/',
                 title: 'Test Categories',
-                authorization: 'read-test-category',
+                role: 'Administrator',
             },
             {
                 path: '/demographic-questionnaire-fields/',
                 title: 'Demographic Fields',
-                authorization: 'read-demographic-questionnaire-field',
+                role: 'Administrator',
             },
             {
                 path: '/user-field-types/',
                 title: 'User Field Types',
-                authorization: 'read-user-field-type',
+                role: 'Administrator',
             },
             {
                 path: '/enumerations/',
                 title: 'Enumerations',
-                authorization: 'read-enumeration',
+                role: 'Administrator',
             },
             {
                 path: '/roles/',
                 title: 'Roles',
-                authorization: 'read-role',
+                role: 'Administrator',
             },
         ],
     },

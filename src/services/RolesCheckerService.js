@@ -45,7 +45,7 @@ class RolesCheckerService {
     }
 
     get() {
-        return _.map(_.get(store.getState(), 'userSession.roles'), role => role.name);
+        return _.get(store.getState(), 'userSession.roles');
     }
 }
 

@@ -18,49 +18,49 @@ describe('DrawerAssemblerService', () => {
         config = [
             {
                 path: 'A',
-                authorization: 'create_a',
+                role: 'create_a',
             },
             {
                 path: 'B',
-                authorization: 'create_b',
+                role: 'create_b',
             },
             {
                 items: [
                     {
                         path: 'C',
-                        authorization: 'create_c',
+                        role: 'create_c',
                     },
                     {
                         path: 'D',
-                        authorization: 'create_d',
+                        role: 'create_d',
                     },
                     {
                         path: 'E',
-                        authorization: 'create_e',
+                        role: 'create_e',
                     },
                     {
                         items: [
                             {
                                 path: 'F',
-                                authorization: 'create_f',
+                                role: 'create_f',
                             },
                             {
                                 path: 'G',
-                                authorization: 'create_g',
+                                role: 'create_g',
                             },
                             {
                                 path: 'H',
-                                authorization: 'create_h',
+                                role: 'create_h',
                             },
                             {
                                 items: [
                                     {
                                         path: 'I',
-                                        authorization: 'create_i',
+                                        role: 'create_i',
                                     },
                                     {
                                         path: 'J',
-                                        authorization: 'create_j',
+                                        role: 'create_j',
                                     },
                                 ],
                             },
@@ -68,7 +68,7 @@ describe('DrawerAssemblerService', () => {
                     },
                     {
                         path: 'K',
-                        authorization: 'create_k',
+                        role: 'create_k',
                     },
                 ],
             },
@@ -76,14 +76,14 @@ describe('DrawerAssemblerService', () => {
     });
 
     test('isItemAuthorized', () => {
-        expect(service.isItemAuthorized({ authorization: 'create_a' })).toEqual(true);
-        expect(service.isItemAuthorized({ authorization: 'read_a' })).toEqual(false);
+        expect(service.isItemAuthorized({ role: 'create_a' })).toEqual(true);
+        expect(service.isItemAuthorized({ role: 'read_a' })).toEqual(false);
         expect(service.isItemAuthorized({
-            authorizations: ['create_a', 'read_a'],
+            roles: ['create_a', 'read_a'],
             operator: 'or',
         })).toEqual(true);
         expect(service.isItemAuthorized({
-            authorizations: ['create_a', 'read_a'],
+            roles: ['create_a', 'read_a'],
             operator: 'and',
         })).toEqual(false);
     });
@@ -92,35 +92,35 @@ describe('DrawerAssemblerService', () => {
         expect(service.flattenItems(config)).toEqual(expect.arrayContaining([
             {
                 path: 'A',
-                authorization: 'create_a',
+                role: 'create_a',
             },
             {
                 path: 'B',
-                authorization: 'create_b',
+                role: 'create_b',
             },
             {
                 path: 'C',
-                authorization: 'create_c',
+                role: 'create_c',
             },
             {
                 path: 'D',
-                authorization: 'create_d',
+                role: 'create_d',
             },
             {
                 path: 'E',
-                authorization: 'create_e',
+                role: 'create_e',
             },
             {
                 path: 'F',
-                authorization: 'create_f',
+                role: 'create_f',
             },
             {
                 path: 'J',
-                authorization: 'create_j',
+                role: 'create_j',
             },
             {
                 path: 'K',
-                authorization: 'create_k',
+                role: 'create_k',
             },
         ]));
     });
@@ -129,37 +129,37 @@ describe('DrawerAssemblerService', () => {
         expect(service.assembleItems(config)).toEqual(expect.arrayContaining([
             {
                 path: 'A',
-                authorization: 'create_a',
+                role: 'create_a',
             },
             {
                 path: 'B',
-                authorization: 'create_b',
+                role: 'create_b',
             },
             {
                 items: [
                     {
                         path: 'C',
-                        authorization: 'create_c',
+                        role: 'create_c',
                     },
                     {
                         path: 'D',
-                        authorization: 'create_d',
+                        role: 'create_d',
                     },
                     {
                         path: 'E',
-                        authorization: 'create_e',
+                        role: 'create_e',
                     },
                     {
                         items: [
                             {
                                 path: 'F',
-                                authorization: 'create_f',
+                                role: 'create_f',
                             },
                             {
                                 items: [
                                     {
                                         path: 'J',
-                                        authorization: 'create_j',
+                                        role: 'create_j',
                                     },
                                 ],
                             },
@@ -167,7 +167,7 @@ describe('DrawerAssemblerService', () => {
                     },
                     {
                         path: 'K',
-                        authorization: 'create_k',
+                        role: 'create_k',
                     },
                 ],
             },

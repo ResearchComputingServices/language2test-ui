@@ -157,7 +157,7 @@ function Main({ authenticate }) {
                                         'hamburger-button',
                                         { hide: !drawerEnabled },
                                     )}
-                                    onClick={() => historyService.getUrl().includes('/admin') && toggleDrawer()}
+                                    onClick={() => !historyService.getUrl().includes('/test/wizard') && toggleDrawer()}
                                 >
                                     <MenuIcon className='hamburger-button-icon' />
                                 </IconButton>
