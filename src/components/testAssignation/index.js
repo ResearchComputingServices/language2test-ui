@@ -1,14 +1,17 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import Form from './Form';
 import { Layout, NotFound } from '../common';
 import {
     useForm,
+    useEffect,
     useFormData,
     useFormActions,
     useFormButtons,
     useFormLayout,
+    useCallback,
 } from '../../hooks';
 
 function TestAssignation({ match }) {
@@ -16,6 +19,8 @@ function TestAssignation({ match }) {
     const id = _.get(match, 'params.id');
     const controls = useForm();
     const layout = useFormLayout(entity);
+    const startDatetime = controls.watch('startDatetime');
+    const endDatetime = controls.watch('endDatime');
 
     const {
         data,
@@ -25,6 +30,25 @@ function TestAssignation({ match }) {
     } = useFormData(entity, id);
 
     const actions = useFormActions(entity, 'test assignation');
+
+    const checkDatetimeValidation = (startDatetime, endDatetime) => {
+        if (_.isUndefined(startDatetime) && _.isUndefined(endDatetime)) {
+            return true;
+        }
+        startDatetime = moment(startDatetime);
+        endDatetime = moment(endDatetime);
+        return startDatetime.isBefore(endDatetime);
+    };
+
+    const setError = useCallback(controls.setError, [controls.setError]);
+    const clearError = useCallback(controls.clearError, [controls.clearError]);
+
+    useEffect(() => {
+        const isValid = checkDatetimeValidation(startDatetime, endDatetime);
+        !isValid
+            ? setError('customError', 'enoent', 'Start Date Time should not be after End Date Time')
+            : clearError();
+    }, [setError, clearError, startDatetime, endDatetime]);
 
     const buttons = useFormButtons(id, entity, {
         ...actions,
