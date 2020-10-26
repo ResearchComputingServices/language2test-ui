@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import TestContainer from './TestContainer';
-import TestIntroduction from '../testWizardUtilities/TestIntroduction';
+import TestIntroduction from './TestIntroduction';
 import Text from './Text';
 import Blank from './Blank';
 import {
@@ -175,7 +175,6 @@ export default function() {
         if (!timerActive && _.eq(getProgress(), 'in-progress')) {
             next();
         }
-    // TODO React Gurus might be mad.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timerActive]);
 
@@ -187,9 +186,8 @@ export default function() {
 
         return {
             'not-started': <TestIntroduction
-                buttonTitle='Start the Test'
-                introductionText='Please start the cloze test whenever you are ready.'
                 onStartClick={onStartClick}
+                total={total}
             />,
             'in-progress': (
                 <TestContainer
