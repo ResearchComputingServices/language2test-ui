@@ -21,6 +21,7 @@ import InUse from './InUse';
 import CloneButton from './CloneButton';
 import List from './List';
 import PreviewButton from './PreviewButton';
+import Drawer from './Drawer';
 
 export {
     AdministratorGrid,
@@ -46,4 +47,5 @@ export {
     CloneButton,
     List,
     PreviewButton,
+    Drawer,
 };

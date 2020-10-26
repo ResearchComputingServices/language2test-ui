@@ -9,8 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import Drawer from '../drawer';
 import {
     Confirmation,
     Error,
@@ -27,7 +26,6 @@ import {
     useIsWideScreenMode,
     useWindowSize,
     useRoutes,
-    useAuthorizationCheckerService,
 } from '../../hooks';
 
 function Main({ authenticate }) {
@@ -43,18 +41,17 @@ function Main({ authenticate }) {
         'user',
         'history',
     );
-    const authorizationCheckerService = useAuthorizationCheckerService();
-    const routesAssemblerService = useProvider('routes')();
-    const routes = useRoutes('main');
     const [error, setError] = useState({
         error: false,
         msg: 'Failed to authenticate user.',
     });
+    const routes = useRoutes('main');
+    const routesAssemblerService = useProvider('route')();
     const { open: drawerOpen, enabled: drawerEnabled } = useStore('drawer');
     const { displayName, authenticated } = useStore('userSession');
     const { confirmed: dialogConfirmed, canceled: dialogCanceled, key: dialogKey } = useStore('dialog');
     const { login: loginUser, logout: logoutUser } = useActions('userSession');
-    const { toggle: toggleDrawer, hide: hideDrawer } = useActions('drawer');
+    const { toggle: toggleDrawer } = useActions('drawer');
     const { showDialog, hideDialog } = useActions('dialog');
     const { disable: disableDrawer } = useActions('drawer');
     const wideScreenMode = useIsWideScreenMode();
@@ -179,21 +176,6 @@ function Main({ authenticate }) {
                                 <UserMenu
                                     displayName={displayName}
                                     dropdowns={[
-                                        authenticated && authorizationCheckerService.has('admin') && {
-                                            title: 'Admin Dashboard',
-                                            Icon: <SupervisorAccountIcon />,
-                                            handler: () => {
-                                                historyService.go('/admin/dashboard');
-                                            },
-                                        },
-                                        authenticated && authorizationCheckerService.has('test') && {
-                                            title: 'Student Dashboard',
-                                            Icon: <AssignmentIcon />,
-                                            handler: () => {
-                                                historyService.go('/student/dashboard');
-                                                hideDrawer();
-                                            },
-                                        },
                                         authenticated && {
                                             title: 'Logout',
                                             Icon: <ExitToAppIcon />,
@@ -209,9 +191,8 @@ function Main({ authenticate }) {
                         { 'content-shift': drawerEnabled && drawerOpen && wideScreenMode },
                     )}
                     >
-                        <Switch >
-                            {routesAssemblerService.assemble(routes)}
-                        </Switch>
+                        <Switch>{routesAssemblerService.assemble(routes)}</Switch>
+                        <Drawer />
                         <ToastsContainer store={ToastsStore} />
                         <Confirmation />
                     </main>
