@@ -47,7 +47,7 @@ function Vocabulary({ match }) {
             const result = await actions.create(data);
             if (!_.isNil(result)) {
                 setData(result);
-                getClone() ? historyService.go('/admin/vocabularies') : actions.cancel();
+                getClone() ? historyService.go('/vocabularies') : actions.cancel();
             }
         },
         update: async data => {
@@ -60,7 +60,7 @@ function Vocabulary({ match }) {
 
     const onClone = () => {
         cloneActions.setData(controls.getValues());
-        historyService.go('/admin/vocabularies/vocabulary');
+        historyService.go('/vocabularies/vocabulary');
     };
 
     const getForm = id => (

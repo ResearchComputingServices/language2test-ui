@@ -16,9 +16,9 @@ export default function useGridActions(entity, options = {}) {
     const singular = _.kebabCase(pluralize.singular(entity));
     const plural = _.kebabCase(entity);
 
-    const onCreate = () => historyService.go(`/admin/${plural}/${singular}`);
+    const onCreate = () => historyService.go(`/${plural}/${singular}`);
 
-    const onRowClick = (event, row) => historyService.go(`/admin/${plural}/${singular}/${row.id}`);
+    const onRowClick = (event, row) => historyService.go(`/${plural}/${singular}/${row.id}`);
 
     const onImport = async data => {
         try {

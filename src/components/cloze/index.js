@@ -81,7 +81,7 @@ function Cloze({ match }) {
                 const result = await actions.create(data);
                 if (!_.isNil(result)) {
                     setData(result);
-                    getClone() ? historyService.go('/admin/clozes') : actions.cancel();
+                    getClone() ? historyService.go('/clozes') : actions.cancel();
                 }
             },
         update: _.isEmpty(getQuestions())
@@ -216,7 +216,7 @@ function Cloze({ match }) {
             return newQuestion;
         });
         cloneActions.setData(dataToClone);
-        historyService.go('/admin/clozes/cloze');
+        historyService.go('/clozes/cloze');
     };
 
     const getForm = id => (

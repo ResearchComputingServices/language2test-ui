@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import _ from 'lodash';
 import { Drawer } from '../common';
 import { useService } from '../../hooks';
-import useDrawer from './useDrawer';
+import useMainDrawer from './useMainDrawer';
 
 export default function() {
     const historyService = useService('history');
     const {
         getPanelList,
         getDrawerItems,
-    } = useDrawer();
+    } = useMainDrawer();
 
     const getPanelPathFromIndex = (panelList, index) => (panelList[index] || {}).path || '/';
 

@@ -6,18 +6,18 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 
 export default [
     {
-        path: '/admin/dashboard',
+        path: '/dashboard',
         title: 'Dashboard',
         Icon: DashboardIcon,
     },
     {
-        path: '/admin/users',
+        path: '/users',
         title: 'Users',
         Icon: PersonIcon,
         authorization: 'read-user',
     },
     {
-        path: '/admin/student-classes',
+        path: '/student-classes',
         title: 'Student Classes',
         Icon: PeopleIcon,
         authorization: 'read-student-class',
@@ -28,16 +28,16 @@ export default [
         Icon: ReceiptIcon,
         items: [
             {
-                path: '/admin/tests/',
+                path: '/tests/',
                 title: 'Instances',
                 authorization: 'read-test',
             },
             {
-                path: '/admin/test-assignations/',
+                path: '/test-assignations/',
                 title: 'Assignations',
             },
             {
-                path: '/admin/test-sessions/',
+                path: '/test-sessions/',
                 title: 'Sessions',
                 authorization: 'read-test-session',
             },
@@ -46,22 +46,22 @@ export default [
                 title: 'Types',
                 items: [
                     {
-                        path: '/admin/vocabularies',
+                        path: '/vocabularies',
                         title: 'Vocabularies',
                         authorization: 'read-vocabulary',
                     },
                     {
-                        path: '/admin/reading-comprehensions',
+                        path: '/reading-comprehensions',
                         title: 'Reading Comprehensions',
                         authorization: 'read-reading-comprehension',
                     },
                     {
-                        path: '/admin/clozes',
+                        path: '/clozes',
                         title: 'Clozes',
                         authorization: 'read-cloze',
                     },
                     {
-                        path: '/admin/writings',
+                        path: '/writings',
                         title: 'Writings',
                         authorization: 'read-writing',
                     },
@@ -76,27 +76,27 @@ export default [
         Icon: SettingsIcon,
         items: [
             {
-                path: '/admin/test-categories/',
+                path: '/test-categories/',
                 title: 'Test Categories',
                 authorization: 'read-test-category',
             },
             {
-                path: '/admin/demographic-questionnaire-fields/',
+                path: '/demographic-questionnaire-fields/',
                 title: 'Demographic Fields',
                 authorization: 'read-demographic-questionnaire-field',
             },
             {
-                path: '/admin/user-field-types/',
+                path: '/user-field-types/',
                 title: 'User Field Types',
                 authorization: 'read-user-field-type',
             },
             {
-                path: '/admin/enumerations/',
+                path: '/enumerations/',
                 title: 'Enumerations',
                 authorization: 'read-enumeration',
             },
             {
-                path: '/admin/roles/',
+                path: '/roles/',
                 title: 'Roles',
                 authorization: 'read-role',
             },

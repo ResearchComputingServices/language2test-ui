@@ -1,3 +1,3 @@
-import administrator from './administratorDrawer';
+import main from './mainDrawer';
 
-export { administrator };
+export { main };

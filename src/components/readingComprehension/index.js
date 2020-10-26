@@ -113,7 +113,7 @@ function ReadingComprehension({ match }) {
                 const result = await actions.create(data);
                 if (!_.isNil(result)) {
                     setData(result);
-                    getClone() ? historyService.go('/admin/reading-comprehensions') : actions.cancel();
+                    getClone() ? historyService.go('/reading-comprehensions') : actions.cancel();
                 }
             },
         update: _.isEmpty(getQuestions())
@@ -172,7 +172,7 @@ function ReadingComprehension({ match }) {
             return newQuestion;
         });
         cloneActions.setData(dataToClone);
-        historyService.go('/admin/reading-comprehensions/reading-comprehension');
+        historyService.go('/reading-comprehensions/reading-comprehension');
     };
 
     const getForm = id => (

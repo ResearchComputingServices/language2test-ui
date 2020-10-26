@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Drawer from '../drawer';
+import Drawer from '../mainDrawer';
 import {
     Confirmation,
     Error,

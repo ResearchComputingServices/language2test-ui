@@ -246,7 +246,7 @@ function Test({ match }) {
             const result = await actions.create(data);
             if (!_.isNil(result)) {
                 setData(result);
-                getClone() ? historyService.go('/admin/tests') : actions.cancel();
+                getClone() ? historyService.go('/tests') : actions.cancel();
             }
         },
         update: async data => {
@@ -259,7 +259,7 @@ function Test({ match }) {
 
     const onClone = () => {
         cloneActions.setData(controls.getValues({ nest: true }));
-        historyService.go('/admin/tests/test');
+        historyService.go('/tests/test');
     };
 
     const onPreview = () => {
