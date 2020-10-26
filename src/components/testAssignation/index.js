@@ -34,14 +34,16 @@ function TestAssignation({ match }) {
     const checkDatetimeValidation = (startDatetime = moment(), endDatetime = moment()) => {
         startDatetime = moment(startDatetime);
         endDatetime = moment(endDatetime);
-        return startDatetime.isBefore(endDatetime);
+        return startDatetime.isSameOrBefore(endDatetime);
     };
 
     const setError = useCallback(controls.setError, [controls.setError]);
     const clearError = useCallback(controls.clearError, [controls.clearError]);
 
     useEffect(() => {
-        const isValid = checkDatetimeValidation(startDatetime, endDatetime);
+        const reInitializedStartDatetime = startDatetime || moment();
+        const reInitializedEndDatetime = endDatetime || moment();
+        const isValid = checkDatetimeValidation(reInitializedStartDatetime, reInitializedEndDatetime);
         !isValid
             ? setError('customError', 'enoent', 'Start Date Time should not be after End Date Time')
             : clearError();

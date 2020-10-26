@@ -92,7 +92,6 @@
         "react/jsx-boolean-value": "error",
         "react/jsx-equals-spacing": "error",
         "react/jsx-first-prop-new-line": "error",
-        "react/jsx-handler-names": "error",
         "react/jsx-key": "error",
         "react/jsx-max-props-per-line": [
             "error",
@@ -164,6 +163,7 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": 0,
-        "import/no-cycle": 0
+        "import/no-cycle": 0,
+        "react/jsx-handler-names": 0
     }
 }

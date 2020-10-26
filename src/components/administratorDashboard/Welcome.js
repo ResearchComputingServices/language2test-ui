@@ -7,9 +7,7 @@ function Welcome({ name }) {
     return (
         <>
             <div className='welcome-container p-4'>
-                <Typography
-                    variant='h5'
-                >
+                <Typography variant='h5'>
                     {`Welcome back, ${name}`}
                 </Typography>
                 <Typography
@@ -26,6 +24,6 @@ function Welcome({ name }) {
 
 Welcome.propTypes = { name: PropTypes.string };
 
-Welcome.defaultProps = { name: '🤖' };
+Welcome.defaultProps = { name: 'Anonymous' };
 
 export default Welcome;
