@@ -180,17 +180,17 @@ function Main({ authenticate }) {
                                     displayName={displayName}
                                     dropdowns={[
                                         authenticated && authorizationCheckerService.has('admin') && {
-                                            title: 'Admin Panel',
+                                            title: 'Admin Dashboard',
                                             Icon: <SupervisorAccountIcon />,
                                             handler: () => {
-                                                historyService.go('/admin');
+                                                historyService.go('/admin/dashboard');
                                             },
                                         },
                                         authenticated && authorizationCheckerService.has('test') && {
-                                            title: 'Test Schedule',
+                                            title: 'Student Dashboard',
                                             Icon: <AssignmentIcon />,
                                             handler: () => {
-                                                historyService.go('/test');
+                                                historyService.go('/student/dashboard');
                                                 hideDrawer();
                                             },
                                         },

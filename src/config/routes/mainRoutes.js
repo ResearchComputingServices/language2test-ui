@@ -1,5 +1,5 @@
 import Administrator from '../../components/administrator';
-import TestWizardSession from '../../components/testWizardSession';
+import StudentDashboard from '../../components/studentDashboard';
 import TestWizard from '../../components/testWizard';
 import NotFound from '../../components/common/NotFound';
 
@@ -11,7 +11,7 @@ export default [
                 return Administrator;
             }
             if (authorizationCheckerService.has('test')) {
-                return TestWizardSession;
+                return StudentDashboard;
             }
             return NotFound;
         },
@@ -22,8 +22,8 @@ export default [
         authorization: 'admin',
     },
     {
-        path: '/test',
-        component: TestWizardSession,
+        path: '/student/dashboard',
+        component: StudentDashboard,
         authorization: 'test',
     },
     {
