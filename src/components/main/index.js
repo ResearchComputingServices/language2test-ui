@@ -54,7 +54,7 @@ function Main({ authenticate }) {
     const { displayName, authenticated } = useStore('userSession');
     const { confirmed: dialogConfirmed, canceled: dialogCanceled, key: dialogKey } = useStore('dialog');
     const { login: loginUser, logout: logoutUser } = useActions('userSession');
-    const { toggle: toggleDrawer, hide: hideDrawer, show: showDrawer } = useActions('drawer');
+    const { toggle: toggleDrawer, hide: hideDrawer } = useActions('drawer');
     const { showDialog, hideDialog } = useActions('dialog');
     const { disable: disableDrawer } = useActions('drawer');
     const wideScreenMode = useIsWideScreenMode();
@@ -184,7 +184,6 @@ function Main({ authenticate }) {
                                             Icon: <SupervisorAccountIcon />,
                                             handler: () => {
                                                 historyService.go('/admin');
-                                                if (wideScreenMode && !drawerOpen) showDrawer();
                                             },
                                         },
                                         authenticated && authorizationCheckerService.has('test') && {
