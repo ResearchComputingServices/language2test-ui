@@ -10,7 +10,6 @@ export default function() {
     return (
         <Layout className='my-4'>
             <EnumerationsGrid
-                onCreate={authorizationCheckerService.has('create-role') ? actions.onCreate : undefined}
                 onExport={authorizationCheckerService.has('export-role') ? actions.onExport : undefined}
                 onImport={authorizationCheckerService.has('import-role') ? actions.onImport : undefined}
                 onRowClick={actions.onRowClick}
