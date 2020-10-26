@@ -2,8 +2,14 @@ import PersonIcon from '@material-ui/icons/Person';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import PeopleIcon from '@material-ui/icons/People';
 import SettingsIcon from '@material-ui/icons/Settings';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 export default [
+    {
+        path: '/admin/dashboard',
+        title: 'Dashboard',
+        Icon: DashboardIcon,
+    },
     {
         path: '/admin/users',
         title: 'Users',

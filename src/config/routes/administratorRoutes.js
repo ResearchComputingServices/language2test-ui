@@ -27,8 +27,13 @@ import Role from '../../components/role';
 import Roles from '../../components/roles';
 import TestAssignations from '../../components/testAssignations';
 import TestAssignation from '../../components/testAssignation';
+import AdministratorDashboard from '../../components/administratorDashboard';
 
 export default [
+    {
+        path: '/admin/dashboard',
+        component: AdministratorDashboard,
+    },
     {
         path: '/admin/vocabularies',
         component: Vocabularies,
