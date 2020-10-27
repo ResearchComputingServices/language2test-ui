@@ -35,7 +35,7 @@ import useProvider from './useProvider';
 import useRoutes from './useRoutes';
 import useDrawer from './useDrawer';
 import useFormButtons from './useFormButtons';
-import useAuthorizationCheckerService from './useAuthorizationCheckerService';
+import useRolesCheckerService from './useRolesCheckerService';
 import useEventListener from './useEventListener';
 import useGridActions from './useGridActions';
 import usePagination from './usePagination';
@@ -80,7 +80,7 @@ export {
     useRoutes,
     useDrawer,
     useFormButtons,
-    useAuthorizationCheckerService,
+    useRolesCheckerService,
     useEventListener,
     useGridActions,
     usePagination,

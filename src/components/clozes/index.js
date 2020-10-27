@@ -1,18 +1,18 @@
 import React from 'react';
 import { Layout } from '../common';
 import ClozesGrid from './Grid';
-import { useGridActions, useAuthorizationCheckerService } from '../../hooks';
+import { useGridActions, useRolesCheckerService } from '../../hooks';
 
 export default function() {
-    const authorizationCheckerService = useAuthorizationCheckerService();
+    const rolesCheckerService = useRolesCheckerService();
     const actions = useGridActions('clozes');
 
     return (
         <Layout className='my-4'>
             <ClozesGrid
-                onCreate={authorizationCheckerService.has('create-cloze') ? actions.onCreate : undefined}
-                onExport={authorizationCheckerService.has('export-cloze') ? actions.onExport : undefined}
-                onImport={authorizationCheckerService.has('import-cloze') ? actions.onImport : undefined}
+                onCreate={rolesCheckerService.has('create-cloze') ? actions.onCreate : undefined}
+                onExport={rolesCheckerService.has('export-cloze') ? actions.onExport : undefined}
+                onImport={rolesCheckerService.has('import-cloze') ? actions.onImport : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>

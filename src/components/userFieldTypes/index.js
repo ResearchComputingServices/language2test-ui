@@ -1,16 +1,16 @@
 import React from 'react';
 import UserFieldTypesGrid from './Grid';
 import { Layout } from '../common';
-import { useGridActions, useAuthorizationCheckerService } from '../../hooks';
+import { useGridActions, useRolesCheckerService } from '../../hooks';
 
 export default function() {
     const actions = useGridActions('userFieldTypes');
-    const authorizationCheckerService = useAuthorizationCheckerService();
+    const rolesCheckerService = useRolesCheckerService();
 
     return (
         <Layout className='my-4'>
             <UserFieldTypesGrid
-                onCreate={authorizationCheckerService.has('create-user-field-type') ? actions.onCreate : undefined}
+                onCreate={rolesCheckerService.has('create-user-field-type') ? actions.onCreate : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>

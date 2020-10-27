@@ -2,7 +2,7 @@ import React from 'react';
 import FileSaver from 'file-saver';
 import UsersGrid from './Grid';
 import { Layout } from '../common';
-import { useGridActions, useAuthorizationCheckerService } from '../../hooks';
+import { useGridActions, useRolesCheckerService } from '../../hooks';
 
 export default function() {
     const actions = useGridActions('users', {
@@ -14,13 +14,13 @@ export default function() {
             FileSaver.saveAs(blob, 'user-import-report.xlsx');
         },
     });
-    const authorizationCheckerService = useAuthorizationCheckerService();
+    const rolesCheckerService = useRolesCheckerService();
     return (
         <Layout className='my-4'>
             <UsersGrid
-                onCreate={authorizationCheckerService.has('create-user') ? actions.onCreate : undefined}
-                onExport={authorizationCheckerService.has('export-user') ? actions.onExport : undefined}
-                onImport={authorizationCheckerService.has('import-user') ? actions.onImport : undefined}
+                onCreate={rolesCheckerService.has('create-user') ? actions.onCreate : undefined}
+                onExport={rolesCheckerService.has('export-user') ? actions.onExport : undefined}
+                onImport={rolesCheckerService.has('import-user') ? actions.onImport : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>

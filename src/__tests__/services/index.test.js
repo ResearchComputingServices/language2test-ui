@@ -21,7 +21,6 @@ describe('index', () => {
             'userFieldType',
             'writing',
             'enumeration',
-            'authorizationChecker',
             'routesAssembler',
             'drawerAssembler',
             'authorization',

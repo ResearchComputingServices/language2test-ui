@@ -15,7 +15,6 @@ import demographicQuestionnaireField from './DemographicQuestionnaireFieldServic
 import userFieldType from './UserFieldTypeService';
 import writing from './WritingService';
 import enumeration from './EnumerationService';
-import authorizationChecker from './AuthorizationCheckerService';
 import routesAssembler from './RoutesAssemblerService';
 import drawerAssembler from './DrawerAssemblerService';
 import authorization from './AuthorizationsService';
@@ -42,7 +41,6 @@ export {
     userFieldType,
     writing,
     enumeration,
-    authorizationChecker,
     routesAssembler,
     drawerAssembler,
     authorization,

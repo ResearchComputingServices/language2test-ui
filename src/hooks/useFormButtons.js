@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import useAuthorizationCheckerService from './useAuthorizationCheckerService';
+import useRolesCheckerService from './useRolesCheckerService';
 
 function getButton(authorizationCheckerService, title, handler, options = {}) {
     const skipAuthorization = _.get(options, 'skipAuthorization', false);
@@ -24,7 +24,7 @@ function getButton(authorizationCheckerService, title, handler, options = {}) {
 }
 
 export default function useFormButtons(id, entity, handlers, disableMutation = false, disableDelete = false, skipAuthorization = false) {
-    const authorizationCheckerService = useAuthorizationCheckerService();
+    const authorizationCheckerService = useRolesCheckerService();
     const { create, update, remove, download, cancel } = handlers;
     entity = _.kebabCase(entity);
     return [

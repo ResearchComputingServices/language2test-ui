@@ -1,17 +1,17 @@
 import React from 'react';
 import { Layout } from '../common';
 import TestCategoriesGrid from './Grid';
-import { useGridActions, useAuthorizationCheckerService } from '../../hooks';
+import { useGridActions, useRolesCheckerService } from '../../hooks';
 
 export default function() {
     const actions = useGridActions('testCategories');
-    const authorizationCheckerService = useAuthorizationCheckerService();
+    const rolesCheckerService = useRolesCheckerService();
 
     return (
         <Layout className='my-4'>
             <TestCategoriesGrid
-                onCreate={authorizationCheckerService.has('create-test-category') ? actions.onCreate : undefined}
-                onExport={authorizationCheckerService.has('export-test-category') ? actions.onExport : undefined}
+                onCreate={rolesCheckerService.has('create-test-category') ? actions.onCreate : undefined}
+                onExport={rolesCheckerService.has('export-test-category') ? actions.onExport : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>

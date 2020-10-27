@@ -248,12 +248,12 @@ export default [
         roles: 'Administrator',
     },
     {
-        path: '/roles/roles/:id',
+        path: '/roles/role/:id',
         component: Role,
         roles: 'Administrator',
     },
     {
-        path: '/*',
+        path: '*',
         component: NotFound,
     },
 ];
