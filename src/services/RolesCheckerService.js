@@ -24,7 +24,7 @@ class RolesCheckerService {
     }
 
     has(role, options) {
-        const operator = _.get(options, 'operator', 'and');
+        const operator = _.get(options, 'operator', 'or');
         let roles = role;
         if (!(operator in this.allowedOperators)) {
             throw new Error('Invalid operator props');

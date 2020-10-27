@@ -8,13 +8,12 @@ class DrawerAssemblerService {
 
     isItemAuthorized(item) {
         const {
-            role,
             roles,
             operator,
         } = item;
         let auth = [];
-        if (_.isString(role)) {
-            auth.push(role);
+        if (_.isString(roles)) {
+            auth.push(roles);
         }
         if (_.isArray(roles)) {
             auth = auth.concat(roles);

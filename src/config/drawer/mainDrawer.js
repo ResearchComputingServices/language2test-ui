@@ -8,24 +8,26 @@ export default [
     {
         path: '/dashboard/test-taker',
         title: 'Test Taker Dashboard',
+        roles: ['Administrator', 'Test Taker'],
         Icon: DashboardIcon,
     },
     {
-        path: '/dashboard/teacher',
-        title: 'Teacher Dashboard',
+        path: '/dashboard/instructor',
+        title: 'Instructor Dashboard',
+        roles: ['Administrator', 'Instructor'],
         Icon: DashboardIcon,
     },
     {
         path: '/users',
         title: 'Users',
         Icon: PersonIcon,
-        role: 'Administrator',
+        roles: 'Administrator',
     },
     {
         path: '/student-classes',
         title: 'Student Classes',
         Icon: PeopleIcon,
-        role: 'Administrator',
+        roles: 'Administrator',
     },
     {
         name: 'test',
@@ -35,16 +37,17 @@ export default [
             {
                 path: '/tests/',
                 title: 'Instances',
-                role: 'Administrator',
+                roles: ['Administrator', 'Instructor', 'Test Developer'],
             },
             {
                 path: '/test-assignations/',
                 title: 'Assignations',
+                roles: 'Administrator',
             },
             {
                 path: '/test-sessions/',
                 title: 'Sessions',
-                role: 'Administrator',
+                roles: 'Administrator',
             },
             {
                 name: 'types',
@@ -53,22 +56,22 @@ export default [
                     {
                         path: '/vocabularies',
                         title: 'Vocabularies',
-                        role: 'Administrator',
+                        roles: ['Administrator', 'Instructor'],
                     },
                     {
                         path: '/reading-comprehensions',
                         title: 'Reading Comprehensions',
-                        role: 'Administrator',
+                        roles: ['Administrator', 'Instructor'],
                     },
                     {
                         path: '/clozes',
                         title: 'Clozes',
-                        role: 'Administrator',
+                        roles: ['Administrator', 'Instructor'],
                     },
                     {
                         path: '/writings',
                         title: 'Writings',
-                        role: 'Administrator',
+                        roles: ['Administrator', 'Instructor'],
                     },
                 ],
             },
@@ -83,27 +86,27 @@ export default [
             {
                 path: '/test-categories/',
                 title: 'Test Categories',
-                role: 'Administrator',
+                roles: 'Administrator',
             },
             {
                 path: '/demographic-questionnaire-fields/',
                 title: 'Demographic Fields',
-                role: 'Administrator',
+                roles: 'Administrator',
             },
             {
                 path: '/user-field-types/',
                 title: 'User Field Types',
-                role: 'Administrator',
+                roles: 'Administrator',
             },
             {
                 path: '/enumerations/',
                 title: 'Enumerations',
-                role: 'Administrator',
+                roles: 'Administrator',
             },
             {
                 path: '/roles/',
                 title: 'Roles',
-                role: 'Administrator',
+                roles: 'Administrator',
             },
         ],
     },

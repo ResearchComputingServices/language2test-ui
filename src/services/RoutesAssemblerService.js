@@ -12,9 +12,8 @@ class RoutesAssemblerService {
             const {
                 path,
                 component,
-                authorization,
-                authorizations,
-                authorizationOperator,
+                roles,
+                operator,
                 redirect,
                 conditional,
                 exact,
@@ -30,14 +29,14 @@ class RoutesAssemblerService {
                 return true;
             }
             let auth = [];
-            if (_.isString(authorization)) {
-                auth.push(authorization);
+            if (_.isString(roles)) {
+                auth.push(roles);
             }
-            if (_.isArray(authorizations)) {
-                auth.concat(authorizations);
+            if (_.isArray(roles)) {
+                auth = auth.concat(roles);
             }
             auth = _.uniq(auth);
-            const options = _.isNil(authorizationOperator) ? undefined : authorizationOperator;
+            const options = _.isNil(operator) ? undefined : operator;
             if (!_.isNil(redirect)) {
                 rolesCheckerService.contains(auth, options)
                     ? routeComponents.push(<Route
