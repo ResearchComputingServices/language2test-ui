@@ -27,7 +27,8 @@ import Role from '../../components/role';
 import Roles from '../../components/roles';
 import TestAssignations from '../../components/testAssignations';
 import TestAssignation from '../../components/testAssignation';
-import AdministratorDashboard from '../../components/administratorDashboard';
+import TeacherDashboard from '../../components/teacherDashboard';
+import TestTakerDashboard from '../../components/testTakerDashboard';
 import TestWizard from '../../components/testWizard';
 
 export default [
@@ -37,8 +38,12 @@ export default [
         role: 'Administrator',
     },
     {
-        path: '/dashboard',
-        component: AdministratorDashboard,
+        path: '/dashboard/teacher',
+        component: TeacherDashboard,
+    },
+    {
+        path: '/dashboard/test-taker',
+        component: TestTakerDashboard,
     },
     {
         path: '/vocabularies',

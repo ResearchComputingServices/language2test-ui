@@ -30,7 +30,8 @@ export default function() {
                 break;
             }
         }
-        if (!isPanelNameValid) {
+        // TODO - Needs a fix.
+        if (!isPanelNameValid && !_.eq(panelName, 'wizard')) {
             historyService.go(getPanelPathFromIndex(panelList, 0));
         }
     };

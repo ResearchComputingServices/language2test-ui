@@ -10,7 +10,7 @@ function AdministratorDashboard() {
     return (
         <>
             <Welcome name={userSession.firstName} />
-            <div className='dashboard-activities'>
+            <div className='teacher-dashboard-activities'>
                 <div className='p-2'>
                     <Typography
                         className='pl-2 pb-2'

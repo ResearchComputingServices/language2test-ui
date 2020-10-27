@@ -5,7 +5,13 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import { Layout } from '../common';
 import WizardControls from '../testWizardUtilities/WizardControls';
-import { useStore, useTestWizardStores, useService, useActions } from '../../hooks';
+import {
+    useMount,
+    useStore,
+    useTestWizardStores,
+    useService,
+    useActions,
+} from '../../hooks';
 import TestWizardResults from '../testWizardResult';
 import testWizardSteps from '../../config/wizardSteps/testWizardSteps';
 
@@ -24,6 +30,9 @@ export default function() {
     } = useStore('dialog');
     const { setActiveStep, reset } = useActions('testWizardSession');
     const { showDialog, hideDialog } = useActions('dialog');
+    const { hide: hideDrawer } = useActions('drawer');
+
+    useMount(hideDrawer);
 
     const [isBackButtonClicked, setBackbuttonPress] = useState(false);
 
