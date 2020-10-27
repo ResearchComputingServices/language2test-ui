@@ -12,6 +12,12 @@ import {
 } from '../../hooks';
 
 function StudentClass({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'studentClass';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -41,7 +47,7 @@ function StudentClass({ match }) {
                 setData(result);
             }
         },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)

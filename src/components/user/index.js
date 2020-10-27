@@ -20,6 +20,12 @@ import { Layout, NotFound } from '../common';
 import Form from './Form';
 
 function User({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'user';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -210,7 +216,7 @@ function User({ match }) {
                 }
             }
         },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)

@@ -17,6 +17,12 @@ import {
 } from '../../hooks';
 
 function Writing({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'writing';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -83,7 +89,7 @@ function Writing({ match }) {
                 setData(result);
             }
         },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const onClone = () => {
         cloneActions.setData(controls.getValues());

@@ -21,6 +21,12 @@ import InteractiveTextEditor from './InteractiveTextEditor';
 import useCloze from './useCloze';
 
 function Cloze({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'cloze';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -94,7 +100,7 @@ function Cloze({ match }) {
                     setData(result);
                 }
             },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const onRemoveQuestion = data => {
         const questions = getQuestions();

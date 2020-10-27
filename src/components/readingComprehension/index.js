@@ -24,6 +24,12 @@ import {
 } from '../../hooks';
 
 function ReadingComprehension({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'readingComprehension';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -125,7 +131,7 @@ function ReadingComprehension({ match }) {
                     setData(result);
                 }
             },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const onAddQuestion = data => {
         const questions = getQuestions();

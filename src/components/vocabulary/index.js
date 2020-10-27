@@ -16,6 +16,12 @@ import {
 } from '../../hooks';
 
 function Vocabulary({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'vocabulary';
     const id = _.get(match, 'params.id');
     const layout = useFormLayout(entity);
@@ -56,7 +62,7 @@ function Vocabulary({ match }) {
                 setData(result);
             }
         },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const onClone = () => {
         cloneActions.setData(controls.getValues());

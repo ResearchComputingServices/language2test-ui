@@ -15,6 +15,12 @@ import {
 } from '../../hooks';
 
 function TestAssignation({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'testAssignation';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -64,7 +70,7 @@ function TestAssignation({ match }) {
                 setData(result);
             }
         },
-    }, {}, data.immutable, data.unremovable, true);
+    }, rights, data.immutable, data.unremovable, true);
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)

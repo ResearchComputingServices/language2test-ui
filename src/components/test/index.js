@@ -17,6 +17,12 @@ import {
 } from '../../hooks';
 
 function Test({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'test';
     const id = _.get(match, 'params.id');
     const typeFields = {
@@ -255,7 +261,7 @@ function Test({ match }) {
                 setData(result);
             }
         },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const onClone = () => {
         cloneActions.setData(controls.getValues({ nest: true }));

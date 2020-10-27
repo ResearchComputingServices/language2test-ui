@@ -13,6 +13,12 @@ import testSessionFormLayout from '../../config/formLayouts/testSessionFormLayou
 import TestSessionResults from '../testSessionResult';
 
 function TestSession({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'testSession';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -24,7 +30,7 @@ function TestSession({ match }) {
 
     const actions = _.omit(useFormActions(entity, 'test session'), ['download']);
 
-    const buttons = useFormButtons(id, entity, actions, {}, data.immutable, data.unremovable);
+    const buttons = useFormButtons(id, entity, actions, rights, data.immutable, data.unremovable);
 
     return (
         <Layout

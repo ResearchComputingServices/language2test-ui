@@ -12,6 +12,12 @@ import {
 } from '../../hooks';
 
 function TestCategory({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'testCategory';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -41,7 +47,7 @@ function TestCategory({ match }) {
                 setData(result);
             }
         },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)

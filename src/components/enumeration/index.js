@@ -12,6 +12,12 @@ import {
 } from '../../hooks';
 
 function Enumeration({ match }) {
+    const rights = {
+        create: ['Administrator'],
+        update: ['Administrator'],
+        delete: ['Administrator'],
+        export: ['Administrator'],
+    };
     const entity = 'enumeration';
     const id = _.get(match, 'params.id');
     const animationTimeout = 300;
@@ -89,7 +95,7 @@ function Enumeration({ match }) {
                 setData(result);
             }
         },
-    }, {}, data.immutable, data.unremovable);
+    }, rights, data.immutable, data.unremovable);
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
