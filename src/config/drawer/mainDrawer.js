@@ -3,18 +3,20 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import PeopleIcon from '@material-ui/icons/People';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 export default [
     {
         path: '/dashboard/test-taker',
-        title: 'Test Taker Dashboard',
-        roles: ['Administrator', 'Test Taker'],
+        title: 'Dashboard',
+        roles: 'Test Taker',
         Icon: DashboardIcon,
     },
     {
         path: '/dashboard/instructor',
-        title: 'Instructor Dashboard',
-        roles: ['Administrator', 'Instructor'],
+        title: 'Dashboard',
+        roles: 'Instructor',
         Icon: DashboardIcon,
     },
     {
@@ -83,6 +85,24 @@ export default [
         title: 'Settings',
         Icon: SettingsIcon,
         items: [
+            {
+                title: 'Dashboards',
+                Icon: DashboardIcon,
+                items: [
+                    {
+                        path: '/dashboard/test-taker',
+                        title: 'Test Taker Dashboard',
+                        roles: 'Administrator',
+                        Icon: AssignmentIndIcon,
+                    },
+                    {
+                        path: '/dashboard/instructor',
+                        title: 'Instructor Dashboard',
+                        roles: 'Administrator',
+                        Icon: AssignmentTurnedInIcon,
+                    },
+                ],
+            },
             {
                 path: '/test-categories/',
                 title: 'Test Categories',
