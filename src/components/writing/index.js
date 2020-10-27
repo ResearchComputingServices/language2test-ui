@@ -102,6 +102,7 @@ function Writing({ match }) {
                     dynamicLayout={dynamicLayout}
                     layout={layout}
                     onClone={!getClone() ? onClone : undefined}
+                    readonly={data.immutable}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Writing`}
                 />
             ));

@@ -7,7 +7,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { Button } from '../common';
 import getFields from './config';
 
-function createForm(elements, index, layout, data, controls) {
+function createForm(elements, index, layout, data, controls, readonly) {
     const fields = getFields(controls);
     _.each(layout, field => {
         ++index;
@@ -33,7 +33,7 @@ function createForm(elements, index, layout, data, controls) {
                 throw new Error('Every section must contain elements, check your form layout.');
             }
             const innerElements = [];
-            const newIndex = createForm(innerElements, index, field.elements, data, controls);
+            const newIndex = createForm(innerElements, index, field.elements, data, controls, readonly);
             const groupProps = _.pick(field, ['className', 'style']);
             elements.push((
                 <div
@@ -52,6 +52,9 @@ function createForm(elements, index, layout, data, controls) {
             delete clonedField.label;
             delete clonedField.name;
             delete clonedField.displayRule;
+            if (readonly) {
+                clonedField.disabled = true;
+            }
             const element = fields[type](index, {
                 ...clonedField,
                 name,
@@ -65,9 +68,9 @@ function createForm(elements, index, layout, data, controls) {
     return index;
 }
 
-function FormSection({ index, append, prepend, layout, data, controls }) {
+function FormSection({ index, append, prepend, layout, data, controls, readonly }) {
     const elements = [];
-    createForm(elements, index, layout, data, controls);
+    createForm(elements, index, layout, data, controls, readonly);
     return (
         <>
             {prepend}
@@ -95,9 +98,9 @@ function createCustomError(errors) {
     return null;
 }
 
-function Form({ controls, data, layout, sections, buttons }) {
+function Form({ controls, data, layout, sections, buttons, readonly }) {
     const elements = [];
-    const index = createForm(elements, 0, layout, data, controls);
+    const index = createForm(elements, 0, layout, data, controls, readonly);
     const getHandler = handler => (_.isFunction(handler) ? handler : _.noop);
 
     // If there are any form errors we immediately notify the user indicating an error via toast message.
@@ -159,12 +162,14 @@ FormSection.propTypes = {
     controls: PropTypes.object.isRequired,
     data: PropTypes.object,
     layout: PropTypes.array.isRequired,
+    readonly: PropTypes.bool,
 };
 
 FormSection.defaultProps = {
     data: {},
     append: null,
     prepend: null,
+    readonly: false,
 };
 
 Form.propTypes = {
@@ -173,11 +178,13 @@ Form.propTypes = {
     layout: PropTypes.array.isRequired,
     sections: PropTypes.array,
     buttons: PropTypes.array,
+    readonly: PropTypes.bool,
 };
 
 Form.defaultProps = {
     sections: [],
     buttons: [],
+    readonly: false,
 };
 
 export default Form;

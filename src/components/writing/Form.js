@@ -11,6 +11,7 @@ function WritingForm({
     buttons,
     controls,
     onClone,
+    readonly,
 }) {
     const getUsedIn = data => {
         if (data.immutable && data.unremovable) {
@@ -39,6 +40,7 @@ function WritingForm({
                     controls={controls}
                     data={data}
                     layout={layout.concat(dynamicLayout)}
+                    readonly={readonly}
                 />
             </div>
         </FormPaper>
@@ -53,6 +55,7 @@ WritingForm.propTypes = {
     controls: PropTypes.object.isRequired,
     buttons: PropTypes.array,
     onClone: PropTypes.func,
+    readonly: PropTypes.bool,
 };
 
 WritingForm.defaultProps = {
@@ -61,6 +64,7 @@ WritingForm.defaultProps = {
     dynamicLayout: [],
     buttons: [],
     onClone: undefined,
+    readonly: false,
 };
 
 export default WritingForm;

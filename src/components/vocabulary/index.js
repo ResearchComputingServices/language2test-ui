@@ -73,6 +73,7 @@ function Vocabulary({ match }) {
                     data={data}
                     layout={layout}
                     onClone={!getClone() ? onClone : undefined}
+                    readonly={data.immutable}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Vocabulary`}
                 />
             ));

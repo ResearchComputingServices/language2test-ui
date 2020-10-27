@@ -10,6 +10,7 @@ function VocabularyForm({
     buttons,
     onClone,
     controls,
+    readonly,
 }) {
     const getUsedIn = data => {
         if (data.immutable && data.unremovable) {
@@ -27,7 +28,7 @@ function VocabularyForm({
             <div className='form-body'>
                 <div className='d-flex flex-direction-column justify-content-between'>
                     <h6 className='form-title'>{title}</h6>
-                    {onClone && <CloneButton onClick={onClone} />}
+                    {!readonly && onClone && <CloneButton onClick={onClone} />}
                 </div>
                 <InUse
                     msg={`Currently being used in one or more ${getUsedIn(data)}`}
@@ -38,6 +39,7 @@ function VocabularyForm({
                     controls={controls}
                     data={data}
                     layout={layout}
+                    readonly={readonly}
                 />
             </div>
         </FormPaper>
@@ -51,6 +53,7 @@ VocabularyForm.propTypes = {
     controls: PropTypes.object.isRequired,
     buttons: PropTypes.array,
     onClone: PropTypes.func,
+    readonly: PropTypes.bool,
 };
 
 VocabularyForm.defaultProps = {
@@ -58,6 +61,7 @@ VocabularyForm.defaultProps = {
     data: {},
     buttons: [],
     onClone: undefined,
+    readonly: false,
 };
 
 export default VocabularyForm;

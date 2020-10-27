@@ -11,6 +11,7 @@ function ClozeForm({
     controls,
     children,
     onClone,
+    readonly,
 }) {
     const ref = createRef();
     const getUsedIn = data => {
@@ -40,6 +41,7 @@ function ClozeForm({
                     controls={controls}
                     data={data}
                     layout={layout}
+                    readonly={readonly}
                     sections={[{
                         layout: [{
                             type: 'raw',
@@ -60,6 +62,7 @@ ClozeForm.propTypes = {
     controls: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
     onClone: PropTypes.func,
+    readonly: PropTypes.bool,
 };
 
 ClozeForm.defaultProps = {
@@ -67,6 +70,7 @@ ClozeForm.defaultProps = {
     data: {},
     buttons: [],
     onClone: undefined,
+    readonly: false,
 };
 
 export default ClozeForm;

@@ -12,6 +12,7 @@ function ReadingComprehensionForm({
     buttons,
     onClone,
     children,
+    readonly,
 }) {
     const ref = createRef();
     const getUsedIn = data => {
@@ -30,7 +31,7 @@ function ReadingComprehensionForm({
             <div className='form-body'>
                 <div className='d-flex flex-direction-column justify-content-between'>
                     <h6 className='form-title'>{title}</h6>
-                    {onClone && <CloneButton onClick={onClone} />}
+                    {onClone && !readonly && <CloneButton onClick={onClone} />}
                 </div>
                 <InUse
                     msg={`Currently being used in one or more ${getUsedIn(data)}`}
@@ -41,6 +42,7 @@ function ReadingComprehensionForm({
                     controls={controls}
                     data={data}
                     layout={layout.concat(dynamicLayout)}
+                    readonly={readonly}
                     sections={[{
                         layout: [{
                             type: 'raw',
@@ -62,6 +64,7 @@ ReadingComprehensionForm.propTypes = {
     controls: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
     onClone: PropTypes.func,
+    readonly: PropTypes.bool,
 };
 
 ReadingComprehensionForm.defaultProps = {
@@ -69,6 +72,7 @@ ReadingComprehensionForm.defaultProps = {
     data: {},
     buttons: [],
     onClone: undefined,
+    readonly: false,
 };
 
 export default ReadingComprehensionForm;

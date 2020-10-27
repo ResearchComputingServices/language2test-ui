@@ -186,6 +186,7 @@ function ReadingComprehension({ match }) {
                     dynamicLayout={dynamicLayout}
                     layout={layout}
                     onClone={!getClone() ? onClone : undefined}
+                    readonly={data.immutable}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Reading Comprehension`}
                 >
                     <div className='reading-comprehension-sub-title mb-4'><u>Add Question</u></div>
