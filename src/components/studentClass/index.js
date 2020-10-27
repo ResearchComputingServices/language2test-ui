@@ -32,7 +32,7 @@ function StudentClass({ match }) {
 
     const actions = useFormActions(entity, 'student class');
 
-    const buttons = useFormButtons(id, entity, {
+    const buttons = useFormButtons(id, {
         ...actions,
         create: async data => {
             const result = await actions.create(data);

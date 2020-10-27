@@ -47,7 +47,7 @@ function Vocabulary({ match }) {
 
     const actions = useFormActions(entity);
 
-    const buttons = useFormButtons(id, entity, {
+    const buttons = useFormButtons(id, {
         ...actions,
         create: async data => {
             const result = await actions.create(data);

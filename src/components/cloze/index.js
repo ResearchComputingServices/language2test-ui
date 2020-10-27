@@ -77,7 +77,7 @@ function Cloze({ match }) {
 
     const actions = useFormActions(entity);
 
-    const buttons = useFormButtons(id, entity, {
+    const buttons = useFormButtons(id, {
         ...actions,
         create: _.isEmpty(getQuestions())
             ? false

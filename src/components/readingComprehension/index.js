@@ -110,7 +110,7 @@ function ReadingComprehension({ match }) {
 
     const actions = useFormActions(entity, 'reading comprehension');
 
-    const buttons = useFormButtons(id, entity, {
+    const buttons = useFormButtons(id, {
         ...actions,
         create: _.isEmpty(getQuestions())
             ? false

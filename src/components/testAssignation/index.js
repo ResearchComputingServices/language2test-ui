@@ -55,7 +55,7 @@ function TestAssignation({ match }) {
             : clearError();
     }, [setError, clearError, startDatetime, endDatetime]);
 
-    const buttons = useFormButtons(id, entity, {
+    const buttons = useFormButtons(id, {
         ...actions,
         create: async data => {
             const result = await actions.create(data);

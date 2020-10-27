@@ -30,7 +30,7 @@ function TestSession({ match }) {
 
     const actions = _.omit(useFormActions(entity, 'test session'), ['download']);
 
-    const buttons = useFormButtons(id, entity, actions, rights, data.immutable, data.unremovable);
+    const buttons = useFormButtons(id, actions, rights, data.immutable, data.unremovable);
 
     return (
         <Layout

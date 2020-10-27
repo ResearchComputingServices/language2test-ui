@@ -78,7 +78,7 @@ function Enumeration({ match }) {
 
     const actions = useFormActions(entity);
 
-    const buttons = useFormButtons(id, entity, {
+    const buttons = useFormButtons(id, {
         ...actions,
         create: async data => {
             data.values = values;
