@@ -210,7 +210,7 @@ function User({ match }) {
                 }
             }
         },
-    }, data.immutable, data.unremovable);
+    }, {}, data.immutable, data.unremovable);
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)

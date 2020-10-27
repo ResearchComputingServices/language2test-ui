@@ -3,15 +3,15 @@ import { Layout } from '../common';
 import TestsGrid from './Grid';
 import { useGridActions, useRolesCheckerService } from '../../hooks';
 
-export default function() {
+export default function Tests() {
     const actions = useGridActions('tests');
     const rolesCheckerService = useRolesCheckerService();
 
     return (
         <Layout className='my-4'>
             <TestsGrid
-                onCreate={rolesCheckerService.has('create-test') ? actions.onCreate : undefined}
-                onExport={rolesCheckerService.has('export-test') ? actions.onExport : undefined}
+                onCreate={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onCreate : undefined}
+                onExport={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onExport : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>

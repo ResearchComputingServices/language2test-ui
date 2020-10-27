@@ -94,7 +94,7 @@ function Cloze({ match }) {
                     setData(result);
                 }
             },
-    }, data.immutable, data.unremovable);
+    }, {}, data.immutable, data.unremovable);
 
     const onRemoveQuestion = data => {
         const questions = getQuestions();

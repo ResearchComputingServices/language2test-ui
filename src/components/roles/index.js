@@ -1,19 +1,14 @@
 import React from 'react';
 import { Layout } from '../common';
 import EnumerationsGrid from './Grid';
-import { useGridActions, useRolesCheckerService } from '../../hooks';
+import { useGridActions } from '../../hooks';
 
-export default function() {
+export default function Roles() {
     const actions = useGridActions('roles');
-    const rolesCheckerService = useRolesCheckerService();
 
     return (
         <Layout className='my-4'>
-            <EnumerationsGrid
-                onExport={rolesCheckerService.has('export-role') ? actions.onExport : undefined}
-                onImport={rolesCheckerService.has('import-role') ? actions.onImport : undefined}
-                onRowClick={actions.onRowClick}
-            />
+            <EnumerationsGrid onRowClick={actions.onRowClick} />
         </Layout>
     );
 }

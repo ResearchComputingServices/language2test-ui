@@ -23,27 +23,29 @@ function getButton(rolesCheckerService, title, handler, options = {}) {
     };
 }
 
-export default function useFormButtons(id, entity, handlers, disableMutation = false, disableDelete = false, skipAuthorization = false) {
+export default function useFormButtons(
+    id, entity, handlers, authorizations = {}, disableMutation = false, disableDelete = false, skipAuthorization = false,
+) {
     const rolesCheckerService = useRolesCheckerService();
     const { create, update, remove, download, cancel } = handlers;
     entity = _.kebabCase(entity);
     return [
         _.isNil(id) ? getButton(rolesCheckerService, 'Create', create, {
             disabled: disableMutation,
-            authorization: `create-${entity}`,
+            authorization: authorizations.create,
             skipAuthorization,
         }) : null,
         _.isNil(id) ? null : getButton(rolesCheckerService, 'Update', update, {
             disabled: disableMutation,
-            authorization: `update-${entity}`,
+            authorization: authorizations.update,
             skipAuthorization,
         }),
         _.isNil(id) ? null : getButton(rolesCheckerService, 'Delete', remove, {
             disabled: disableDelete,
-            authorization: `delete-${entity}`,
+            authorization: authorizations.delete,
             skipAuthorization,
         }),
-        _.isNil(id) ? null : getButton(rolesCheckerService, 'Export', download, { authorization: `export-${entity}` }),
+        _.isNil(id) ? null : getButton(rolesCheckerService, 'Export', download, { authorization: authorizations.export }),
         getButton(rolesCheckerService, 'Cancel', cancel, { type: 'utility' }),
     ];
 }

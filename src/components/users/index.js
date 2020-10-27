@@ -4,7 +4,7 @@ import UsersGrid from './Grid';
 import { Layout } from '../common';
 import { useGridActions, useRolesCheckerService } from '../../hooks';
 
-export default function() {
+export default function Users() {
     const actions = useGridActions('users', {
         import: file => {
             const blob = new Blob(
@@ -18,9 +18,9 @@ export default function() {
     return (
         <Layout className='my-4'>
             <UsersGrid
-                onCreate={rolesCheckerService.has('create-user') ? actions.onCreate : undefined}
-                onExport={rolesCheckerService.has('export-user') ? actions.onExport : undefined}
-                onImport={rolesCheckerService.has('import-user') ? actions.onImport : undefined}
+                onCreate={rolesCheckerService.has('Administrator') ? actions.onCreate : undefined}
+                onExport={rolesCheckerService.has('Administrator') ? actions.onExport : undefined}
+                onImport={rolesCheckerService.has('Administrator') ? actions.onImport : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>

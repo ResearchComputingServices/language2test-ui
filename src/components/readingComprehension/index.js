@@ -125,7 +125,7 @@ function ReadingComprehension({ match }) {
                     setData(result);
                 }
             },
-    }, data.immutable, data.unremovable);
+    }, {}, data.immutable, data.unremovable);
 
     const onAddQuestion = data => {
         const questions = getQuestions();

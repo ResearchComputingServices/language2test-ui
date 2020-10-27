@@ -53,7 +53,7 @@ function Main({ authenticate }) {
     const { login: loginUser, logout: logoutUser } = useActions('userSession');
     const { toggle: toggleDrawer } = useActions('drawer');
     const { showDialog, hideDialog } = useActions('dialog');
-    const { disable: disableDrawer } = useActions('drawer');
+    const { disable: disableDrawer, hide: hideDrawer } = useActions('drawer');
     const wideScreenMode = useIsWideScreenMode();
 
     const fetchUser = async authenticatedUser => {
@@ -65,11 +65,12 @@ function Main({ authenticate }) {
         try {
             historyService.go('/');
             logoutUser();
+            hideDrawer();
             await keycloakService.logout();
         } catch (err) {
             ToastsStore.error('Failed to logout');
         }
-    }, [historyService, keycloakService, logoutUser]);
+    }, [historyService, keycloakService, logoutUser, hideDrawer]);
 
     const login = async () => {
         if (_.eq(authenticate, false)) {

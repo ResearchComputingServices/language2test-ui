@@ -3,16 +3,16 @@ import WritingTestGrid from './Grid';
 import { Layout } from '../common';
 import { useGridActions, useRolesCheckerService } from '../../hooks';
 
-export default function() {
+export default function Writings() {
     const actions = useGridActions('writings');
     const rolesCheckerService = useRolesCheckerService();
 
     return (
         <Layout className='my-4'>
             <WritingTestGrid
-                onCreate={rolesCheckerService.has('create-writing') ? actions.onCreate : undefined}
-                onExport={rolesCheckerService.has('export-writing') ? actions.onExport : undefined}
-                onImport={rolesCheckerService.has('import-writing') ? actions.onImport : undefined}
+                onCreate={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onCreate : undefined}
+                onExport={rolesCheckerService.has(['Administrator', 'Test Developer', 'Instructor']) ? actions.onExport : undefined}
+                onImport={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onImport : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>

@@ -3,7 +3,7 @@ import { Layout } from '../common';
 import TestAssignationGrid from './Grid';
 import { useGridActions } from '../../hooks';
 
-export default function() {
+export default function TestAssignations() {
     const actions = useGridActions('testAssignations');
 
     return (

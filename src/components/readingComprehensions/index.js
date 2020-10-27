@@ -3,16 +3,16 @@ import { Layout } from '../common';
 import ReadingComprehensionsGrid from './Grid';
 import { useGridActions, useRolesCheckerService } from '../../hooks';
 
-export default function() {
+export default function ReadingCOmprehensions() {
     const rolesCheckerService = useRolesCheckerService();
     const actions = useGridActions('readingComprehensions');
 
     return (
         <Layout className='my-4'>
             <ReadingComprehensionsGrid
-                onCreate={rolesCheckerService.has('create-reading-comprehension') ? actions.onCreate : undefined}
-                onExport={rolesCheckerService.has('export-reading-comprehension') ? actions.onExport : undefined}
-                onImport={rolesCheckerService.has('import-reading-comprehension') ? actions.onImport : undefined}
+                onCreate={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onCreate : undefined}
+                onExport={rolesCheckerService.has(['Administrator', 'Test Developer', 'Test Taker']) ? actions.onExport : undefined}
+                onImport={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onImport : undefined}
                 onRowClick={actions.onRowClick}
             />
         </Layout>

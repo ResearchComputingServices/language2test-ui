@@ -83,7 +83,7 @@ function Writing({ match }) {
                 setData(result);
             }
         },
-    }, data.immutable, data.unremovable);
+    }, {}, data.immutable, data.unremovable);
 
     const onClone = () => {
         cloneActions.setData(controls.getValues());

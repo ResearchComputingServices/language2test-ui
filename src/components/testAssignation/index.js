@@ -64,7 +64,7 @@ function TestAssignation({ match }) {
                 setData(result);
             }
         },
-    }, data.immutable, data.unremovable, true);
+    }, {}, data.immutable, data.unremovable, true);
 
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
