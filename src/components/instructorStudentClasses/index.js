@@ -1,47 +1,58 @@
-import React, { useState } from 'react';
+import React from 'react';
 import _ from 'lodash';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import { useMount, useService } from '../../hooks';
+import { useMount, useService, useStore, useActions } from '../../hooks';
 import { Ripple } from '../common';
 import InstructorStudents from '../instructorStudents';
 import StudentClassCard from './StudentClassCard';
 
-const InfiniteScroll = () => {
-    const [data, setData] = useState([]);
-    const pageSize = 5;
-    const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [noMoreData, setNoMoreData] = useState(false);
+const InstructorStudentClasses = () => {
+    const {
+        pageSize,
+        classes,
+        page,
+        loading,
+        noMoreData,
+        selectedCardIndex,
+    } = useStore('instructorDashboard');
+    const {
+        setLoading,
+        setNoMoreData,
+        setClasses,
+        setPage,
+        setSelectedCardIndex,
+    } = useActions('instructorDashboard');
     const [studentClassService, historyService] = useService('studentClass', 'history');
-    const [selectedCardIndex, setSelectedCardIndex] = useState(null);
 
     const fetchData = async () => {
         try {
             setLoading(true);
-            const classes = await studentClassService.getInstructorClasses({
-                offset: page * pageSize,
+            const newClasses = await studentClassService.getInstructorClasses({
+                offset: (page - 1) * pageSize,
                 limit: pageSize,
                 column: 'id',
                 order: 'desc',
             });
-            if (_.isEmpty(classes)) {
+            if (_.isEmpty(newClasses)) {
                 setNoMoreData(true);
             }
-            setData(!_.isEmpty(data) ? data.concat(classes) : classes);
+            setClasses(!_.isEmpty(classes) ? classes.concat(newClasses) : newClasses);
             setPage(page + 1);
             setLoading(false);
         } catch (err) {}
     };
 
     useMount(() => {
-        fetchData();
+        if (_.isEmpty(classes)) {
+            fetchData();
+        }
     });
 
     const onScroll = event => {
         const { target } = event;
         const hasReachedBottom = target.scrollHeight - target.scrollTop === target.clientHeight;
-        if (hasReachedBottom && data.length > pageSize && !noMoreData) {
+        if (hasReachedBottom && classes.length > pageSize && !noMoreData) {
             fetchData();
         }
     };
@@ -63,19 +74,19 @@ const InfiniteScroll = () => {
                         overflowY: 'scroll',
                     }}
                 >
-                    <div className={clsx('infinite-list', { 'infinite-list-center': _.isEmpty(data) })}>
+                    <div className={clsx('infinite-list', { 'infinite-list-center': _.isEmpty(classes) })}>
                         {
-                            data.map((data, index) => {
-                                console.log(data);
+                            classes.map((classes, index) => {
+                                console.log(classes);
                                 return (
                                     <StudentClassCard
                                         key={index}
-                                        instructor={`${data.instructor.firstName} ${data.instructor.lastName}`}
-                                        level={data.level}
-                                        name={data.display}
+                                        instructor={`${classes.instructor.firstName} ${classes.instructor.lastName}`}
+                                        level={classes.level}
+                                        name={classes.display}
                                         onEdit={event => {
                                             event.stopPropagation();
-                                            historyService.go(`/student-classes/student-class/${data.id}`);
+                                            historyService.go(`/student-classes/student-class/${classes.id}`);
                                         }}
                                         onSelected={() => {
                                             if (index === selectedCardIndex) {
@@ -84,14 +95,14 @@ const InfiniteScroll = () => {
                                                 setSelectedCardIndex(index);
                                             }
                                         }}
-                                        program={data.program}
+                                        program={classes.program}
                                         selected={selectedCardIndex === index}
-                                        term={data.term}
+                                        term={classes.term}
                                     />
                                 );
                             })
                         }
-                        {!loading && _.isEmpty(data) && <p className='text-muted'>You have no classes</p>}
+                        {!loading && _.isEmpty(classes) && <p className='text-muted'>You have no classes</p>}
                         {loading && <Ripple className='m-3' />}
                     </div>
                 </div>
@@ -117,4 +128,4 @@ const InfiniteScroll = () => {
     );
 };
 
-export default InfiniteScroll;
+export default InstructorStudentClasses;
