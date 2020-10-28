@@ -4,9 +4,17 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import sassTheme from '../root/_theme.scss';
 
 const useStyles = makeStyles({
-    root: { width: '90%', margin: 10, display: 'inline-block' },
+    root: {
+        width: '90%',
+        margin: 10,
+        display: 'inline-block',
+        cursor: 'pointer',
+    },
     bullet: {
         display: 'inline-block',
         margin: '0 2px',
@@ -22,11 +30,25 @@ function StudentClassCard({
     name,
     program,
     term,
+    onEdit,
+    selected,
+    onSelected,
 }) {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
+        <Card
+            className={classes.root}
+            elevation={selected ? 1 : 5}
+            onClick={onSelected}
+            style={{ border: selected ? `0.1px solid ${sassTheme.primary}` : 'none' }}
+        >
+            <IconButton
+                onClick={onEdit}
+                style={{ float: 'right', margin: 5 }}
+            >
+                <EditIcon />
+            </IconButton>
             <CardContent>
                 <Typography
                     className={classes.title}
@@ -38,7 +60,7 @@ function StudentClassCard({
                     {instructor}
                 </Typography>
                 <Typography
-                    className='pb-2'
+                    className='pt-1 pb-3'
                     component='h2'
                     variant='h5'
                 >
@@ -79,6 +101,9 @@ StudentClassCard.propTypes = {
     name: PropTypes.string,
     program: PropTypes.string,
     term: PropTypes.string,
+    onEdit: PropTypes.func,
+    selected: PropTypes.bool,
+    onSelected: PropTypes.func,
 };
 
 StudentClassCard.defaultProps = {
@@ -87,6 +112,9 @@ StudentClassCard.defaultProps = {
     name: 'Unknown',
     program: 'Unknown',
     term: 'Unknown',
+    onEdit: undefined,
+    selected: false,
+    onSelected: undefined,
 };
 
 export default StudentClassCard;

@@ -5,9 +5,9 @@ import { useGridActions, useGridButtons } from '../../hooks';
 
 export default function Vocabularies() {
     const rights = {
-        create: ['Administrator'],
-        export: ['Administrator'],
-        import: ['Administrator'],
+        create: ['Administrator', 'Test Developer'],
+        export: ['Administrator', 'Test Developer', 'Instructor'],
+        import: ['Administrator', 'Test Developer'],
     };
     const actions = useGridActions('vocabularies');
     const buttons = useGridButtons(actions, rights);

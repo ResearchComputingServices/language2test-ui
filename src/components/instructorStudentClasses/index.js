@@ -13,7 +13,8 @@ const InfiniteScroll = () => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [noMoreData, setNoMoreData] = useState(false);
-    const studentClassService = useService('studentClass');
+    const [studentClassService, historyService] = useService('studentClass', 'history');
+    const [selectedCardIndex, setSelectedCardIndex] = useState(null);
 
     const fetchData = async () => {
         try {
@@ -72,7 +73,19 @@ const InfiniteScroll = () => {
                                         instructor={`${data.instructor.firstName} ${data.instructor.lastName}`}
                                         level={data.level}
                                         name={data.display}
+                                        onEdit={event => {
+                                            event.stopPropagation();
+                                            historyService.go(`/student-classes/student-class/${data.id}`);
+                                        }}
+                                        onSelected={() => {
+                                            if (index === selectedCardIndex) {
+                                                setSelectedCardIndex(null);
+                                            } else {
+                                                setSelectedCardIndex(index);
+                                            }
+                                        }}
                                         program={data.program}
+                                        selected={selectedCardIndex === index}
                                         term={data.term}
                                     />
                                 );

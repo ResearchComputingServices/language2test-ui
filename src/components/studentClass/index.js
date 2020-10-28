@@ -13,10 +13,10 @@ import {
 
 function StudentClass({ match }) {
     const rights = {
-        create: ['Administrator'],
-        update: ['Administrator'],
-        delete: ['Administrator'],
-        export: ['Administrator'],
+        create: ['Administrator', 'Instructor'],
+        update: ['Administrator', 'Instructor'],
+        delete: ['Administrator', 'Instructor'],
+        export: ['Administrator', 'Instructor'],
     };
     const entity = 'studentClass';
     const id = _.get(match, 'params.id');
