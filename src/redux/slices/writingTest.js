@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
-import { logout, resetTestWizardSession } from '../actions';
+import { logout, resetTestWizardSession } from '../globalActions';
 
 const initialState = {
     questions: [],

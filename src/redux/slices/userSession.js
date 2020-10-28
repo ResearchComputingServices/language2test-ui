@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
-import { logout } from '../actions';
+import { logout } from '../globalActions';
 
 const initialState = {
     id: null,

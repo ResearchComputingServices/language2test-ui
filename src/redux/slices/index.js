@@ -10,7 +10,8 @@ import timer from './timer';
 import dialog from './dialog';
 import drawer from './drawer';
 import clone from './clone';
-import { logout, resetTestWizardSession, endTestWizardSession } from '../actions';
+import dashboard from './dashboard';
+import { logout, resetTestWizardSession, endTestWizardSession } from '../globalActions';
 
 export const actions = {
     userSession: _.assign(userSession.actions, { logout }),
@@ -27,6 +28,7 @@ export const actions = {
     dialog: dialog.actions,
     drawer: drawer.actions,
     clone: clone.actions,
+    dashboard: dashboard.actions,
 };
 
 export const reducers = {
@@ -41,4 +43,5 @@ export const reducers = {
     dialog: dialog.reducer,
     drawer: drawer.reducer,
     clone: clone.reducer,
+    dashboard: dashboard.reducer,
 };

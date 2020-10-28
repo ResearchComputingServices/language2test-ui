@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logout, resetTestWizardSession, endTestWizardSession } from '../actions';
+import { logout, resetTestWizardSession, endTestWizardSession } from '../globalActions';
 
 const initialState = {
     name: null,

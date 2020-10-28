@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
-import { resetTestWizardSession } from '../actions';
+import { resetTestWizardSession } from '../globalActions';
 
 const initialState = {
     tick: 0,
