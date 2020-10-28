@@ -32,6 +32,11 @@ import TestWizard from '../../components/testWizard';
 
 export default [
     {
+        path: '/',
+        component: Dashboard,
+        roles: '*',
+    },
+    {
         path: '/dashboard',
         component: Dashboard,
         roles: '*',
