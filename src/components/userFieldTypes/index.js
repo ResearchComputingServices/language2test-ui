@@ -1,18 +1,20 @@
 import React from 'react';
 import UserFieldTypesGrid from './Grid';
 import { Layout } from '../common';
-import { useGridActions, useRolesCheckerService } from '../../hooks';
+import { useGridActions, useGridButtons } from '../../hooks';
 
 export default function UserFieldTypes() {
+    const rights = {
+        create: ['Administrator'],
+        export: ['Administrator'],
+        import: ['Administrator'],
+    };
     const actions = useGridActions('userFieldTypes');
-    const rolesCheckerService = useRolesCheckerService();
+    const buttons = useGridButtons(actions, rights);
 
     return (
         <Layout className='my-4'>
-            <UserFieldTypesGrid
-                onCreate={rolesCheckerService.has('Administrator') ? actions.onCreate : undefined}
-                onRowClick={actions.onRowClick}
-            />
+            <UserFieldTypesGrid {...buttons} />
         </Layout>
     );
 }

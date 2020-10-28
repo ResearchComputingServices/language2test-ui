@@ -1,20 +1,20 @@
 import React from 'react';
 import { Layout } from '../common';
 import ReadingComprehensionsGrid from './Grid';
-import { useGridActions, useRolesCheckerService } from '../../hooks';
+import { useGridActions, useGridButtons } from '../../hooks';
 
 export default function ReadingCOmprehensions() {
-    const rolesCheckerService = useRolesCheckerService();
+    const rights = {
+        create: ['Administrator', 'Test Developer'],
+        export: ['Administrator', 'Test Developer', 'Instructor'],
+        import: ['Administrator', 'Test Developer'],
+    };
     const actions = useGridActions('readingComprehensions');
+    const buttons = useGridButtons(actions, rights);
 
     return (
         <Layout className='my-4'>
-            <ReadingComprehensionsGrid
-                onCreate={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onCreate : undefined}
-                onExport={rolesCheckerService.has(['Administrator', 'Test Developer', 'Test Taker']) ? actions.onExport : undefined}
-                onImport={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onImport : undefined}
-                onRowClick={actions.onRowClick}
-            />
+            <ReadingComprehensionsGrid {...buttons} />
         </Layout>
     );
 }

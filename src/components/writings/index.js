@@ -1,20 +1,20 @@
 import React from 'react';
 import WritingTestGrid from './Grid';
 import { Layout } from '../common';
-import { useGridActions, useRolesCheckerService } from '../../hooks';
+import { useGridActions, useGridButtons } from '../../hooks';
 
 export default function Writings() {
+    const rights = {
+        create: ['Administrator', 'Test Developer'],
+        export: ['Administrator', 'Test Developer', 'Instructor'],
+        import: ['Administrator', 'Test Developer'],
+    };
     const actions = useGridActions('writings');
-    const rolesCheckerService = useRolesCheckerService();
+    const buttons = useGridButtons(actions, rights);
 
     return (
         <Layout className='my-4'>
-            <WritingTestGrid
-                onCreate={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onCreate : undefined}
-                onExport={rolesCheckerService.has(['Administrator', 'Test Developer', 'Instructor']) ? actions.onExport : undefined}
-                onImport={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onImport : undefined}
-                onRowClick={actions.onRowClick}
-            />
+            <WritingTestGrid {...buttons} />
         </Layout>
     );
 }

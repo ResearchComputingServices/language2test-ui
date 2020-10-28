@@ -41,6 +41,7 @@ import useGridActions from './useGridActions';
 import usePagination from './usePagination';
 import useDialog from './useDialog';
 import useRefState from './useRefState';
+import useGridButtons from './useGridButtons';
 
 export {
     useEffect,
@@ -86,4 +87,5 @@ export {
     usePagination,
     useDialog,
     useRefState,
+    useGridButtons,
 };

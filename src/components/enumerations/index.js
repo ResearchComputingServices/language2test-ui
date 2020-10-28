@@ -1,20 +1,20 @@
 import React from 'react';
 import { Layout } from '../common';
 import EnumerationsGrid from './Grid';
-import { useGridActions, useRolesCheckerService } from '../../hooks';
+import { useGridActions, useGridButtons } from '../../hooks';
 
 export default function Enumerations() {
+    const rights = {
+        create: ['Administrator'],
+        export: ['Administrator'],
+        import: ['Administrator'],
+    };
     const actions = useGridActions('enumerations');
-    const rolesCheckerService = useRolesCheckerService();
+    const buttons = useGridButtons(actions, rights);
 
     return (
         <Layout className='my-4'>
-            <EnumerationsGrid
-                onCreate={rolesCheckerService.has('Administrator') ? actions.onCreate : undefined}
-                onExport={rolesCheckerService.has('Administrator') ? actions.onExport : undefined}
-                onImport={rolesCheckerService.has('Administrator') ? actions.onImport : undefined}
-                onRowClick={actions.onRowClick}
-            />
+            <EnumerationsGrid {...buttons} />
         </Layout>
     );
 }

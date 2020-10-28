@@ -1,20 +1,20 @@
 import React from 'react';
 import { Layout } from '../common';
 import ClozesGrid from './Grid';
-import { useGridActions, useRolesCheckerService } from '../../hooks';
+import { useGridActions, useGridButtons } from '../../hooks';
 
 export default function Clozes() {
-    const rolesCheckerService = useRolesCheckerService();
+    const rights = {
+        create: ['Administrator', 'Test Developer'],
+        export: ['Administrator', 'Test Developer', 'Instructor'],
+        import: ['Administrator', 'Test Developer'],
+    };
     const actions = useGridActions('clozes');
+    const buttons = useGridButtons(actions, rights);
 
     return (
         <Layout className='my-4'>
-            <ClozesGrid
-                onCreate={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onCreate : undefined}
-                onExport={rolesCheckerService.has(['Administrator', 'Test Developer', 'Instructor']) ? actions.onExport : undefined}
-                onImport={rolesCheckerService.has(['Administrator', 'Test Developer']) ? actions.onImport : undefined}
-                onRowClick={actions.onRowClick}
-            />
+            <ClozesGrid {...buttons} />
         </Layout>
     );
 }
