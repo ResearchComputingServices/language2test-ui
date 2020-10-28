@@ -15,6 +15,7 @@ function AdministratorGrid({
     onExport,
     entity,
     options,
+    fetch,
     importFileTypes,
 }) {
     const fileMappings = {
@@ -80,6 +81,7 @@ function AdministratorGrid({
             </div>
             <Grid
                 entity={entity}
+                fetch={fetch}
                 onRowClick={onRowClick}
                 options={options}
                 tableRef={tableRef}
@@ -98,6 +100,7 @@ AdministratorGrid.propTypes = {
     onExport: PropTypes.func,
     options: PropTypes.object,
     importFileTypes: PropTypes.array,
+    fetch: PropTypes.func,
 };
 
 AdministratorGrid.defaultProps = {
@@ -105,6 +108,7 @@ AdministratorGrid.defaultProps = {
     onCreate: undefined,
     onImport: undefined,
     onExport: undefined,
+    fetch: undefined,
     importFileTypes: ['xlsx'],
     options: {},
 };

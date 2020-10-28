@@ -16,6 +16,7 @@ function Grid({
     onRowDelete,
     entity,
     options,
+    fetch,
 }) {
     const format = _.get(options, 'format');
     const exclude = _.get(options, 'exclude');
@@ -26,13 +27,14 @@ function Grid({
     const fetchData = async query => {
         try {
             const { count } = await service.count(customQuery);
-            const data = await service.get({
+            const fetchQuery = {
                 offset: (query.page) * query.pageSize,
                 limit: query.pageSize,
                 column: _.snakeCase(_.get(query, 'orderBy.field', 'id') || 'id'),
                 order: _.get(query, 'orderDirection', 'asc') || 'asc',
                 ...customQuery,
-            });
+            };
+            const data = _.isFunction(fetch) ? fetch(fetchQuery) : await service.get(fetchQuery);
             const mappedData = _.map(data, datum => {
                 if (_.isFunction(format)) {
                     const formattedDatum = format(datum);
@@ -90,6 +92,7 @@ Grid.propTypes = {
     options: PropTypes.object,
     entity: PropTypes.string.isRequired,
     tableRef: PropTypes.object,
+    fetch: PropTypes.func,
 };
 
 Grid.defaultProps = {
@@ -99,6 +102,7 @@ Grid.defaultProps = {
     onRowUpdate: undefined,
     onRowDelete: undefined,
     tableRef: undefined,
+    fetch: undefined,
 };
 
 export default Grid;

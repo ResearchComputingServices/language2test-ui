@@ -22,9 +22,10 @@ export default class RestService {
         return this._transform(data, options.responseTransformers);
     }
 
-    _buildQuery = (query, url = this.prefix) => {
+    _buildQuery = query => {
+        let url = this.prefix;
         if (_.has(query, 'url')) {
-            url = `${url}/${query.url}`;
+            url = query.url;
         }
         let filterQuery = '?';
         let index = -1;
@@ -46,7 +47,7 @@ export default class RestService {
     }
 
     _get = (query, options = {}) => axios
-        .get(this._buildQuery(query))
+        .get(this._buildQuery({ ...query }))
         .then(data => this._processResponse(data, options))
 
     _add = (data, options = {}) => axios
@@ -61,12 +62,12 @@ export default class RestService {
         .delete(`${this.prefix}${!_.isNil(options.id) ? `/${options.id}` : ''}`, { data: this._processRequest(data, options) })
         .then(data => this._processResponse(data, options));
 
-    _count = (query = {}, options = {}) => {
-        const url = `${this.prefix}/count`;
-        return axios
-            .get(this._buildQuery(query, url))
-            .then(data => this._processResponse(data, options));
-    }
+    _count = (query = {}, options = {}) => axios
+        .get(this._buildQuery({
+            ...query,
+            url: `${this.prefix}/count`,
+        }))
+        .then(data => this._processResponse(data, options))
 
     _export = (id, options = {}) => {
         let url = `${this.prefix}/export`;

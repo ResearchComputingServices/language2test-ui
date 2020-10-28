@@ -1,7 +1,10 @@
 import _ from 'lodash';
+import axios from 'axios';
 import RestService from './RestService';
 
 class StudentService extends RestService {
+    basePrefix = `${this.prefix}`;
+
     prefix = `${this.prefix}/student_classes`
 
     _requestTransformer = data => {
@@ -12,6 +15,13 @@ class StudentService extends RestService {
     }
 
     get = this._get;
+
+    getInstructorClasses = (query, options = {}) => axios
+        .get(this._buildQuery({
+            ...query,
+            url: `${this.basePrefix}/instructor/student_classes`,
+        }))
+        .then(data => this._processResponse(data, options))
 
     add = data => this._add(data, { requestTransformers: [this._requestTransformer] });
 
