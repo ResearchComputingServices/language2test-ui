@@ -1,39 +1,8 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
-import StudentClassesList from '../studentClasses/List';
-import Users from '../users/Grid';
+import InstructorStudentClasses from '../instructorStudentClasses';
 
 function InstructorDashboard() {
-    return (
-        <>
-            <div className='p-2'>
-                <Typography
-                    className='pl-2 pb-2'
-                    variant='h6'
-                >
-                    My Classes
-                </Typography>
-                <StudentClassesList />
-            </div>
-            <div
-                className='p-2'
-                style={{
-                    width: '50%',
-                    minWidth: 700,
-                }}
-            >
-                <Typography
-                    className='pl-2'
-                    variant='h6'
-                >
-                    My Students
-                </Typography>
-                <div>
-                    <Users />
-                </div>
-            </div>
-        </>
-    );
+    return <InstructorStudentClasses />;
 }
 
 export default InstructorDashboard;

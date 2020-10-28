@@ -21,11 +21,4 @@ export default [
             },
         ],
     },
-    {
-        field: 'testStudentClass',
-        type: 'api-picklist-multiple',
-        entity: 'studentClass',
-        title: 'Student Classes',
-        required: true,
-    },
 ];

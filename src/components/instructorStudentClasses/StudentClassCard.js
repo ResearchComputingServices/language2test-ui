@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
-    root: { minWidth: 275, margin: 10 },
+    root: { width: '90%', margin: 10, display: 'inline-block' },
     bullet: {
         display: 'inline-block',
         margin: '0 2px',
@@ -16,7 +16,13 @@ const useStyles = makeStyles({
     pos: { marginBottom: 12 },
 });
 
-function StudentClassCard() {
+function StudentClassCard({
+    instructor,
+    level,
+    name,
+    program,
+    term,
+}) {
     const classes = useStyles();
 
     return (
@@ -27,50 +33,60 @@ function StudentClassCard() {
                     color='textSecondary'
                     gutterBottom
                 >
-                    Instructor: John Doe
+                    Instructor:
+                    {' '}
+                    {instructor}
                 </Typography>
                 <Typography
+                    className='pb-2'
                     component='h2'
                     variant='h5'
                 >
-                    COMP4107
+                    {name}
                 </Typography>
                 <Typography
                     className={classes.pos}
                     color='textSecondary'
                 >
-                    Level: 4th Year
+                    Level:
+                    {' '}
+                    {level}
                 </Typography>
                 <Typography
                     className={classes.pos}
                     color='textSecondary'
                 >
-                    Faculty: Computer Science
+                    Program:
+                    {' '}
+                    {program}
+                </Typography>
+                <Typography
+                    className={classes.pos}
+                    color='textSecondary'
+                >
+                    Term:
+                    {' '}
+                    {term}
                 </Typography>
             </CardContent>
         </Card>
     );
 }
 
-const InfiniteScroll = () => {
-    const [data] = useState([1, 2, 3, 4, 5]);
-    return (
-        <div
-            style={{
-                height: 500,
-                width: 420,
-                overflowY: 'scroll',
-            }}
-        >
-            <div className='post-list'>
-                {
-                    data.map((_, index) => (
-                        <StudentClassCard key={index} />
-                    ))
-                }
-            </div>
-        </div>
-    );
+StudentClassCard.propTypes = {
+    instructor: PropTypes.string,
+    level: PropTypes.string,
+    name: PropTypes.string,
+    program: PropTypes.string,
+    term: PropTypes.string,
 };
 
-export default InfiniteScroll;
+StudentClassCard.defaultProps = {
+    instructor: 'Unknown',
+    level: 'Unknown',
+    name: 'Unknown',
+    program: 'Unknown',
+    term: 'Unknown',
+};
+
+export default StudentClassCard;
