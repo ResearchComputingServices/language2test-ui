@@ -13,7 +13,7 @@ import {
     useMountedState,
 } from '../../hooks';
 
-function TestTakerDashboard() {
+function TestTakerSchedule() {
     const isMounted = useMountedState();
     const [testScheduleService, testService, historyService] = useService(['testSchedule', 'test', 'history']);
     const storeActions = useTestWizardActions();
@@ -115,4 +115,4 @@ function TestTakerDashboard() {
     );
 }
 
-export default TestTakerDashboard;
+export default TestTakerSchedule;

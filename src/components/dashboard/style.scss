@@ -1,17 +1,23 @@
 @import '../root/_theme.scss';
 
-.welcome-container {
+.dashboard-header-container {
     display: flex;
     width: 100%;
-    align-items: flex-end;
     background: lighten($background-color, 2%);
+    justify-content: space-between;
+    align-items: center;
 }
 
-.welcome-date {
+.dashboard-welcome-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.dashboard-welcome-date {
     margin-left: 10px !important;
 }
 
-.teacher-dashboard-activities {
+.dashboard-activities {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -20,4 +26,10 @@
     padding-left: 20px;
     padding-right: 20px;
     width: 100%;
+}
+
+
+.dashboard-roles-selectable {
+    width: 150px;
+    margin-right: 20px !important;
 }

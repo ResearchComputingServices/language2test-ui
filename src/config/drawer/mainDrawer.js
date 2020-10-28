@@ -6,15 +6,9 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 
 export default [
     {
-        path: '/dashboard/test-taker',
+        path: '/dashboard',
         title: 'Dashboard',
-        roles: 'Test Taker',
-        Icon: DashboardIcon,
-    },
-    {
-        path: '/dashboard/instructor',
-        title: 'Dashboard',
-        roles: 'Instructor',
+        roles: '*',
         Icon: DashboardIcon,
     },
     {

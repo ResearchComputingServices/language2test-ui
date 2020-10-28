@@ -27,24 +27,18 @@ import Role from '../../components/role';
 import Roles from '../../components/roles';
 import TestAssignations from '../../components/testAssignations';
 import TestAssignation from '../../components/testAssignation';
-import TeacherDashboard from '../../components/teacherDashboard';
-import TestTakerDashboard from '../../components/testTakerDashboard';
+import Dashboard from '../../components/dashboard';
 import TestWizard from '../../components/testWizard';
 
 export default [
     {
+        path: '/dashboard',
+        component: Dashboard,
+        roles: '*',
+    },
+    {
         path: '/test/wizard',
         component: TestWizard,
-        roles: ['Administrator', 'Test Taker'],
-    },
-    {
-        path: '/dashboard/instructor',
-        component: TeacherDashboard,
-        roles: ['Administrator', 'Instructor'],
-    },
-    {
-        path: '/dashboard/test-taker',
-        component: TestTakerDashboard,
         roles: ['Administrator', 'Test Taker'],
     },
     {

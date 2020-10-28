@@ -32,6 +32,7 @@ class RolesCheckerService {
         if (_.isString(role)) {
             roles = [role];
         }
+        if (roles.includes('*')) return true;
         const mappedOperatorFunc = this.allowedOperators[operator];
         return mappedOperatorFunc(roles, perm => this.roles.has(perm));
     }
