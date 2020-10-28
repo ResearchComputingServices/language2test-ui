@@ -12,7 +12,9 @@ export default () => {
     return (
         <div className='my-5 text-center'>
             {Construction}
-            Implementation in progress
+            {'  '}
+            Coming Soon, Implementation in progress
+            {'  '}
             {Construction}
         </div>
     );

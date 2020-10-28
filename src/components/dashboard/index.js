@@ -3,6 +3,7 @@ import _ from 'lodash';
 import InstructorDashboard from './InstructorDashboard';
 import TestTakerDashboard from './TestTakerDashboard';
 import { useStore, useActions, useMount } from '../../hooks';
+import { NotYetImplemented } from '../common';
 import Header from './Header';
 
 function Dashboard() {
@@ -23,8 +24,7 @@ function Dashboard() {
     const getDashboardViewPerRole = role => ({
         Instructor: <InstructorDashboard />,
         'Test Taker': <TestTakerDashboard />,
-        undefined: null,
-    }[role]);
+    }[role] || <NotYetImplemented />);
 
     return (
         <>
