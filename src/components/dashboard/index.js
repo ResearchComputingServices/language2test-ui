@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
 import InstructorDashboard from './InstructorDashboard';
+import TestTakerDashboard from './TestTakerDashboard';
 import { useStore } from '../../hooks';
 import Header from './Header';
 
@@ -15,6 +16,7 @@ function Dashboard() {
 
     const getDashboardViewPerRole = role => ({
         Instructor: <InstructorDashboard />,
+        'Test Taker': <TestTakerDashboard />,
         undefined: null,
     }[role]);
 

@@ -18,7 +18,6 @@ function TestTakerSchedule() {
     const [testScheduleService, testService, historyService] = useService(['testSchedule', 'test', 'history']);
     const storeActions = useTestWizardActions();
     const { error, loading } = useStore('testWizardSession');
-    const { displayName } = useStore('userSession');
     const {
         startTestWizardSession,
         startFetch,
@@ -106,7 +105,6 @@ function TestTakerSchedule() {
             loading={loading}
         >
             <TestSchedule
-                displayName={displayName}
                 events={tests}
                 onChange={async (start, end) => setTests(await getTests(start, end))}
                 onTestStart={onTestStart}
