@@ -7,6 +7,7 @@ import {
     useIsWideScreenMode,
     useStore,
     useActions,
+    useState,
 } from '../../hooks';
 
 function ModalInfo({
@@ -20,17 +21,22 @@ function ModalInfo({
     buttons,
 }) {
     const wideScreenMode = useIsWideScreenMode();
-    const { enabled: drawerEnabled } = useStore('drawer');
+    const { enabled: drawerEnabled, open: drawerOpen } = useStore('drawer');
     const { hide: hideDrawer, show: showDrawer } = useActions('drawer');
+    const [drawerHiddenManually, setDrawerHiddenManually] = useState(false);
+
     useEffect(() => {
-        if (_.eq(show, true) && drawerEnabled) {
+        if (show && drawerOpen && drawerEnabled) {
             hideDrawer();
+            setDrawerHiddenManually(true);
         }
-    }, [drawerEnabled, hideDrawer, show]);
+    }, [drawerEnabled, hideDrawer, show, drawerOpen]);
+
     const hide = () => {
         onHide();
-        if (drawerEnabled && wideScreenMode) {
+        if (drawerEnabled && wideScreenMode && drawerHiddenManually) {
             showDrawer();
+            setDrawerHiddenManually(false);
         }
     };
     return (
