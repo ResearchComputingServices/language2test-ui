@@ -11,6 +11,7 @@ function InstructorStudents({ data }) {
             columns={columns}
             data={data}
             onRowClick={(event, data) => historyService.go(`/users/user/${data.id}`)}
+            options={{ search: !!data }}
             style={{ padding: 10 }}
             title='Students'
         />

@@ -34,7 +34,7 @@ function Dashboard() {
                 onViewAsChange={onViewAsChange}
                 roles={userSession.roles.map(role => role.name)}
             />
-            <div className='dashboard-activities'>
+            <div>
                 {getDashboardViewPerRole(dashboard.viewAs)}
             </div>
         </>
