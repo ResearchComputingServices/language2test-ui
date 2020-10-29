@@ -258,6 +258,11 @@ export default [
         roles: 'Instructor',
     },
     {
+        path: '/instructor/schedule/create',
+        component: TestAssignation,
+        roles: 'Instructor',
+    },
+    {
         path: '*',
         component: NotFound,
         roles: '*',

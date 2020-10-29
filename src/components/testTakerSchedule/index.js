@@ -66,7 +66,7 @@ function TestTakerSchedule() {
 
     const getTests = async (start, end) => {
         try {
-            const schedule = await testScheduleService.get(start, end);
+            const schedule = await testScheduleService.getTestTakerSchedule(start, end);
             return schedule.map(agenda => {
                 agenda.startDatetime = moment.utc(agenda.startDatetime).local();
                 agenda.endDatetime = moment.utc(agenda.endDatetime).local();

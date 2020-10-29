@@ -1,10 +1,7 @@
 import moment from 'moment';
-import axios from 'axios';
 import RestService from './RestService';
 
 class TestAssignation extends RestService {
-    basePrefix = `${this.prefix}`;
-
     prefix = `${this.prefix}/test_assignation`;
 
     _responseTransformer(data) {
@@ -28,13 +25,6 @@ class TestAssignation extends RestService {
     }
 
     get = data => this._get(data, { responseTransformers: [this._responseTransformer] });
-
-    getInstructorAssignations = (query, options = {}) => axios
-        .get(this._buildQuery({
-            ...query,
-            url: `${this.basePrefix}/instructor/test_assignation`,
-        }))
-        .then(data => this._processResponse(data, options))
 
     add = data => this._add(data, { requestTransformers: [this._requestTransformer] });
 
