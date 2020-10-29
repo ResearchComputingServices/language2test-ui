@@ -1,7 +1,10 @@
 import React from 'react';
+import TestSchedule from '../testSchedule';
+import { useStore } from '../../hooks';
 
 function InstructorSchedule() {
-    return <div>Hello World</div>;
+    const userSession = useStore('userSession');
+    return <TestSchedule displayName={userSession.displayName} />;
 }
 
 export default InstructorSchedule;

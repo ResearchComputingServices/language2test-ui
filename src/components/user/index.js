@@ -31,6 +31,7 @@ function User({ match }) {
     const controls = useForm();
     const userSession = useStore('userSession');
     const { assignUserSession } = useActions('userSession');
+    const dashboardActions = useActions('dashboard');
     const layout = useFormLayout(entity);
     const roles = controls.watch('roles');
     const userFieldTypeService = useService('userFieldType');
@@ -185,6 +186,7 @@ function User({ match }) {
     };
 
     const refreshPage = () => {
+        dashboardActions.reset();
         setTimeout(() => {
             window.location.reload();
         }, 800);
