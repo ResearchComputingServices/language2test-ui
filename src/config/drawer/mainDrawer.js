@@ -50,22 +50,22 @@ export default [
                     {
                         path: '/vocabularies',
                         title: 'Vocabularies',
-                        roles: ['Administrator', 'Instructor'],
+                        roles: ['Administrator', 'Instructor', 'Test Developer'],
                     },
                     {
                         path: '/reading-comprehensions',
                         title: 'Reading Comprehensions',
-                        roles: ['Administrator', 'Instructor'],
+                        roles: ['Administrator', 'Instructor', 'Test Developer'],
                     },
                     {
                         path: '/clozes',
                         title: 'Clozes',
-                        roles: ['Administrator', 'Instructor'],
+                        roles: ['Administrator', 'Instructor', 'Test Developer'],
                     },
                     {
                         path: '/writings',
                         title: 'Writings',
-                        roles: ['Administrator', 'Instructor'],
+                        roles: ['Administrator', 'Instructor', 'Test Developer'],
                     },
                 ],
             },

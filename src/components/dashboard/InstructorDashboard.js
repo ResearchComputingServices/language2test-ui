@@ -15,10 +15,20 @@ function InstructorDashboard() {
             <InstructorStudentClasses />
             <div style={{
                 position: 'fixed',
-                right: 20,
+                bottom: 0,
+                right: 10,
             }}
             >
                 <div className='row'>
+                    <Tooltip title='My Scheduled Tests'>
+                        <Fab
+                            className='m-2'
+                            color='primary'
+                            onClick={() => historyService.go('/instructor/schedule')}
+                        >
+                            <CalendarTodayIcon />
+                        </Fab>
+                    </Tooltip>
                     <Tooltip title='Create a Class'>
                         <Fab
                             className='m-2'
@@ -50,20 +60,6 @@ function InstructorDashboard() {
                     />
                 </div>
             </div>
-            <Tooltip title='My Assignations'>
-                <Fab
-                    className='m-2'
-                    color='primary'
-                    onClick={() => historyService.go('/instructor/test-assignations')}
-                    style={{
-                        position: 'fixed',
-                        bottom: 0,
-                        right: 10,
-                    }}
-                >
-                    <CalendarTodayIcon />
-                </Fab>
-            </Tooltip>
         </div>
     );
 }

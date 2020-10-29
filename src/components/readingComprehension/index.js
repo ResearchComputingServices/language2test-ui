@@ -25,10 +25,10 @@ import {
 
 function ReadingComprehension({ match }) {
     const rights = {
-        create: ['Administrator'],
-        update: ['Administrator'],
-        delete: ['Administrator'],
-        export: ['Administrator'],
+        create: ['Administrator', 'Test Developer'],
+        update: ['Administrator', 'Test Developer'],
+        delete: ['Administrator', 'Test Developer'],
+        export: ['Administrator', 'Test Developer'],
     };
     const entity = 'readingComprehension';
     const id = _.get(match, 'params.id');
