@@ -2,6 +2,7 @@ import React from 'react';
 import { Fab, Tooltip } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PublishIcon from '@material-ui/icons/Publish';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import InstructorStudentClasses from '../instructorStudentClasses';
 import { useService, useGridActions } from '../../hooks';
 import FileUploader from '../fileUploader';
@@ -49,6 +50,20 @@ function InstructorDashboard() {
                     />
                 </div>
             </div>
+            <Tooltip title='My Assignations'>
+                <Fab
+                    className='m-2'
+                    color='primary'
+                    onClick={() => historyService.go('/instructor/test-assignations')}
+                    style={{
+                        position: 'fixed',
+                        bottom: 0,
+                        right: 10,
+                    }}
+                >
+                    <CalendarTodayIcon />
+                </Fab>
+            </Tooltip>
         </div>
     );
 }

@@ -254,5 +254,6 @@ export default [
     {
         path: '*',
         component: NotFound,
+        roles: '*',
     },
 ];
