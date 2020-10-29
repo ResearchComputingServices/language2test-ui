@@ -12,6 +12,7 @@ import enumerations from './enumerationsColumns';
 import userFieldTypes from './userFieldTypesColumns';
 import roles from './rolesGridColumns';
 import testAssignations from './testAssignationsGridColumns';
+import students from './studentsGridColumns';
 
 export {
     clozes,
@@ -28,4 +29,5 @@ export {
     userFieldTypes,
     roles,
     testAssignations,
+    students,
 };

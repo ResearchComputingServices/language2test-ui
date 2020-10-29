@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { useMount, useService, useStore, useActions } from '../../hooks';
 import { Ripple } from '../common';
-import InstructorStudents from '../instructorStudents';
+import InstructorStudents from './InstructorStudents';
 import StudentClassCard from './StudentClassCard';
 
 const InstructorStudentClasses = () => {
@@ -15,13 +15,14 @@ const InstructorStudentClasses = () => {
         loading,
         noMoreData,
         selectedCardIndex,
+        selectedClass,
     } = useStore('instructorDashboard');
     const {
         setLoading,
         setNoMoreData,
         setClasses,
         setPage,
-        setSelectedCardIndex,
+        selectClass,
     } = useActions('instructorDashboard');
     const [studentClassService, historyService] = useService('studentClass', 'history');
 
@@ -57,6 +58,8 @@ const InstructorStudentClasses = () => {
         }
     };
 
+    const getStudents = selectedClass => (selectedClass ? _.map(selectedClass.studentStudentClass, student => _.omit(student, ['fields', 'roles'])) : undefined);
+
     return (
         <>
             <div className='p-2'>
@@ -76,31 +79,34 @@ const InstructorStudentClasses = () => {
                 >
                     <div className={clsx('infinite-list', { 'infinite-list-center': _.isEmpty(classes) })}>
                         {
-                            classes.map((classes, index) => {
-                                console.log(classes);
-                                return (
-                                    <StudentClassCard
-                                        key={index}
-                                        instructor={`${classes.instructor.firstName} ${classes.instructor.lastName}`}
-                                        level={classes.level}
-                                        name={classes.display}
-                                        onEdit={event => {
-                                            event.stopPropagation();
-                                            historyService.go(`/student-classes/student-class/${classes.id}`);
-                                        }}
-                                        onSelected={() => {
-                                            if (index === selectedCardIndex) {
-                                                setSelectedCardIndex(null);
-                                            } else {
-                                                setSelectedCardIndex(index);
-                                            }
-                                        }}
-                                        program={classes.program}
-                                        selected={selectedCardIndex === index}
-                                        term={classes.term}
-                                    />
-                                );
-                            })
+                            classes.map((data, index) => (
+                                <StudentClassCard
+                                    key={index}
+                                    instructor={`${data.instructor.firstName} ${data.instructor.lastName}`}
+                                    level={data.level}
+                                    name={data.display}
+                                    onEdit={event => {
+                                        event.stopPropagation();
+                                        historyService.go(`/student-classes/student-class/${data.id}`);
+                                    }}
+                                    onSelected={() => {
+                                        if (index === selectedCardIndex) {
+                                            selectClass({
+                                                selectedCardIndex: null,
+                                                selectedClass: null,
+                                            });
+                                        } else {
+                                            selectClass({
+                                                selectedCardIndex: index,
+                                                selectedClass: data,
+                                            });
+                                        }
+                                    }}
+                                    program={data.program}
+                                    selected={selectedCardIndex === index}
+                                    term={data.term}
+                                />
+                            ))
                         }
                         {!loading && _.isEmpty(classes) && <p className='text-muted'>You have no classes</p>}
                         {loading && <Ripple className='m-3' />}
@@ -118,10 +124,10 @@ const InstructorStudentClasses = () => {
                     className='pl-2 pb-3'
                     variant='h6'
                 >
-                    My Students
+                    {selectedClass ? `Students in ${selectedClass.display}` : 'All Students'}
                 </Typography>
                 <div>
-                    <InstructorStudents />
+                    <InstructorStudents data={getStudents(selectedClass)} />
                 </div>
             </div>
         </>
