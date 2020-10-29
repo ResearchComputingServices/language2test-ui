@@ -58,7 +58,11 @@ const InstructorStudentClasses = () => {
         }
     };
 
-    const getStudents = selectedClass => (selectedClass ? _.map(selectedClass.studentStudentClass, student => _.omit(student, ['fields', 'roles'])) : undefined);
+    const getStudents = selectedClass => (
+        selectedClass
+            ? _.map(selectedClass.studentStudentClass, student => _.omit(student, ['fields', 'roles']))
+            : undefined
+    );
 
     return (
         <>
