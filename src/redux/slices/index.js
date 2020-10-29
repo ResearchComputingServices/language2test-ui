@@ -11,7 +11,7 @@ import dialog from './dialog';
 import drawer from './drawer';
 import clone from './clone';
 import dashboard from './dashboard';
-import instructorDashboard from './instructorDashboard';
+import instructorStudentClasses from './instructorStudentClasses';
 import { logout, resetTestWizardSession, endTestWizardSession } from '../globalActions';
 
 export const actions = {
@@ -30,7 +30,7 @@ export const actions = {
     drawer: drawer.actions,
     clone: clone.actions,
     dashboard: dashboard.actions,
-    instructorDashboard: instructorDashboard.actions,
+    instructorStudentClasses: instructorStudentClasses.actions,
 };
 
 export const reducers = {
@@ -46,5 +46,5 @@ export const reducers = {
     drawer: drawer.reducer,
     clone: clone.reducer,
     dashboard: dashboard.reducer,
-    instructorDashboard: instructorDashboard.reducer,
+    instructorStudentClasses: instructorStudentClasses.reducer,
 };

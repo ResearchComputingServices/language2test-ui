@@ -15,17 +15,14 @@ export default [
     {
         field: 'term',
         title: 'Term',
-        required: true,
     },
     {
         field: 'level',
         title: 'Level',
-        required: true,
     },
     {
         field: 'program',
         title: 'Program',
-        required: true,
     },
     {
         field: 'instructor',

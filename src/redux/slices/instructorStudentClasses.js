@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export default createSlice({
-    name: 'dashboard',
+    name: 'instructorStudentClasses',
     initialState,
     reducers: {
         setClasses: (state, action) => {

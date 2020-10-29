@@ -1,7 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
-import Typography from '@material-ui/core/Typography';
+import { Typography, IconButton, Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import { useMount, useService, useStore, useActions } from '../../hooks';
 import { Ripple } from '../common';
 import InstructorStudents from './InstructorStudents';
@@ -16,18 +17,32 @@ const InstructorStudentClasses = () => {
         noMoreData,
         selectedCardIndex,
         selectedClass,
-    } = useStore('instructorDashboard');
+    } = useStore('instructorStudentClasses');
     const {
         setLoading,
         setNoMoreData,
         setClasses,
         setPage,
         selectClass,
-    } = useActions('instructorDashboard');
+        reset,
+    } = useActions('instructorStudentClasses');
     const [studentClassService, historyService] = useService('studentClass', 'history');
 
-    const fetchData = async () => {
+    const fetchData = async reFetch => {
         try {
+            if (reFetch) {
+                reset();
+                setLoading(true);
+                const newClasses = await studentClassService.getInstructorClasses({
+                    offset: 0,
+                    limit: pageSize,
+                    column: 'id',
+                    order: 'desc',
+                });
+                setClasses(newClasses);
+                setLoading(false);
+                return;
+            }
             setLoading(true);
             const newClasses = await studentClassService.getInstructorClasses({
                 offset: (page - 1) * pageSize,
@@ -67,12 +82,18 @@ const InstructorStudentClasses = () => {
     return (
         <>
             <div className='p-2'>
-                <Typography
-                    className='pl-2 pb-2'
-                    variant='h6'
-                >
-                    My Classes
-                </Typography>
+                <div className='pl-2 instructor-student-classes-header'>
+                    <Typography
+                        variant='h6'
+                    >
+                        My Classes
+                    </Typography>
+                    <Tooltip title='Refresh List'>
+                        <IconButton onClick={() => fetchData(true)}>
+                            <RefreshIcon />
+                        </IconButton>
+                    </Tooltip>
+                </div>
                 <div
                     onScroll={onScroll}
                     style={{
@@ -81,7 +102,7 @@ const InstructorStudentClasses = () => {
                         overflowY: 'scroll',
                     }}
                 >
-                    <div className={clsx('infinite-list', { 'infinite-list-center': _.isEmpty(classes) })}>
+                    <div className={clsx('instructor-student-classes', { 'instructor-student-classes-center': _.isEmpty(classes) })}>
                         {
                             classes.map((data, index) => (
                                 <StudentClassCard
