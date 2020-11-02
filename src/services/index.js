@@ -23,6 +23,7 @@ import testAssignation from './TestAssignationService';
 import testSchedule from './TestScheduleService';
 import rolesChecker from './RolesCheckerService';
 import instructor from './InstructorService';
+import student from './StudentService';
 
 export {
     history,
@@ -50,4 +51,5 @@ export {
     testSchedule,
     rolesChecker,
     instructor,
+    student,
 };

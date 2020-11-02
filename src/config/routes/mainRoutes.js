@@ -30,6 +30,7 @@ import TestAssignation from '../../components/testAssignation';
 import Dashboard from '../../components/dashboard';
 import TestWizard from '../../components/testWizard';
 import InstructorSchedule from '../../components/instructorSchedule';
+import InstructorStudentClass from '../../components/instructorStudentClass';
 
 export default [
     {
@@ -251,6 +252,16 @@ export default [
         path: '/roles/role/:id',
         component: Role,
         roles: 'Administrator',
+    },
+    {
+        path: '/instructor/student-class/',
+        component: InstructorStudentClass,
+        roles: 'Instructor',
+    },
+    {
+        path: '/instructor/student-class/:id',
+        component: InstructorStudentClass,
+        roles: 'Instructor',
     },
     {
         path: '/instructor/schedule',

@@ -33,7 +33,7 @@ function InstructorDashboard() {
                         <Fab
                             className='m-2'
                             color='primary'
-                            onClick={() => historyService.go('/student-classes/student-class')}
+                            onClick={() => historyService.go('/instructor/student-class')}
                         >
                             <PersonAddIcon />
                         </Fab>

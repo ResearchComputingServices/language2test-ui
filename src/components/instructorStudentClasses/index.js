@@ -115,7 +115,7 @@ const InstructorStudentClasses = () => {
                                     name={data.display}
                                     onEdit={event => {
                                         event.stopPropagation();
-                                        historyService.go(`/student-classes/student-class/${data.id}`);
+                                        historyService.go(`/instructor/student-class/${data.id}`);
                                     }}
                                     onSelected={() => {
                                         if (index === selectedCardIndex) {

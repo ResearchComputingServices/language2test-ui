@@ -27,8 +27,9 @@ export default [
     {
         field: 'instructor',
         title: 'Instructor',
-        query: { roles: 'Instructor' },
         type: 'api-picklist',
+        query: { roles: 'Instructor' },
+        disabled: data => !_.isNil(data.id),
         entity: 'user',
         required: true,
     },

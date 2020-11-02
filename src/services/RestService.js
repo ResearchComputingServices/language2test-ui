@@ -32,6 +32,7 @@ export default class RestService {
         if (_.has(query, 'null')) {
             filterQuery = `/${query.null}?`;
         }
+        delete query.url;
         _.each(query, (value, key) => {
             if (_.isNil(key) || _.eq(key, 'null')) return;
             if (!_.eq(++index, 0)) {

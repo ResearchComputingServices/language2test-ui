@@ -14,6 +14,7 @@ import enumeration from './enumerationFormLayout';
 import userFieldType from './userFieldTypeLayout';
 import role from './roleFormLayout';
 import testAssignation from './testAssignationFormLayout';
+import instructorStudentClass from './instructorStudentClassFormLayout';
 
 export {
     cloze,
@@ -32,4 +33,5 @@ export {
     userFieldType,
     role,
     testAssignation,
+    instructorStudentClass,
 };

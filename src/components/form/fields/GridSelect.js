@@ -8,7 +8,7 @@ import VocabulariesGrid from '../../vocabularies/Grid';
 import ReadingComprehensionsGrid from '../../readingComprehensions/Grid';
 import ClozesGrid from '../../clozes/Grid';
 import WritingsGrid from '../../writings/Grid';
-import UsersGrid from '../../users/Grid';
+import StudentsGrid from '../../students/Grid';
 import StudentClassesGrid from '../../studentClasses/Grid';
 
 function formatDefaultValue(field) {
@@ -24,7 +24,7 @@ function getGrid(entity) {
         vocabularies: { Component: VocabulariesGrid },
         readingComprehensions: { Component: ReadingComprehensionsGrid },
         clozes: { Component: ClozesGrid },
-        students: { Component: UsersGrid },
+        students: { Component: StudentsGrid },
         writings: { Component: WritingsGrid },
         studentClasses: { Component: StudentClassesGrid },
     }[entity];
