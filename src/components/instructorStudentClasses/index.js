@@ -40,6 +40,7 @@ const InstructorStudentClasses = () => {
                     order: 'desc',
                 });
                 setClasses(newClasses);
+                setPage(page + 1);
                 setLoading(false);
                 return;
             }
@@ -50,13 +51,15 @@ const InstructorStudentClasses = () => {
                 column: 'id',
                 order: 'desc',
             });
-            if (_.isEmpty(newClasses)) {
+            if (_.isEmpty(newClasses) || newClasses.length < pageSize) {
                 setNoMoreData(true);
             }
             setClasses(!_.isEmpty(classes) ? classes.concat(newClasses) : newClasses);
             setPage(page + 1);
             setLoading(false);
-        } catch (err) {}
+        } catch (err) {
+            setLoading(false);
+        }
     };
 
     useMount(() => {
@@ -68,7 +71,7 @@ const InstructorStudentClasses = () => {
     const onScroll = event => {
         const { target } = event;
         const hasReachedBottom = target.scrollHeight - target.scrollTop === target.clientHeight;
-        if (hasReachedBottom && classes.length > pageSize && !noMoreData) {
+        if (hasReachedBottom && !noMoreData) {
             fetchData();
         }
     };
