@@ -32,6 +32,7 @@ import TestWizard from '../../components/testWizard';
 import InstructorSchedule from '../../components/instructorSchedule';
 import InstructorStudentClass from '../../components/instructorStudentClass';
 import Student from '../../components/student';
+import InstructorTestAssignation from '../../components/instructorTestAssignation';
 
 export default [
     {
@@ -271,7 +272,7 @@ export default [
     },
     {
         path: '/instructor/schedule/create',
-        component: TestAssignation,
+        component: InstructorTestAssignation,
         roles: 'Instructor',
     },
     {

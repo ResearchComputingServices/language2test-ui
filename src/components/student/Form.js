@@ -4,7 +4,7 @@ import { FormPaper, Button } from '../common';
 import Form from '../form';
 import { ApiPicklistField } from '../form/fields';
 
-function UserForm({
+function StudentForm({
     title,
     data,
     layout,
@@ -69,7 +69,7 @@ function UserForm({
     );
 }
 
-UserForm.propTypes = {
+StudentForm.propTypes = {
     title: PropTypes.string,
     data: PropTypes.object.isRequired,
     layout: PropTypes.array.isRequired,
@@ -82,9 +82,9 @@ UserForm.propTypes = {
     controls: PropTypes.object.isRequired,
 };
 
-UserForm.defaultProps = {
-    title: 'User',
+StudentForm.defaultProps = {
+    title: 'Student',
     buttons: [],
 };
 
-export default UserForm;
+export default StudentForm;
