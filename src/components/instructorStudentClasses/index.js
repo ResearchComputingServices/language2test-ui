@@ -26,14 +26,14 @@ const InstructorStudentClasses = () => {
         selectClass,
         reset,
     } = useActions('instructorStudentClasses');
-    const [studentClassService, historyService] = useService('studentClass', 'history');
+    const [instructorService, historyService] = useService('instructor', 'history');
 
     const fetchData = async reFetch => {
         try {
             if (reFetch) {
                 reset();
                 setLoading(true);
-                const newClasses = await studentClassService.getInstructorClasses({
+                const newClasses = await instructorService.getClasses({
                     offset: 0,
                     limit: pageSize,
                     column: 'id',
@@ -45,7 +45,7 @@ const InstructorStudentClasses = () => {
                 return;
             }
             setLoading(true);
-            const newClasses = await studentClassService.getInstructorClasses({
+            const newClasses = await instructorService.getClasses({
                 offset: (page - 1) * pageSize,
                 limit: pageSize,
                 column: 'id',
