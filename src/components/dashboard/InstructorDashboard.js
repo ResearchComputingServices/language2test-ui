@@ -14,6 +14,7 @@ function InstructorDashboard() {
         <div className='dashboard-activities'>
             <InstructorStudentClasses />
             <div style={{
+                zIndex: 1000,
                 position: 'fixed',
                 bottom: 0,
                 right: 10,

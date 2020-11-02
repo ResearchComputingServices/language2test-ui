@@ -144,8 +144,8 @@ const InstructorStudentClasses = () => {
             <div
                 className='p-2'
                 style={{
-                    width: '50%',
-                    minWidth: 700,
+                    width: '70%',
+                    minWidth: 500,
                 }}
             >
                 <Typography
