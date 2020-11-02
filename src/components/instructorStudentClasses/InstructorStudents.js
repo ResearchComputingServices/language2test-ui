@@ -54,7 +54,7 @@ function InstructorStudents({ data }) {
             <MaterialTable
                 columns={columns}
                 data={!_.isNil(data) && !_.isEmpty(data) ? data : fetchData}
-                onRowClick={(event, data) => historyService.go(`/users/user/${data.id}`)}
+                onRowClick={(event, data) => historyService.go(`/instructor/student/${data.id}`)}
                 options={{ search: !!data }}
                 style={{ padding: 10 }}
                 title='Students'

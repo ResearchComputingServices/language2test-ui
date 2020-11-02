@@ -10,8 +10,8 @@ export default [
     {
         field: 'name',
         title: 'Username',
-        disabled: data => !_.isNil(data.id),
         required: true,
+        disabled: data => !_.isNil(data.id),
     },
     {
         field: 'firstName',

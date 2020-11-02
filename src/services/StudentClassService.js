@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 import RestService from './RestService';
 
 class StudentService extends RestService {
@@ -6,7 +7,8 @@ class StudentService extends RestService {
 
     _requestTransformer = data => {
         if (_.isNil(data.name)) {
-            data.name = _.snakeCase(data.display);
+            // TODO - Backend is a hack, this is an attempt to make things workable.
+            data.name = uuidv4();
         }
         return data;
     }

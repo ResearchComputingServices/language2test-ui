@@ -89,8 +89,7 @@ function Field({ field, controls: { control, errors, getValues, setValue, watch,
                         clearError(field.field);
                     }
                     const values = getValues(field.field) || [];
-                    const key = row[identifierKey];
-                    if (!_.some(values, v => _.eq(v[identifierKey], key))) {
+                    if (!_.some(values, v => _.isEqual(v, row))) {
                         values.push(row);
                         setValue(field.field, values);
                     }

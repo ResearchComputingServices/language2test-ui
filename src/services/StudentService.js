@@ -22,7 +22,12 @@ class UserService extends RestService {
         return data;
     }
 
-    get = () => this._get({ roles: 'Test Taker' }, {
+    get = query => this._get({
+        ...query,
+        ...(query.id
+            ? {}
+            : { roles: 'Test Taker' }),
+    }, {
         responseTransformers: [
             this._responseTransformer,
         ],
