@@ -14,7 +14,11 @@ function createForm(elements, index, layout, data, controls, readonly) {
         if (!field) return;
         if (_.isFunction(field.displayRule) && !(field.displayRule(data, controls.getValues))) return;
         const { getValues } = controls;
-        field.defaultValue = !_.isEmpty(data) ? data[field.field] : undefined;
+        if (_.isFunction(field.defaultValue)) {
+            field.defaultValue = field.defaultValue(data, getValues);
+        } else {
+            field.defaultValue = !_.isEmpty(data) ? data[field.field] : undefined;
+        }
         field.disabled = _.isFunction(field.disabled) ? field.disabled(data, getValues) : field.disabled;
         if (_.isFunction(field.display)) {
             if (_.eq(field.display(data, getValues), false)) return;

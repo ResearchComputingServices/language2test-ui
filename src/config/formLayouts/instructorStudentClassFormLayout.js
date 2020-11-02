@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import store from '../../redux/store';
 
 export default [
     {
@@ -29,7 +30,8 @@ export default [
         title: 'Instructor',
         type: 'api-picklist',
         query: { roles: 'Instructor' },
-        disabled: data => !_.isNil(data.id),
+        defaultValue: () => ({ name: store.getState().userSession.name }),
+        disabled: true,
         entity: 'user',
         required: true,
     },
