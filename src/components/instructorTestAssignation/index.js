@@ -24,7 +24,7 @@ function InstructorTestAssignation({ match }) {
     const entity = 'testAssignation';
     const id = _.get(match, 'params.id');
     const controls = useForm();
-    const layout = useFormLayout(entity);
+    const layout = useFormLayout('instructorTestAssignation');
     const startDatetime = controls.watch('startDatetime');
     const endDatetime = controls.watch('endDatetime');
 

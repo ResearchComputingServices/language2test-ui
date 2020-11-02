@@ -10,6 +10,7 @@ import ClozesGrid from '../../clozes/Grid';
 import WritingsGrid from '../../writings/Grid';
 import StudentsGrid from '../../students/Grid';
 import StudentClassesGrid from '../../studentClasses/Grid';
+import InstructorStudentClassesGrid from '../../instructorStudentClasses/Grid';
 
 function formatDefaultValue(field) {
     const defaultValue = _.get(field, 'defaultValue');
@@ -27,6 +28,7 @@ function getGrid(entity) {
         students: { Component: StudentsGrid },
         writings: { Component: WritingsGrid },
         studentClasses: { Component: StudentClassesGrid },
+        instructorStudentClasses: { Component: InstructorStudentClassesGrid },
     }[entity];
 }
 

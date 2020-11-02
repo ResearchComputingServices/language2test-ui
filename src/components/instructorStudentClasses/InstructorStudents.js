@@ -17,6 +17,7 @@ function InstructorStudents({ data }) {
 
     const fetchData = async query => {
         try {
+            const { count } = await service.getStudentsCount();
             const fetchQuery = {
                 offset: (query.page) * query.pageSize,
                 limit: query.pageSize,
@@ -27,7 +28,7 @@ function InstructorStudents({ data }) {
             return {
                 data,
                 page: query.page,
-                totalCount: 'Many',
+                totalCount: count,
             };
         } catch (err) {
             return {

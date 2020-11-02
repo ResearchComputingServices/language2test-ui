@@ -17,6 +17,20 @@ class InstructorService extends RestService {
             url: `${this.prefix}/students`,
         }))
         .then(data => this._processResponse(data, options))
+
+    getClassesCount = (query, options = {}) => axios
+        .get(this._buildQuery({
+            ...query,
+            url: `${this.prefix}/student_classes/count`,
+        }))
+        .then(data => this._processResponse(data, options))
+
+    getStudentsCount = (query, options = {}) => axios
+        .get(this._buildQuery({
+            ...query,
+            url: `${this.prefix}/students/count`,
+        }))
+        .then(data => this._processResponse(data, options))
 }
 
 const instructorService = new InstructorService();
