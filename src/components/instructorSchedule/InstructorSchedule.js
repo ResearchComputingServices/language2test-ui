@@ -8,7 +8,6 @@ import TestSchedule from '../testSchedule';
 import InstructorScheduleDetails from './InstructorScheduleDetails';
 import { useMount, useService, useState, useMountedState } from '../../hooks';
 
-// http://localhost:7017/language2test_api/instructor/test_sessions?test_assignation_id=2
 function InstructorSchedule() {
     const isMounted = useMountedState();
     const [testScheduleService, historyService] = useService('testSchedule', 'history');
@@ -43,6 +42,10 @@ function InstructorSchedule() {
             }
         } catch (err) {}
     });
+
+    const onViewTestSessions = async id => {
+        console.log(id);
+    };
 
     return (
         <>
@@ -84,6 +87,7 @@ function InstructorSchedule() {
                             handleClose={closeModal}
                             id={scheduleDetails.id}
                             isPast={moment().isAfter(scheduleDetails.endDatetime)}
+                            onViewTestSessions={onViewTestSessions}
                             open={scheduleDetails.open}
                             startDatetime={scheduleDetails.startDatetime.format('LLLL')}
                             studentClassNames={scheduleDetails.studentClassNames}

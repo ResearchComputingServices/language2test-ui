@@ -12,6 +12,7 @@ function InstructorScheduleDetails({
     startDatetime,
     endDatetime,
     studentClassNames,
+    onViewTestSessions,
     isPast,
     id,
 }) {
@@ -56,9 +57,7 @@ function InstructorScheduleDetails({
                 {
                     <Button
                         color='primary'
-                        onClick={() => {
-                            console.log(id);
-                        }}
+                        onClick={() => onViewTestSessions(id)}
                     >
                         View Test Sessions
                     </Button>
@@ -83,6 +82,7 @@ InstructorScheduleDetails.propTypes = {
     studentClassNames: PropTypes.string,
     isPast: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
+    onViewTestSessions: PropTypes.func.isRequired,
 };
 
 InstructorScheduleDetails.defaultProps = { studentClassNames: 'Unknown' };
