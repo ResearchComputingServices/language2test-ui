@@ -10,16 +10,14 @@ function InstructorTestSessions({ id, onRowClick }) {
 
     const fetchData = async query => {
         try {
-            // TODO needs to change.
-            const { count } = await service.getStudentsCount();
+            const { count } = await service.getTestSessionsCount(id);
             const fetchQuery = {
                 offset: (query.page) * query.pageSize,
                 limit: query.pageSize,
                 column: _.snakeCase(_.get(query, 'orderBy.field', 'id') || 'id'),
                 order: _.get(query, 'orderDirection', 'asc') || 'asc',
             };
-            // TODO needs to change.
-            const data = await service.getStudents(fetchQuery);
+            const data = await service.getTestSessions(id, fetchQuery);
             return {
                 data,
                 page: query.page,

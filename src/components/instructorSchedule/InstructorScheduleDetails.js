@@ -54,16 +54,16 @@ function InstructorScheduleDetails({
                     <b>Classes</b>
                     {`: ${studentClassNames}`}
                 </h4>
+                {isPast && (
+                    <h4 className='instructor-schedule-highlighted-text'>
+                        <b>Students have completed this test.</b>
+                    </h4>
+                )}
                 {
                     <Button onClick={() => onViewTestSessions(id)}>
                         View Test Sessions
                     </Button>
                 }
-                {isPast && (
-                    <h4 className='instructor-schedule-highlighted-text'>
-                        <b>Test has been taken.</b>
-                    </h4>
-                )}
             </div>
         </Modal>
     );

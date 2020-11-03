@@ -32,8 +32,16 @@ class InstructorService extends RestService {
         }))
         .then(data => this._processResponse(data, options))
 
-    getTestSessions = id => axios
+    getTestSessionsCount = id => axios
         .get(this._buildQuery({
+            url: `${this.prefix}/test_sessions/count`,
+            test_assignation_id: id,
+        }))
+        .then(data => this._processResponse(data, {}))
+
+    getTestSessions = (id, query) => axios
+        .get(this._buildQuery({
+            ...query,
             url: `${this.prefix}/test_sessions`,
             test_assignation_id: id,
         }))
