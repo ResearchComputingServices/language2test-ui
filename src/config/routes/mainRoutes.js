@@ -32,6 +32,7 @@ import InstructorSchedule from '../../components/instructorSchedule';
 import InstructorStudentClass from '../../components/instructorStudentClass';
 import Student from '../../components/student';
 import InstructorTestAssignation from '../../components/instructorTestAssignation';
+import InstructorTestSessions from '../../components/instructorTestSessions';
 
 export default [
     {
@@ -132,7 +133,7 @@ export default [
     {
         path: '/test-sessions/test-session/:id',
         component: TestSession,
-        roles: ['Administrator', 'Instructor'],
+        roles: 'Administrator',
     },
     {
         path: '/test-categories/',
@@ -272,6 +273,16 @@ export default [
     {
         path: '/instructor/student/:id',
         component: Student,
+        roles: 'Instructor',
+    },
+    {
+        path: '/instructor/test-sessions/:id',
+        component: InstructorTestSessions,
+        roles: 'Instructor',
+    },
+    {
+        path: '/instructor/test-session/:id',
+        component: TestSession,
         roles: 'Instructor',
     },
     {

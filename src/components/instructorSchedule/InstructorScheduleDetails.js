@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
+import { Button } from '../common';
 import { useWindowSize } from '../../hooks';
 
 function InstructorScheduleDetails({
@@ -55,10 +55,7 @@ function InstructorScheduleDetails({
                     {`: ${studentClassNames}`}
                 </h4>
                 {
-                    <Button
-                        color='primary'
-                        onClick={() => onViewTestSessions(id)}
-                    >
+                    <Button onClick={() => onViewTestSessions(id)}>
                         View Test Sessions
                     </Button>
                 }

@@ -43,9 +43,7 @@ function InstructorSchedule() {
         } catch (err) {}
     });
 
-    const onViewTestSessions = async id => {
-        console.log(id);
-    };
+    const onViewTestSessions = async id => historyService.go(`/instructor/test-sessions/${id}`);
 
     return (
         <>
