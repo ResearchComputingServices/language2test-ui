@@ -1,9 +1,11 @@
+import _ from 'lodash';
 import React from 'react';
 import { Fab, Tooltip } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ToastsStore from 'react-toasts';
 import moment from 'moment';
 import TestSchedule from '../testSchedule';
+import InstructorScheduleDetails from './InstructorScheduleDetails';
 import { useMount, useService, useState, useMountedState } from '../../hooks';
 
 function InstructorSchedule() {
@@ -61,9 +63,32 @@ function InstructorSchedule() {
             <TestSchedule
                 events={tests}
                 onChange={async (start, end) => setTests(await getTests(start, end))}
-                renderPopup={scheduleDetails => {
-                    console.log(scheduleDetails);
-                    return null;
+                renderPopup={(scheduleDetails, closeModal) => {
+                    const studentClasses = _.get(scheduleDetails, 'resource.studentClass', []);
+                    scheduleDetails = {
+                        ...scheduleDetails,
+                        testName: scheduleDetails.resource.test.name,
+                        startDatetime: scheduleDetails.resource.startDatetime,
+                        endDatetime: scheduleDetails.resource.endDatetime,
+                        testId: scheduleDetails.resource.testId,
+                        studentClassNames: _.reduce(studentClasses, (accumulator, studentClass, index) => {
+                            accumulator += `${studentClass.display}${index < studentClasses.length - 1 ? ', ' : ''}`;
+                            return accumulator;
+                        }, ''),
+                    };
+                    return (
+                        <InstructorScheduleDetails
+                            coordinates={scheduleDetails.coordinates}
+                            endDatetime={scheduleDetails.endDatetime.format('LLLL')}
+                            handleClose={closeModal}
+                            isPast={moment().isAfter(scheduleDetails.endDatetime)}
+                            open={scheduleDetails.open}
+                            startDatetime={scheduleDetails.startDatetime.format('LLLL')}
+                            studentClassNames={scheduleDetails.studentClassNames}
+                            testId={scheduleDetails.testId}
+                            testName={scheduleDetails.testName}
+                        />
+                    );
                 }}
             />
         </>

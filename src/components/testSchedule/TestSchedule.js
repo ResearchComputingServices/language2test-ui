@@ -15,22 +15,14 @@ function TestSchedule({
     const [scheduleDetails, setScheduleDetails] = useState({
         open: false,
         coordinates: [0, 0],
-        testName: '',
-        startDatetime: '',
-        endDatetime: '',
-        taken: false,
+        resource: {},
     });
 
     const openModal = (test, event) => {
         setScheduleDetails({
             open: true,
-            testName: test.resource.testName,
             coordinates: [event.clientX, event.clientY],
-            startDatetime: test.resource.startDatetime,
-            endDatetime: test.resource.endDatetime,
-            taken: test.resource.taken,
-            testId: test.resource.testId,
-            studentClassName: test.resource.studentClassName,
+            resource: test.resource,
         });
     };
 

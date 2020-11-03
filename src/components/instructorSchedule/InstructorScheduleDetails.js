@@ -2,20 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import PropTypes from 'prop-types';
 import { useWindowSize } from '../../hooks';
-import { Button } from '../common';
 
-function TestTakerScheduleDetails({
+function InstructorScheduleDetails({
     testName,
     open: openProps,
     coordinates: coordinatesProps,
     handleClose,
     startDatetime,
     endDatetime,
-    canTakeTest,
-    onTestStart,
-    testId,
-    studentClassName,
-    taken,
+    studentClassNames,
     isPast,
 }) {
     const [open, setOpen] = useState(openProps);
@@ -37,13 +32,13 @@ function TestTakerScheduleDetails({
             open={open}
         >
             <div
-                className='test-taker-schedule-details'
+                className='instructor-schedule-details'
                 style={{
                     top: `${(y + 230 >= height ? height - 250 : y) - 20}px`,
                     left: `${(x + 400 >= width ? width - 425 : x) + 20}px`,
                 }}
             >
-                <h1 className='test-taker-schedule-details-title'><b>{testName}</b></h1>
+                <h1 className='instructor-schedule-details-title'><b>{testName}</b></h1>
                 <h4>
                     <b>From</b>
                     {`: ${startDatetime}`}
@@ -53,50 +48,30 @@ function TestTakerScheduleDetails({
                     {`: ${endDatetime}`}
                 </h4>
                 <h4>
-                    <b>Class</b>
-                    {`: ${studentClassName}`}
+                    <b>Classes</b>
+                    {`: ${studentClassNames}`}
                 </h4>
-                {taken && (
-                    <h4 className='test-taker-schedule-highlighted-text'>
-                        <b>This test has been taken</b>
+                {isPast && (
+                    <h4 className='instructor-schedule-highlighted-text'>
+                        <b>Test has been taken.</b>
                     </h4>
-                )}
-                {!canTakeTest && !taken && isPast && (
-                    <h4 className='test-taker-schedule-highlighted-text'>
-                        <b>This test was scheduled but not taken</b>
-                    </h4>
-                )}
-                {canTakeTest && (
-                    <Button
-                        className='my-3'
-                        onClick={() => onTestStart(testId)}
-                    >
-                        Take Test
-                    </Button>
                 )}
             </div>
         </Modal>
     );
 }
 
-TestTakerScheduleDetails.propTypes = {
+InstructorScheduleDetails.propTypes = {
     testName: PropTypes.string.isRequired,
     open: PropTypes.bool.isRequired,
     coordinates: PropTypes.array.isRequired,
     handleClose: PropTypes.func.isRequired,
     startDatetime: PropTypes.string.isRequired,
     endDatetime: PropTypes.string.isRequired,
-    onTestStart: PropTypes.func.isRequired,
-    canTakeTest: PropTypes.bool.isRequired,
-    studentClassName: PropTypes.string,
-    testId: PropTypes.number,
-    taken: PropTypes.bool.isRequired,
+    studentClassNames: PropTypes.string,
     isPast: PropTypes.bool.isRequired,
 };
 
-TestTakerScheduleDetails.defaultProps = {
-    testId: undefined,
-    studentClassName: 'Unknown',
-};
+InstructorScheduleDetails.defaultProps = { studentClassNames: 'Unknown' };
 
-export default TestTakerScheduleDetails;
+export default InstructorScheduleDetails;

@@ -108,22 +108,33 @@ function TestTakerSchedule() {
             <TestSchedule
                 events={tests}
                 onChange={async (start, end) => setTests(await getTests(start, end))}
-                renderPopup={(scheduleDetails, closeModal) => (
-                    <TestTakerScheduleDetails
-                        canTakeTest={moment().isBetween(scheduleDetails.startDatetime, scheduleDetails.endDatetime) && !scheduleDetails.taken}
-                        coordinates={scheduleDetails.coordinates}
-                        endDatetime={scheduleDetails.endDatetime.format('LLLL')}
-                        handleClose={closeModal}
-                        isPast={moment().isAfter(scheduleDetails.endDatetime)}
-                        onTestStart={onTestStart}
-                        open={scheduleDetails.open}
-                        startDatetime={scheduleDetails.startDatetime.format('LLLL')}
-                        studentClassName={scheduleDetails.studentClassName}
-                        taken={scheduleDetails.taken}
-                        testId={scheduleDetails.testId}
-                        testName={scheduleDetails.testName}
-                    />
-                )}
+                renderPopup={(scheduleDetails, closeModal) => {
+                    scheduleDetails = {
+                        ...scheduleDetails,
+                        testName: scheduleDetails.resource.test.name,
+                        startDatetime: scheduleDetails.resource.startDatetime,
+                        endDatetime: scheduleDetails.resource.endDatetime,
+                        testId: scheduleDetails.resource.testId,
+                        taken: scheduleDetails.resource.taken,
+                        studentClassName: scheduleDetails.resource.studentClass.display,
+                    };
+                    return (
+                        <TestTakerScheduleDetails
+                            canTakeTest={moment().isBetween(scheduleDetails.startDatetime, scheduleDetails.endDatetime) && !scheduleDetails.taken}
+                            coordinates={scheduleDetails.coordinates}
+                            endDatetime={scheduleDetails.endDatetime.format('LLLL')}
+                            handleClose={closeModal}
+                            isPast={moment().isAfter(scheduleDetails.endDatetime)}
+                            onTestStart={onTestStart}
+                            open={scheduleDetails.open}
+                            startDatetime={scheduleDetails.startDatetime.format('LLLL')}
+                            studentClassName={scheduleDetails.studentClassName}
+                            taken={scheduleDetails.taken}
+                            testId={scheduleDetails.testId}
+                            testName={scheduleDetails.testName}
+                        />
+                    );
+                }}
             />
         </Layout>
     );
