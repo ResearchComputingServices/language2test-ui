@@ -109,14 +109,15 @@ function TestTakerSchedule() {
                 events={tests}
                 onChange={async (start, end) => setTests(await getTests(start, end))}
                 renderPopup={(scheduleDetails, closeModal) => {
+                    console.log(scheduleDetails);
                     scheduleDetails = {
                         ...scheduleDetails,
-                        testName: scheduleDetails.resource.test.name,
+                        testName: scheduleDetails.resource.testName,
                         startDatetime: scheduleDetails.resource.startDatetime,
                         endDatetime: scheduleDetails.resource.endDatetime,
                         testId: scheduleDetails.resource.testId,
                         taken: scheduleDetails.resource.taken,
-                        studentClassName: scheduleDetails.resource.studentClass.display,
+                        studentClassName: scheduleDetails.resource.studentClassName,
                     };
                     return (
                         <TestTakerScheduleDetails
