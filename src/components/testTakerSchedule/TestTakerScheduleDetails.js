@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useWindowSize } from '../../hooks';
 import { Button } from '../common';
 
-function TestScheduleDetails({
+function TestTakerScheduleDetails({
     testName,
     open: openProps,
     coordinates: coordinatesProps,
@@ -39,13 +39,13 @@ function TestScheduleDetails({
             open={open}
         >
             <div
-                className='test-schedule-details'
+                className='test-taker-schedule-details'
                 style={{
                     top: `${(y + 230 >= height ? height - 250 : y) - 20}px`,
                     left: `${(x + 400 >= width ? width - 425 : x) + 20}px`,
                 }}
             >
-                <h1 className='test-schedule-details-title'><b>{testName}</b></h1>
+                <h1 className='test-taker-schedule-details-title'><b>{testName}</b></h1>
                 <h4>
                     <b>From</b>
                     {`: ${startDatetime}`}
@@ -59,12 +59,12 @@ function TestScheduleDetails({
                     {`: ${studentClassName}`}
                 </h4>
                 {taken && (
-                    <h4 className='test-schedule-highlighted-text'>
+                    <h4 className='test-taker-schedule-highlighted-text'>
                         <b>This test has been taken</b>
                     </h4>
                 )}
                 {!canTakeTest && !taken && isPast && (
-                    <h4 className='test-schedule-highlighted-text'>
+                    <h4 className='test-taker-schedule-highlighted-text'>
                         <b>This test was scheduled but not taken</b>
                     </h4>
                 )}
@@ -81,7 +81,7 @@ function TestScheduleDetails({
     );
 }
 
-TestScheduleDetails.propTypes = {
+TestTakerScheduleDetails.propTypes = {
     testName: PropTypes.string.isRequired,
     open: PropTypes.bool.isRequired,
     coordinates: PropTypes.array.isRequired,
@@ -96,9 +96,9 @@ TestScheduleDetails.propTypes = {
     isPast: PropTypes.bool.isRequired,
 };
 
-TestScheduleDetails.defaultProps = {
+TestTakerScheduleDetails.defaultProps = {
     testId: undefined,
     studentClassName: 'Unknown',
 };
 
-export default TestScheduleDetails;
+export default TestTakerScheduleDetails;

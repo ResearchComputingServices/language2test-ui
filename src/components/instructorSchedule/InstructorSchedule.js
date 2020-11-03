@@ -61,6 +61,10 @@ function InstructorSchedule() {
             <TestSchedule
                 events={tests}
                 onChange={async (start, end) => setTests(await getTests(start, end))}
+                renderPopup={scheduleDetails => {
+                    console.log(scheduleDetails);
+                    return null;
+                }}
             />
         </>
     );

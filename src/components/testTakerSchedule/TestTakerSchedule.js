@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ToastsStore } from 'react-toasts';
 import { Layout } from '../common';
 import TestSchedule from '../testSchedule';
-import TestScheduleDetails from './TestScheduleDetails';
+import TestTakerScheduleDetails from './TestTakerScheduleDetails';
 import {
     useStore,
     useActions,
@@ -109,7 +109,7 @@ function TestTakerSchedule() {
                 events={tests}
                 onChange={async (start, end) => setTests(await getTests(start, end))}
                 renderPopup={(scheduleDetails, closeModal) => (
-                    <TestScheduleDetails
+                    <TestTakerScheduleDetails
                         canTakeTest={moment().isBetween(scheduleDetails.startDatetime, scheduleDetails.endDatetime) && !scheduleDetails.taken}
                         coordinates={scheduleDetails.coordinates}
                         endDatetime={scheduleDetails.endDatetime.format('LLLL')}
