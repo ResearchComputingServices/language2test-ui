@@ -92,7 +92,6 @@ function Writing({ match }) {
 
     const onClone = () => {
         cloneActions.setData(controls.getValues());
-        console.log(getClone());
         historyService.go('/writings/writing');
     };
 
