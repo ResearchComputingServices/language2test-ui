@@ -3,7 +3,6 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import sassTheme from '../root/_theme.scss';
-import TestScheduleDetails from './TestScheduleDetails';
 
 const localizer = momentLocalizer(moment);
 
@@ -11,7 +10,7 @@ function TestSchedule({
     displayName,
     events,
     onChange,
-    onTestStart,
+    renderPopup,
 }) {
     const [scheduleDetails, setScheduleDetails] = useState({
         open: false,
@@ -70,22 +69,7 @@ function TestSchedule({
                     views={['month', 'week', 'day']}
                 />
             </div>
-            {scheduleDetails.open && (
-                <TestScheduleDetails
-                    canTakeTest={moment().isBetween(scheduleDetails.startDatetime, scheduleDetails.endDatetime) && !scheduleDetails.taken}
-                    coordinates={scheduleDetails.coordinates}
-                    endDatetime={scheduleDetails.endDatetime.format('LLLL')}
-                    handleClose={closeModal}
-                    isPast={moment().isAfter(scheduleDetails.endDatetime)}
-                    onTestStart={onTestStart}
-                    open={scheduleDetails.open}
-                    startDatetime={scheduleDetails.startDatetime.format('LLLL')}
-                    studentClassName={scheduleDetails.studentClassName}
-                    taken={scheduleDetails.taken}
-                    testId={scheduleDetails.testId}
-                    testName={scheduleDetails.testName}
-                />
-            )}
+            {scheduleDetails.open && renderPopup(scheduleDetails, closeModal)}
         </div>
     );
 }
@@ -94,14 +78,14 @@ TestSchedule.propTypes = {
     displayName: PropTypes.string,
     events: PropTypes.array,
     onChange: PropTypes.func,
-    onTestStart: PropTypes.func,
+    renderPopup: PropTypes.func,
 };
 
 TestSchedule.defaultProps = {
     displayName: 'Your',
     events: [],
     onChange: () => {},
-    onTestStart: () => {},
+    renderPopup: () => {},
 };
 
 export default TestSchedule;
