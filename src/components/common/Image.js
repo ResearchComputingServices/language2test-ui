@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Layout } from '../common';
+import { Layout } from '.';
 import { useData, useService } from '../../hooks';
 
 function Image({ imageName }) {

@@ -7,7 +7,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import _ from 'lodash';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
-import { ModalInfo } from '../common';
+import { ModalInfo } from '.';
 import { useForm, useService, useMount } from '../../hooks';
 
 function ImageUploader({ imageName, onUpload, className }) {

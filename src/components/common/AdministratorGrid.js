@@ -5,7 +5,7 @@ import DownloadIcon from '@material-ui/icons/GetApp';
 import UploadIcon from '@material-ui/icons/Publish';
 import Button from './Button';
 import Grid from './Grid';
-import FileUploader from '../fileUploader';
+import { FileUploader } from '.';
 
 function AdministratorGrid({
     title,

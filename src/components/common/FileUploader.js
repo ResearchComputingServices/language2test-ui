@@ -8,7 +8,7 @@ import UploadIcon from '@material-ui/icons/Publish';
 import _ from 'lodash';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
-import { ModalInfo } from '../common';
+import { ModalInfo } from '.';
 import { useForm } from '../../hooks';
 
 function FileUploader({ onUpload, acceptedFiles, as: Component }) {

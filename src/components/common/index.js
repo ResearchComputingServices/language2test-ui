@@ -22,6 +22,9 @@ import CloneButton from './CloneButton';
 import List from './List';
 import PreviewButton from './PreviewButton';
 import Drawer from './Drawer';
+import FileUploader from './FileUploader';
+import Image from './Image';
+import ImageUploader from './ImageUploader';
 
 export {
     AdministratorGrid,
@@ -48,4 +51,7 @@ export {
     List,
     PreviewButton,
     Drawer,
+    FileUploader,
+    Image,
+    ImageUploader,
 };

@@ -5,7 +5,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import InstructorStudentClasses from '../instructorStudentClasses';
 import { useService, useGridActions } from '../../hooks';
-import FileUploader from '../fileUploader';
+import { FileUploader } from '../common';
 
 function InstructorDashboard() {
     const historyService = useService('history');

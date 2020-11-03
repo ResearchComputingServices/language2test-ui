@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
-import Image from '../image';
+import { Image } from '../common';
 
 const Question = ({
     children,
