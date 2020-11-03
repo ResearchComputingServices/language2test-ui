@@ -23,7 +23,6 @@ import Enumerations from '../../components/enumerations';
 import Enumeration from '../../components/enumeration';
 import UserFieldTypes from '../../components/userFieldTypes';
 import UserFieldType from '../../components/userFieldType';
-import Role from '../../components/role';
 import Roles from '../../components/roles';
 import TestAssignations from '../../components/testAssignations';
 import TestAssignation from '../../components/testAssignation';
@@ -243,16 +242,6 @@ export default [
     {
         path: '/roles/',
         component: Roles,
-        roles: 'Administrator',
-    },
-    {
-        path: '/roles/roles',
-        component: Role,
-        roles: 'Administrator',
-    },
-    {
-        path: '/roles/role/:id',
-        component: Role,
         roles: 'Administrator',
     },
     {

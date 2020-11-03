@@ -5,9 +5,10 @@ import { useGridActions, useGridButtons } from '../../hooks';
 
 export default function Roles() {
     const rights = {
-        create: ['Administrator'],
-        export: ['Administrator'],
-        import: ['Administrator'],
+        create: [],
+        export: [],
+        import: [],
+        read: [],
     };
     const actions = useGridActions('roles');
     const buttons = useGridButtons(actions, rights);
