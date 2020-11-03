@@ -8,6 +8,7 @@ import TestSchedule from '../testSchedule';
 import InstructorScheduleDetails from './InstructorScheduleDetails';
 import { useMount, useService, useState, useMountedState } from '../../hooks';
 
+// http://localhost:7017/language2test_api/instructor/test_sessions?test_assignation_id=2
 function InstructorSchedule() {
     const isMounted = useMountedState();
     const [testScheduleService, historyService] = useService('testSchedule', 'history');
@@ -70,7 +71,7 @@ function InstructorSchedule() {
                         testName: scheduleDetails.resource.test.name,
                         startDatetime: scheduleDetails.resource.startDatetime,
                         endDatetime: scheduleDetails.resource.endDatetime,
-                        testId: scheduleDetails.resource.testId,
+                        id: scheduleDetails.resource.id,
                         studentClassNames: _.reduce(studentClasses, (accumulator, studentClass, index) => {
                             accumulator += `${studentClass.display}${index < studentClasses.length - 1 ? ', ' : ''}`;
                             return accumulator;
@@ -81,11 +82,11 @@ function InstructorSchedule() {
                             coordinates={scheduleDetails.coordinates}
                             endDatetime={scheduleDetails.endDatetime.format('LLLL')}
                             handleClose={closeModal}
+                            id={scheduleDetails.id}
                             isPast={moment().isAfter(scheduleDetails.endDatetime)}
                             open={scheduleDetails.open}
                             startDatetime={scheduleDetails.startDatetime.format('LLLL')}
                             studentClassNames={scheduleDetails.studentClassNames}
-                            testId={scheduleDetails.testId}
                             testName={scheduleDetails.testName}
                         />
                     );

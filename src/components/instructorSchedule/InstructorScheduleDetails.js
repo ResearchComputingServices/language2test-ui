@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 import { useWindowSize } from '../../hooks';
 
 function InstructorScheduleDetails({
@@ -12,6 +13,7 @@ function InstructorScheduleDetails({
     endDatetime,
     studentClassNames,
     isPast,
+    id,
 }) {
     const [open, setOpen] = useState(openProps);
     const [coordinates, setCoordinates] = useState(coordinatesProps);
@@ -51,6 +53,16 @@ function InstructorScheduleDetails({
                     <b>Classes</b>
                     {`: ${studentClassNames}`}
                 </h4>
+                {
+                    <Button
+                        color='primary'
+                        onClick={() => {
+                            console.log(id);
+                        }}
+                    >
+                        View Test Sessions
+                    </Button>
+                }
                 {isPast && (
                     <h4 className='instructor-schedule-highlighted-text'>
                         <b>Test has been taken.</b>
@@ -70,6 +82,7 @@ InstructorScheduleDetails.propTypes = {
     endDatetime: PropTypes.string.isRequired,
     studentClassNames: PropTypes.string,
     isPast: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired,
 };
 
 InstructorScheduleDetails.defaultProps = { studentClassNames: 'Unknown' };
