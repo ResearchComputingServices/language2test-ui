@@ -2,11 +2,21 @@ import _ from 'lodash';
 import React from 'react';
 import MaterialTable from 'material-table';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { useGridColumns, useService } from '../../hooks';
 
 function InstructorTestSessions({ id, onRowClick }) {
     const columns = useGridColumns('testSessions');
     const service = useService('instructor');
+
+    const format = datum => {
+        datum.testName = _.get(datum, 'test.name');
+        datum.userName = _.get(datum, 'user.name');
+        datum.startDatetime = moment.utc(datum.startDatetime).local().format('LLLL');
+        datum.endDatetime = moment.utc(datum.endDatetime).local().format('LLLL');
+        datum.createdDatetime = moment.utc(datum.createdDatetime).local().format('LLLL');
+        return datum;
+    };
 
     const fetchData = async query => {
         try {
@@ -19,7 +29,7 @@ function InstructorTestSessions({ id, onRowClick }) {
             };
             const data = await service.getTestSessions(id, fetchQuery);
             return {
-                data,
+                data: _.map(data, format),
                 page: query.page,
                 totalCount: count,
             };
