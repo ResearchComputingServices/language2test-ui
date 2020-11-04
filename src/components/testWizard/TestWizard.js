@@ -39,7 +39,7 @@ export default function() {
     useEffect(() => {
         if (dialogConfirmed && _.eq(dialogKey, 'testWizard')) {
             setBackbuttonPress(true);
-            historyService.go('/test');
+            historyService.go('/dashboard');
             hideDialog();
             reset();
         }
@@ -61,7 +61,7 @@ export default function() {
                 key: 'testWizard',
             });
         } else {
-            historyService.go('/test');
+            historyService.go('/dashboard');
             reset();
         }
     }, [isBackButtonClicked, showDialog, historyService, reset]);
@@ -78,7 +78,7 @@ export default function() {
     }, [endDatetime, onBackButtonEvent]);
 
     if (_.isNil(steps) || _.isEmpty(steps)) {
-        historyService.go('/test');
+        historyService.go('/dashboard');
     }
 
     const stores = useTestWizardStores();

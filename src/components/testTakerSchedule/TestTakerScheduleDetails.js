@@ -13,7 +13,6 @@ function TestTakerScheduleDetails({
     endDatetime,
     canTakeTest,
     onTestStart,
-    testId,
     studentClassName,
     taken,
     isPast,
@@ -69,7 +68,7 @@ function TestTakerScheduleDetails({
                 {canTakeTest && (
                     <Button
                         className='my-3'
-                        onClick={() => onTestStart(testId)}
+                        onClick={onTestStart}
                     >
                         Take Test
                     </Button>
@@ -89,14 +88,10 @@ TestTakerScheduleDetails.propTypes = {
     onTestStart: PropTypes.func.isRequired,
     canTakeTest: PropTypes.bool.isRequired,
     studentClassName: PropTypes.string,
-    testId: PropTypes.number,
     taken: PropTypes.bool.isRequired,
     isPast: PropTypes.bool.isRequired,
 };
 
-TestTakerScheduleDetails.defaultProps = {
-    testId: undefined,
-    studentClassName: 'Unknown',
-};
+TestTakerScheduleDetails.defaultProps = { studentClassName: 'Unknown' };
 
 export default TestTakerScheduleDetails;

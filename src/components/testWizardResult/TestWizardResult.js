@@ -18,6 +18,7 @@ export default function TestWizardResults() {
     const stepStores = useTestWizardStores();
     const {
         id: testId,
+        classId,
         name: sessionName,
         wizardSteps,
         startDatetime,
@@ -125,6 +126,7 @@ export default function TestWizardResults() {
             name: `${sessionName} - ${displayName} - ${new Date().toISOString()}`,
             startDatetime,
             endDatetime: new Date().toISOString(),
+            classId,
             ...testStatistics,
         };
         return testSessionService.add(session);

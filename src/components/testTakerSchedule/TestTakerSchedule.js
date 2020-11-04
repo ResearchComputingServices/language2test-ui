@@ -28,7 +28,7 @@ function TestTakerSchedule() {
     } = useActions('testWizardSession');
     const [tests, setTests] = useState([]);
 
-    const onTestStart = async testId => {
+    const onTestStart = async (testId, classId) => {
         const test = await testService.get({ id: testId });
         resetTestWizardSession();
         const { id, name, steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = test;
@@ -60,6 +60,7 @@ function TestTakerSchedule() {
         startTestWizardSession({
             id,
             name,
+            classId,
             wizardSteps,
         });
         historyService.go('/test/wizard');
@@ -125,7 +126,7 @@ function TestTakerSchedule() {
                             endDatetime={scheduleDetails.endDatetime.format('LLLL')}
                             handleClose={closeModal}
                             isPast={moment().isAfter(scheduleDetails.endDatetime)}
-                            onTestStart={onTestStart}
+                            onTestStart={() => onTestStart(scheduleDetails.testId, scheduleDetails.resource.studentClassId)}
                             open={scheduleDetails.open}
                             startDatetime={scheduleDetails.startDatetime.format('LLLL')}
                             studentClassName={scheduleDetails.studentClassName}
