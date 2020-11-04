@@ -122,8 +122,7 @@ function Main({ authenticate }) {
         }
     }, [dialogCanceled, dialogKey, hideDialog]);
 
-    useMount(async () => {
-        disableDrawer();
+    const redirectUserToRelevantRoute = () => {
         const lastVisitedRoute = localStorage.getItem('$lastVisitedRoute');
         // If we left off at a wizard session we should always go back to it.
         if (_.eq(lastVisitedRoute, '/test/wizard')) {
@@ -131,8 +130,13 @@ function Main({ authenticate }) {
                 historyService.go('/test/wizard');
             }
         } else if (!_.isNil(lastVisitedRoute) && !_.eq(lastVisitedRoute, historyService.getUrl())) {
-            historyService.go(localStorage.getItem('$lastVisitedRoute'));
+            historyService.go('/dashboard');
         }
+    };
+
+    useMount(async () => {
+        disableDrawer();
+        redirectUserToRelevantRoute();
         // Responsible for parsing all request from camel case to snake case and responses from snake case to camel case.
         interceptorService.registerDataTransformInterceptor();
         interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
