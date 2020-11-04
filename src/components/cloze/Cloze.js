@@ -16,6 +16,7 @@ import {
     useFormLayout,
     useFormActions,
     useFormButtons,
+    useRolesCheckerService,
 } from '../../hooks';
 import InteractiveTextEditor from './InteractiveTextEditor';
 import useCloze from './useCloze';
@@ -27,6 +28,7 @@ function Cloze({ match }) {
         delete: ['Administrator', 'Test Developer'],
         export: ['Administrator', 'Test Developer'],
     };
+    const rolesCheckerService = useRolesCheckerService();
     const entity = 'cloze';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -225,6 +227,12 @@ function Cloze({ match }) {
         historyService.go('/clozes/cloze');
     };
 
+    const readonly = data.immutable || (
+        rolesCheckerService.has('Instructor')
+            && !rolesCheckerService.has('Administrator')
+            && !rolesCheckerService.has('Test Developer')
+    );
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -235,23 +243,28 @@ function Cloze({ match }) {
                     data={data}
                     layout={layout}
                     onClone={!getClone() ? onClone : undefined}
-                    readonly={data.immutable}
+                    readonly={readonly}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Cloze`}
                 >
-                    <InteractiveTextEditor controls={controls} />
-                    <div className='d-flex align-items-start'>
-                        <Button
-                            color='primary'
-                            inline
-                            onClick={
-                                _.isEmpty(getQuestions())
-                                    ? generateQuestions
-                                    : () => showDialog('Generating the cloze will wipe out your current questions, are you sure?')
-                            }
-                        >
-                            Update Cloze Questions
-                        </Button>
-                    </div>
+                    <InteractiveTextEditor
+                        controls={controls}
+                        readonly={readonly}
+                    />
+                    {!readonly && (
+                        <div className='d-flex align-items-start'>
+                            <Button
+                                color='primary'
+                                inline
+                                onClick={
+                                    _.isEmpty(getQuestions())
+                                        ? generateQuestions
+                                        : () => showDialog('Generating the cloze will wipe out your current questions, are you sure?')
+                                }
+                            >
+                                Update Cloze Questions
+                            </Button>
+                        </div>
+                    )}
                     <div className='my-3 mb-3'>
                         <div className='cloze-sub-title mb-4'><u>All Questions</u></div>
                         <List
@@ -268,6 +281,7 @@ function Cloze({ match }) {
                                     onRemove={() => onRemoveQuestion(data)}
                                     onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
                                     options={data.options}
+                                    readonly={readonly}
                                     sequence={sequence}
                                     text={data.text}
                                     typed={data.typed}

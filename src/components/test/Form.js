@@ -28,7 +28,7 @@ function TestForm({
                     <h6 className='form-title'>{title}</h6>
                     <div>
                         <PreviewButton onClick={onPreview} />
-                        {onClone && <CloneButton onClick={onClone} />}
+                        {!readonly && onClone && <CloneButton onClick={onClone} />}
                     </div>
                 </div>
                 <InUse
@@ -40,6 +40,7 @@ function TestForm({
                     controls={controls}
                     data={data}
                     layout={layout}
+                    readonly={readonly}
                     sections={[{
                         append: (
                             <div className='d-flex justify-content-end align-items-center test-form-section'>

@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import useInteractiveTextEditor from './useInteractiveTextEditor';
 import Blank from '../clozeTest/Blank';
 
-function InteractiveTextEditor({ controls }) {
+function InteractiveTextEditor({ controls, readonly }) {
     const text = controls.getValues('text');
     const {
         getText,
@@ -168,28 +168,30 @@ function InteractiveTextEditor({ controls }) {
                     </Tabs>
                 </Paper>
                 <div className='ml-3 mt-2'>
-                    <div className='row mb-3'>
-                        {getEditMode() && (
-                            <Tooltip title='Stop Editing'>
-                                <IconButton
-                                    color='secondary'
-                                    onClick={onEditRemove}
-                                >
-                                    <CloseIcon />
-                                </IconButton>
-                            </Tooltip>
-                        )}
-                        {!getEditMode() && (
-                            <Tooltip title='Edit'>
-                                <IconButton
-                                    color='secondary'
-                                    onClick={onEdit}
-                                >
-                                    <EditIcon />
-                                </IconButton>
-                            </Tooltip>
-                        )}
-                    </div>
+                    {!readonly && (
+                        <div className='row mb-3'>
+                            {getEditMode() && (
+                                <Tooltip title='Stop Editing'>
+                                    <IconButton
+                                        color='secondary'
+                                        onClick={onEditRemove}
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
+                            {!getEditMode() && (
+                                <Tooltip title='Edit'>
+                                    <IconButton
+                                        color='secondary'
+                                        onClick={onEdit}
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
+                        </div>
+                    )}
                     <div className='cloze-interactive-text-editor-container'>
                         {!getEditMode() && (
                             <div className='cloze-interactive-text-editor-text'>
@@ -213,6 +215,11 @@ function InteractiveTextEditor({ controls }) {
     );
 }
 
-InteractiveTextEditor.propTypes = { controls: PropTypes.object.isRequired };
+InteractiveTextEditor.propTypes = {
+    controls: PropTypes.object.isRequired,
+    readonly: PropTypes.bool,
+};
+
+InteractiveTextEditor.defaultProps = { readonly: false };
 
 export default InteractiveTextEditor;

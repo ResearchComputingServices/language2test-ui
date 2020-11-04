@@ -13,6 +13,7 @@ import {
     useFormLayout,
     useFormActions,
     useFormButtons,
+    useRolesCheckerService,
 } from '../../hooks';
 
 function Vocabulary({ match }) {
@@ -30,6 +31,7 @@ function Vocabulary({ match }) {
     const cloneActions = useActions('clone');
     const historyService = useService('history');
     const [getClone, setClone] = useRefState(false);
+    const rolesCheckerService = useRolesCheckerService();
 
     const {
         data,
@@ -79,7 +81,14 @@ function Vocabulary({ match }) {
                     data={data}
                     layout={layout}
                     onClone={!getClone() ? onClone : undefined}
-                    readonly={data.immutable}
+                    readonly={
+                        data.immutable
+                        || (
+                            rolesCheckerService.has('Instructor')
+                                && !rolesCheckerService.has('Administrator')
+                                && !rolesCheckerService.has('Test Developer')
+                        )
+                    }
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Vocabulary`}
                 />
             ));

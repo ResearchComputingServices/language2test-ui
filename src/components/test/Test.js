@@ -14,6 +14,7 @@ import {
     useFormActions,
     useFormButtons,
     useTestWizardActions,
+    useRolesCheckerService,
 } from '../../hooks';
 
 function Test({ match }) {
@@ -59,6 +60,8 @@ function Test({ match }) {
     const historyService = useService('history');
     const [getClone, setClone] = useRefState(false);
     const storeActions = useTestWizardActions();
+    const rolesCheckerService = useRolesCheckerService();
+    const [isReadonly, setIsReadonly] = useState(false);
 
     const layoutRef = useRef();
     const dynamicDataRef = useRef();
@@ -81,11 +84,12 @@ function Test({ match }) {
         }
     };
 
-    const getGridSelectField = (index, typeField) => ({
+    const getGridSelectField = (index, typeField, readonly = false) => ({
         ...typeField,
         field: `steps.${index}.values`,
         type: 'grid-select',
         required: true,
+        disabled: readonly,
         onChange: isFormActionsDisabled,
         onRowClick: () => {
             controls.clearError();
@@ -141,7 +145,7 @@ function Test({ match }) {
         setDynamicLayout([...layout]);
     };
 
-    const createStep = (index, type, layout, data) => {
+    const createStep = (index, type, layout, data, readonly = false) => {
         if (disableRemoveStep) {
             setDisableRemoveStep(false);
         }
@@ -157,6 +161,7 @@ function Test({ match }) {
                 {
                     field: `steps.${index}.type`,
                     title: 'Type',
+                    disabled: readonly,
                     type: 'picklist',
                     required: true,
                     onChange: data => onTypeChange(data, index),
@@ -167,7 +172,7 @@ function Test({ match }) {
         };
         if (type in typeFields) {
             const typeField = typeFields[type];
-            section.elements.push(getGridSelectField(index, typeField));
+            section.elements.push(getGridSelectField(index, typeField, readonly));
             _.assign(data, {
                 [`steps.${index}.type`]: type,
                 [`steps.${index}.values`]: [],
@@ -178,36 +183,6 @@ function Test({ match }) {
             layout,
             data,
         };
-    };
-
-    const initialize = async data => {
-        if (_.isNil(id)) {
-            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
-            cloneActions.reset();
-            controls.reset(initializationData);
-            setClone(true);
-            const layout = dynamicLayoutRef.current;
-            _.each(initializationData.steps, (step, index) => createStep(index, step.type, layout, data));
-            setDynamicLayout([...layout]);
-            setDynamicData(_.reduce(initializationData.steps, (data, step, index) => {
-                initializationData[`steps.${index}.type`] = step.type;
-                initializationData[`steps.${index}.values`] = step.values;
-                return data;
-            }, {}));
-            return configureDemographicQuestionnaireFields(data);
-        }
-        if (_.isNil(data)) {
-            return configureDemographicQuestionnaireFields();
-        }
-        const layout = dynamicLayoutRef.current;
-        _.each(data.steps, (step, index) => createStep(index, step.type, layout, data));
-        setDynamicLayout([...layout]);
-        setDynamicData(_.reduce(data.steps, (data, step, index) => {
-            data[`steps.${index}.type`] = step.type;
-            data[`steps.${index}.values`] = step.values;
-            return data;
-        }, {}));
-        configureDemographicQuestionnaireFields(data);
     };
 
     const addStep = () => {
@@ -242,7 +217,42 @@ function Test({ match }) {
         loading,
         error,
         setData,
-    } = useFormData(entity, id, initialize);
+    } = useFormData(entity, id, async data => {
+        const readonly = data.immutable
+        || (
+            rolesCheckerService.has('Instructor')
+                && !rolesCheckerService.has('Administrator')
+                && !rolesCheckerService.has('Test Developer')
+        );
+        setIsReadonly(readonly);
+        if (_.isNil(id)) {
+            const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            cloneActions.reset();
+            controls.reset(initializationData);
+            setClone(true);
+            const layout = dynamicLayoutRef.current;
+            _.each(initializationData.steps, (step, index) => createStep(index, step.type, layout, data, readonly));
+            setDynamicLayout([...layout]);
+            setDynamicData(_.reduce(initializationData.steps, (data, step, index) => {
+                initializationData[`steps.${index}.type`] = step.type;
+                initializationData[`steps.${index}.values`] = step.values;
+                return data;
+            }, {}));
+            return configureDemographicQuestionnaireFields(data);
+        }
+        if (_.isNil(data)) {
+            return configureDemographicQuestionnaireFields();
+        }
+        const layout = dynamicLayoutRef.current;
+        _.each(data.steps, (step, index) => createStep(index, step.type, layout, data, readonly));
+        setDynamicLayout([...layout]);
+        setDynamicData(_.reduce(data.steps, (data, step, index) => {
+            data[`steps.${index}.type`] = step.type;
+            data[`steps.${index}.values`] = step.values;
+            return data;
+        }, {}));
+        configureDemographicQuestionnaireFields(data);
+    });
 
     const actions = useFormActions(entity);
 
@@ -314,7 +324,7 @@ function Test({ match }) {
                     onClone={!getClone() ? onClone : undefined}
                     onPreview={onPreview}
                     onRemoveStep={removeStep}
-                    readonly={data.immutable}
+                    readonly={isReadonly}
                     staticSteps={false}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Test`}
                 />

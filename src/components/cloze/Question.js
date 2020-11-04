@@ -22,6 +22,7 @@ function Question({
     typed,
     acceptedAnswers,
     onRemove,
+    readonly,
 }) {
     const controls = useForm();
     const typedWatch = controls.watch('typed');
@@ -117,14 +118,16 @@ function Question({
                     />
                 </ExpansionPanelDetails>
                 <Divider />
-                <ExpansionPanelActions>
-                    <Button
-                        onClick={onRemove}
-                        size='small'
-                    >
-                        Remove
-                    </Button>
-                </ExpansionPanelActions>
+                {!readonly && (
+                    <ExpansionPanelActions>
+                        <Button
+                            onClick={onRemove}
+                            size='small'
+                        >
+                            Remove
+                        </Button>
+                    </ExpansionPanelActions>
+                )}
             </ExpansionPanel>
         </div>
     );
@@ -138,6 +141,7 @@ Question.propTypes = {
     typed: PropTypes.bool,
     text: PropTypes.string,
     acceptedAnswers: PropTypes.array,
+    readonly: PropTypes.bool,
 };
 
 Question.defaultProps = {
@@ -147,6 +151,7 @@ Question.defaultProps = {
     onRemove: _.noop,
     acceptedAnswers: [],
     text: '',
+    readonly: false,
 };
 
 export default Question;

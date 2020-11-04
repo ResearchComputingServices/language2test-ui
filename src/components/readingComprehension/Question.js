@@ -22,6 +22,7 @@ function Question({
     correct,
     options,
     onUpdate,
+    readonly,
     onRemove,
 }) {
     const controls = useForm();
@@ -52,6 +53,7 @@ function Question({
                     <Field
                         controls={controls}
                         field={{
+                            disabled: readonly,
                             name: 'text',
                             label: 'Question',
                             variant: 'outlined',
@@ -64,6 +66,7 @@ function Question({
                     <PicklistField
                         controls={controls}
                         field={{
+                            disabled: readonly,
                             name: 'options',
                             label: 'Options',
                             variant: 'outlined',
@@ -76,6 +79,7 @@ function Question({
                     <NumberField
                         controls={controls}
                         field={{
+                            disabled: readonly,
                             name: 'correct',
                             label: 'Correct',
                             variant: 'outlined',
@@ -92,27 +96,31 @@ function Question({
                             size={20}
                         />
                     )}
-                    <Button
-                        color='primary'
-                        onClick={async () => {
-                            setLoading(true);
-                            const update = controls.handleSubmit(onUpdate);
-                            await update();
-                            // For aesthetics
-                            setTimeout(() => {
-                                setLoading(false);
-                            }, 250);
-                        }}
-                        size='small'
-                    >
-                        Update
-                    </Button>
-                    <Button
-                        onClick={onRemove}
-                        size='small'
-                    >
-                        Remove
-                    </Button>
+                    {!readonly && (
+                        <Button
+                            color='primary'
+                            onClick={async () => {
+                                setLoading(true);
+                                const update = controls.handleSubmit(onUpdate);
+                                await update();
+                                // For aesthetics
+                                setTimeout(() => {
+                                    setLoading(false);
+                                }, 250);
+                            }}
+                            size='small'
+                        >
+                            Update
+                        </Button>
+                    )}
+                    {!readonly && (
+                        <Button
+                            onClick={onRemove}
+                            size='small'
+                        >
+                            Remove
+                        </Button>
+                    )}
                 </ExpansionPanelActions>
             </ExpansionPanel>
         </div>
@@ -126,6 +134,7 @@ Question.propTypes = {
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func,
     sequence: PropTypes.number,
+    readonly: PropTypes.bool,
 };
 
 Question.defaultProps = {
@@ -135,6 +144,7 @@ Question.defaultProps = {
     sequence: undefined,
     onRemove: _.noop,
     onUpdate: _.noop,
+    readonly: false,
 };
 
 export default Question;

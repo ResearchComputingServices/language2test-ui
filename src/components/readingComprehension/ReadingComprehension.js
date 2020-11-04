@@ -20,6 +20,7 @@ import {
     useFormLayout,
     useFormActions,
     useFormButtons,
+    useRolesCheckerService,
 } from '../../hooks';
 
 function ReadingComprehension({ match }) {
@@ -29,6 +30,7 @@ function ReadingComprehension({ match }) {
         delete: ['Administrator', 'Test Developer'],
         export: ['Administrator', 'Test Developer'],
     };
+    const rolesCheckerService = useRolesCheckerService();
     const entity = 'readingComprehension';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -71,13 +73,26 @@ function ReadingComprehension({ match }) {
         count,
     } = usePagination(getQuestions(), pageSize);
 
-    const initialize = readingComprehension => {
+    const [isReadonly, setIsReadonly] = useState(false);
+
+    const {
+        data,
+        error,
+        loading,
+        setData,
+    } = useFormData(entity, id, readingComprehension => {
+        const readonly = readingComprehension.immutable || (
+            rolesCheckerService.has('Instructor')
+                && !rolesCheckerService.has('Administrator')
+                && !rolesCheckerService.has('Test Developer')
+        );
+        setIsReadonly(readonly);
         const { getValues, clearError } = controls;
         clearError();
         readingComprehension = _.isNil(readingComprehension) ? getValues() : readingComprehension;
         setValue('filename', _.get(readingComprehension, 'filename'));
         const dynamicLayout = [];
-        dynamicLayout.push({
+        !readonly && dynamicLayout.push({
             type: 'raw',
             content: (
                 <ImageUploader
@@ -96,16 +111,9 @@ function ReadingComprehension({ match }) {
             setQuestions(initializationData.questions);
             setClone(true);
         }
-    };
+    });
 
     const layout = useFormLayout(entity);
-
-    const {
-        data,
-        error,
-        loading,
-        setData,
-    } = useFormData(entity, id, initialize);
 
     const actions = useFormActions(entity, 'reading comprehension');
 
@@ -191,14 +199,18 @@ function ReadingComprehension({ match }) {
                     dynamicLayout={dynamicLayout}
                     layout={layout}
                     onClone={!getClone() ? onClone : undefined}
-                    readonly={data.immutable}
+                    readonly={isReadonly}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Reading Comprehension`}
                 >
-                    <div className='reading-comprehension-sub-title mb-4'><u>Add Question</u></div>
-                    <NewQuestion
-                        onAdd={onAddQuestion}
-                        totalQuestions={getQuestions().length}
-                    />
+                    {!isReadonly && (
+                        <>
+                            <div className='reading-comprehension-sub-title mb-4'><u>Add Question</u></div>
+                            <NewQuestion
+                                onAdd={onAddQuestion}
+                                totalQuestions={getQuestions().length}
+                            />
+                        </>
+                    )}
                     <div className='my-3 mb-3'>
                         <div className='reading-comprehension-sub-title mb-4'><u>All Questions</u></div>
                         <PaginatedList
@@ -214,6 +226,7 @@ function ReadingComprehension({ match }) {
                                     onRemove={() => onRemoveQuestion(data)}
                                     onUpdate={updatedData => onUpdateQuestion(data, updatedData)}
                                     options={data.options}
+                                    readonly={isReadonly}
                                     sequence={((page - 1) * (pageSize)) + index + 1}
                                     text={data.text}
                                 />

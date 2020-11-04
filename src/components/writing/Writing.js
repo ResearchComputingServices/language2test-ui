@@ -13,6 +13,7 @@ import {
     useFormLayout,
     useFormActions,
     useFormButtons,
+    useRolesCheckerService,
 } from '../../hooks';
 
 function Writing({ match }) {
@@ -22,6 +23,8 @@ function Writing({ match }) {
         delete: ['Administrator', 'Test Developer'],
         export: ['Administrator', 'Test Developer'],
     };
+    const rolesCheckerService = useRolesCheckerService();
+    const [isReadonly, setIsReadonly] = useState(false);
     const entity = 'writing';
     const id = _.get(match, 'params.id');
     const controls = useForm();
@@ -41,11 +44,23 @@ function Writing({ match }) {
 
     const onImageUpload = async data => setValue('filename', data.name);
 
-    const initialize = data => {
+    const {
+        data,
+        loading,
+        error,
+        setData,
+    } = useFormData(entity, id, data => {
+        const readonly = data.immutable
+        || (
+            rolesCheckerService.has('Instructor')
+                && !rolesCheckerService.has('Administrator')
+                && !rolesCheckerService.has('Test Developer')
+        );
+        setIsReadonly(readonly);
         clearError();
         data = _.isNil(data) ? getValues() : data;
         setValue('filename', _.get(data, 'filename'));
-        setDynamicLayout([{
+        !readonly && setDynamicLayout([{
             type: 'raw',
             content: (
                 <div className='field'>
@@ -62,14 +77,7 @@ function Writing({ match }) {
             controls.reset(initializationData);
             setClone(true);
         }
-    };
-
-    const {
-        data,
-        loading,
-        error,
-        setData,
-    } = useFormData(entity, id, initialize);
+    });
 
     const actions = useFormActions(entity);
 
@@ -106,7 +114,7 @@ function Writing({ match }) {
                     dynamicLayout={dynamicLayout}
                     layout={layout}
                     onClone={!getClone() ? onClone : undefined}
-                    readonly={data.immutable}
+                    readonly={isReadonly}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Writing`}
                 />
             ));

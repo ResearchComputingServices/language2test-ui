@@ -40,6 +40,7 @@ function Field({ field, controls: { control, errors, getValues, setValue, watch,
     const identifierKey = _.get(field, 'identifierKey', 'name');
     const grid = getGrid(entity);
     const { Component } = grid;
+    const disabled = _.get(field, 'disabled');
 
     return (
         <div className='field'>
@@ -86,19 +87,21 @@ function Field({ field, controls: { control, errors, getValues, setValue, watch,
                 </div>
             ))}
             <Component
-                onRowClick={(event, row) => {
-                    if (field.field in errors) {
-                        clearError(field.field);
-                    }
-                    const values = getValues(field.field) || [];
-                    if (!_.some(values, v => _.isEqual(v, row))) {
-                        values.push(row);
-                        setValue(field.field, values);
-                    }
-                    if (_.isFunction(onRowClick)) {
-                        onRowClick(row);
-                    }
-                }}
+                onRowClick={disabled
+                    ? undefined
+                    : (event, row) => {
+                        if (field.field in errors) {
+                            clearError(field.field);
+                        }
+                        const values = getValues(field.field) || [];
+                        if (!_.some(values, v => _.isEqual(v, row))) {
+                            values.push(row);
+                            setValue(field.field, values);
+                        }
+                        if (_.isFunction(onRowClick)) {
+                            onRowClick(row);
+                        }
+                    }}
             />
         </div>
     );
