@@ -81,12 +81,12 @@ function ReadingComprehension({ match }) {
         loading,
         setData,
     } = useFormData(entity, id, readingComprehension => {
-        const readonly = readingComprehension.immutable || (
+        const readonly = _.isObject(readingComprehension) && (readingComprehension.immutable || (
             rolesCheckerService.has('Instructor')
                 && !rolesCheckerService.has('Administrator')
                 && !rolesCheckerService.has('Test Developer')
-        );
-        setIsReadonly(readonly);
+        ));
+        readonly && setIsReadonly(readonly);
         const { getValues, clearError } = controls;
         clearError();
         readingComprehension = _.isNil(readingComprehension) ? getValues() : readingComprehension;

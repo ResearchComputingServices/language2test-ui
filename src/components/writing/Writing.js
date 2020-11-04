@@ -50,13 +50,13 @@ function Writing({ match }) {
         error,
         setData,
     } = useFormData(entity, id, data => {
-        const readonly = data.immutable
+        const readonly = _.isObject(data) && (data.immutable
         || (
             rolesCheckerService.has('Instructor')
                 && !rolesCheckerService.has('Administrator')
                 && !rolesCheckerService.has('Test Developer')
-        );
-        setIsReadonly(readonly);
+        ));
+        readonly && setIsReadonly(readonly);
         clearError();
         data = _.isNil(data) ? getValues() : data;
         setValue('filename', _.get(data, 'filename'));
