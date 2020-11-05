@@ -33,6 +33,7 @@ import InstructorStudentClass from '../../components/instructorStudentClass';
 import Student from '../../components/student';
 import InstructorTestAssignation from '../../components/instructorTestAssignation';
 import InstructorTestSessions from '../../components/instructorTestSessions';
+import TestTakerSchedule from '../../components/testTakerSchedule';
 
 export default [
     {
@@ -284,6 +285,11 @@ export default [
         path: '/instructor/test-session/:id',
         component: TestSession,
         roles: 'Instructor',
+    },
+    {
+        path: '/test-taker/schedule',
+        component: TestTakerSchedule,
+        roles: 'Test Taker',
     },
     {
         path: '*',
