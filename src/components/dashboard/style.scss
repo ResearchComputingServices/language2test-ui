@@ -40,3 +40,16 @@
     bottom: 0;
     right: 10px;
 }
+
+.upcoming-demographic-questionnaire {
+    width: 500px;
+    height: 600px;
+    overflow-y: scroll;
+}
+
+.upcoming-demographic-questionnaire-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

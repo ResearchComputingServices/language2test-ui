@@ -14,9 +14,11 @@ function Dashboard() {
     const getDefaultRole = () => _.get(_.first(_.get(userSession, 'roles')), 'name');
 
     useMount(() => {
+        console.log(dashboard);
         if (_.isNil(dashboard.viewAs)) {
             dashboardActions.setViewAs(getDefaultRole());
         }
+        console.log(dashboard);
     });
 
     const onViewAsChange = role => dashboardActions.setViewAs(role);
