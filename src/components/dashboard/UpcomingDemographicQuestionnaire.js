@@ -2,7 +2,8 @@ import _ from 'lodash';
 import { ToastsStore } from 'react-toasts';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography, Paper, Tooltip } from '@material-ui/core';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import Form from '../form';
 import { Button } from '../common';
 import {
@@ -85,9 +86,23 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
             elevation={3}
         >
             <div className='pl-2 pb-3 upcoming-demographic-questionnaire-header'>
-                <Typography variant='h6'>
-                    Upcoming Questionnaires
-                </Typography>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+                >
+                    <Typography variant='h6'>
+                        Upcoming Questionnaires
+                    </Typography>
+                    <Tooltip
+                        className='ml-2'
+                        title='These questions will appear in your test, which you can answer ahead of time.'
+                    >
+                        <HelpOutlineIcon />
+                    </Tooltip>
+                </div>
                 <Button
                     color='primary'
                     onClick={updateProfile}
