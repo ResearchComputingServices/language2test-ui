@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 import RestService from './RestService';
 
 class InstructorService extends RestService {
@@ -46,6 +47,31 @@ class InstructorService extends RestService {
             test_assignation_id: id,
         }))
         .then(data => this._processResponse(data, {}))
+
+    importStudentClasses = (data, options = {}) => {
+        const formData = new FormData();
+        formData.append('file', data.file[0]);
+        formData.append('name', data.name);
+        const config = {
+            headers: { 'content-type': 'multipart/form-data' },
+            responseType: 'arraybuffer',
+        };
+        return axios
+            .post(`${this.prefix}/student_classes/upload`, formData, config)
+            .then(data => this._processResponse(data, options));
+    }
+
+    exportTestSessions = (id, options = {}) => {
+        let url = `${this.prefix}/test_sessions/export`;
+        url = !_.isNil(id) ? `${url}?test_assignation_id=${id}` : url;
+        const config = {
+            responseType: 'arraybuffer',
+            headers: { 'Content-Type': 'blob' },
+        };
+        return axios
+            .get(url, config)
+            .then(data => this._processResponse(data, options));
+    }
 }
 
 const instructorService = new InstructorService();

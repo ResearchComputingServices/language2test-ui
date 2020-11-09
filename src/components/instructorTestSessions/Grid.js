@@ -1,8 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
 import MaterialTable from 'material-table';
+import DownloadIcon from '@material-ui/icons/GetApp';
 import PropTypes from 'prop-types';
+import { ToastsStore } from 'react-toasts';
 import moment from 'moment';
+import { Button } from '../common';
 import { useGridColumns, useService } from '../../hooks';
 
 function InstructorTestSessions({ id, onRowClick }) {
@@ -34,6 +37,7 @@ function InstructorTestSessions({ id, onRowClick }) {
                 totalCount: count,
             };
         } catch (err) {
+            ToastsStore.error('Failed to retrieve test sessions');
             return {
                 data: [],
                 page: 0,
@@ -43,14 +47,32 @@ function InstructorTestSessions({ id, onRowClick }) {
     };
 
     return (
-        <MaterialTable
-            columns={columns}
-            data={fetchData}
-            onRowClick={onRowClick}
-            options={{ search: false }}
-            style={{ padding: 10 }}
-            title={`Test Sessions - ${id}`}
-        />
+        <div>
+            <Button
+                color='primary'
+                onClick={async () => {
+                    try {
+                        await service.exportTestSessions(id);
+                    } catch (err) {
+                        ToastsStore.error('Failed to update your answers');
+                    }
+                }}
+                startIcon={<DownloadIcon />}
+            >
+                Export
+            </Button>
+            <MaterialTable
+                columns={columns}
+                data={fetchData}
+                onRowClick={onRowClick}
+                options={{ search: false }}
+                style={{
+                    marginTop: 15,
+                    padding: 10,
+                }}
+                title={`Test Sessions - ${id}`}
+            />
+        </div>
     );
 }
 
