@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { logout } from '../globalActions';
 
 const initialState = {
     enabled: false,
@@ -23,6 +24,11 @@ export default createSlice({
         },
         show: state => {
             state.open = true;
+        },
+    },
+    extraReducers: {
+        [logout]: state => {
+            Object.assign(state, initialState);
         },
     },
 });

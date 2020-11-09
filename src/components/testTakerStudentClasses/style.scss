@@ -1,0 +1,31 @@
+.test-taker-student-classes-container {
+    width: 60%;
+}
+
+
+@media only screen and (max-width: 1442px) {
+    .test-taker-student-classes-container {
+        width: 100%;
+    }
+}
+
+.test-taker-student-classes {
+    display: flex;
+    flex-direction: row;
+    min-height: 500px;
+    overflow: auto;
+    flex-wrap: wrap;
+    height: 550px;
+}
+
+.test-taker-student-classes-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.test-taker-student-classes-center {
+    justify-content: center;
+    align-items: center;
+}

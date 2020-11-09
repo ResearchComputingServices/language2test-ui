@@ -29,7 +29,7 @@ function TestTakerSchedule() {
     const [tests, setTests] = useState([]);
 
     const onTestStart = async (testId, classId) => {
-        const test = await testService.get({ id: testId });
+        const test = await testService.getWizardTest({ id: testId });
         resetTestWizardSession();
         const { id, name, steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = test;
         const wizardSteps = [{

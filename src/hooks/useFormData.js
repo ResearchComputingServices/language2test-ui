@@ -26,7 +26,6 @@ export default function useExistingForm(formName, id, callback) {
                     await callback();
                 }
             } catch (err) {
-                console.log(err);
                 setError(_.get(err, 'response.status', true) || true);
             } finally {
                 setLoading(false);
@@ -44,7 +43,6 @@ export default function useExistingForm(formName, id, callback) {
             }
             setData(data);
         } catch (err) {
-            console.log(err);
             setError(_.get(err, 'response.status', true) || true);
         } finally {
             endFetch();

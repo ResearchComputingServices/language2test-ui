@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import axios from 'axios';
 import RestService from './RestService';
 
 class TestService extends RestService {
@@ -125,6 +126,16 @@ class TestService extends RestService {
         ...options,
         responseTransformers: [this._responeTransformer],
     })
+
+    getWizardTest = (query, options = {}) => axios
+        .get(this._buildQuery({
+            ...query,
+            url: `${this.prefix}/wizard`,
+        }))
+        .then(data => this._processResponse(data, {
+            ...options,
+            responseTransformers: [this._responeTransformer],
+        }))
 
     add = data => this._add(data, {
         requestTransformers: [this._requestTransformer],

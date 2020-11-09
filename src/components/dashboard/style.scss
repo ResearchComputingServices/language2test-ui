@@ -29,8 +29,27 @@
     width: 100%;
 }
 
-
 .dashboard-roles-selectable {
     width: 150px;
     margin-right: 20px !important;
+}
+
+.dashboard-actions {
+    z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+}
+
+.upcoming-demographic-questionnaire {
+    width: 500px;
+    height: 600px;
+    overflow-y: scroll;
+}
+
+.upcoming-demographic-questionnaire-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }

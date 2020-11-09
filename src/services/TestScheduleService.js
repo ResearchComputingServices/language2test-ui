@@ -4,7 +4,6 @@ import RestService from './RestService';
 class TestScheduleService extends RestService {
     prefix = `${this.prefix}/test_schedule`;
 
-    // TODO routes will change in the future.
     getTestTakerSchedule = (start, end) => axios
         .get(`${this.prefix}/test_taker`, {
             params: {
