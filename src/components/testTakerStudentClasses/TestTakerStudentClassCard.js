@@ -4,16 +4,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import sassTheme from '../root/_theme.scss';
 
 const useStyles = makeStyles({
     root: {
-        width: '90%',
+        width: 400,
+        height: 250,
         margin: 10,
-        display: 'inline-block',
-        cursor: 'pointer',
     },
     bullet: {
         display: 'inline-block',
@@ -30,25 +26,14 @@ function TestTakerStudentClassCard({
     name,
     program,
     term,
-    onEdit,
-    selected,
-    onSelected,
 }) {
     const classes = useStyles();
 
     return (
         <Card
             className={classes.root}
-            elevation={selected ? 1 : 5}
-            onClick={onSelected}
-            style={{ border: selected ? `0.1px solid ${sassTheme.primary}` : 'none' }}
+            elevation={4}
         >
-            <IconButton
-                onClick={onEdit}
-                style={{ float: 'right', margin: 5 }}
-            >
-                <EditIcon />
-            </IconButton>
             <CardContent>
                 <Typography
                     className={classes.title}
@@ -101,9 +86,6 @@ TestTakerStudentClassCard.propTypes = {
     name: PropTypes.string,
     program: PropTypes.string,
     term: PropTypes.string,
-    onEdit: PropTypes.func,
-    selected: PropTypes.bool,
-    onSelected: PropTypes.func,
 };
 
 TestTakerStudentClassCard.defaultProps = {
@@ -112,9 +94,7 @@ TestTakerStudentClassCard.defaultProps = {
     name: 'Unknown',
     program: 'Unknown',
     term: 'Unknown',
-    onEdit: undefined,
     selected: false,
-    onSelected: undefined,
 };
 
 export default TestTakerStudentClassCard;

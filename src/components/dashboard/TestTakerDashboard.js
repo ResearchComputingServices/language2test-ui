@@ -10,7 +10,7 @@ function TestTakerDashboard() {
 
     return (
         <div className='dashboard-activities'>
-            <UpcomingDemographicQuestionnaire className='my-4' />
+            <UpcomingDemographicQuestionnaire className='my-4 mr-5' />
             <TestTakerStudentClasses />
             <div className='dashboard-actions'>
                 <Tooltip title='My Scheduled Tests'>

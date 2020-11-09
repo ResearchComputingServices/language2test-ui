@@ -6,7 +6,6 @@ const initialState = {
     pageSize: 5,
     page: 1,
     noMoreData: false,
-    selectedCardIndex: null,
     loading: false,
 };
 
@@ -28,9 +27,6 @@ export default createSlice({
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
-        },
-        setSelectedCardIndex: (state, action) => {
-            state.selectedCardIndex = action.payload;
         },
         reset: state => {
             Object.assign(state, initialState);

@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Button, Paper } from '@material-ui/core';
+import { Typography, Paper } from '@material-ui/core';
 import Form from '../form';
+import { Button } from '../common';
 import {
     useStore,
     useForm,
@@ -15,7 +16,7 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
     const controls = useForm();
     const [layout, setLayout] = useState([]);
     const userSession = useStore('userSession');
-    const [data, setData] = useState(_.cloneDeep(userSession));
+    const [data, setData] = useState({});
     const userFieldTypeService = useService('userFieldType');
 
     useMount(async () => {
@@ -85,15 +86,20 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
                 <Button
                     color='primary'
                     onClick={updateProfile}
+                    size='small'
                 >
                     Save
                 </Button>
             </div>
-            <Form
-                controls={controls}
-                data={data}
-                layout={layout}
-            />
+            {!_.isEmpty(data)
+                ? (
+                    <Form
+                        controls={controls}
+                        data={data}
+                        layout={layout}
+                    />
+                )
+                : <p className='h-75 center'>No upcoming questions</p>}
         </Paper>
     );
 }

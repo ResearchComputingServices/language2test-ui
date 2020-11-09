@@ -1,5 +1,5 @@
-import React from 'react';
 import _ from 'lodash';
+import React from 'react';
 import { Typography, IconButton, Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
 import RefreshIcon from '@material-ui/icons/Refresh';
@@ -16,6 +16,7 @@ const TestTakerStudentClasses = () => {
         noMoreData,
         selectedCardIndex,
     } = useStore('testTakerStudentClasses');
+
     const {
         setLoading,
         setNoMoreData,
@@ -23,7 +24,7 @@ const TestTakerStudentClasses = () => {
         setPage,
         reset,
     } = useActions('testTakerStudentClasses');
-    const [testTakerService, historyService] = useService('testTaker', 'history');
+    const testTakerService = useService('testTaker');
 
     const fetchData = async reFetch => {
         try {
@@ -37,7 +38,7 @@ const TestTakerStudentClasses = () => {
                     order: 'desc',
                 });
                 setClasses(newClasses);
-                setPage(page + 1);
+                setPage(page);
                 setLoading(false);
                 return;
             }
@@ -75,13 +76,9 @@ const TestTakerStudentClasses = () => {
 
     return (
         <>
-            <div className='p-2'>
+            <div className='test-taker-student-classes-container'>
                 <div className='pl-2 test-taker-student-classes-header'>
-                    <Typography
-                        variant='h6'
-                    >
-                        Your Classes
-                    </Typography>
+                    <Typography variant='h6'> Your Classes </Typography>
                     <Tooltip title='Refresh List'>
                         <IconButton onClick={() => fetchData(true)}>
                             <RefreshIcon />
@@ -89,34 +86,25 @@ const TestTakerStudentClasses = () => {
                     </Tooltip>
                 </div>
                 <div
+                    className={clsx('test-taker-student-classes', { 'test-taker-student-classes-center': _.isEmpty(classes) })}
                     onScroll={onScroll}
-                    style={{
-                        height: 500,
-                        width: 420,
-                        overflowY: 'scroll',
-                    }}
                 >
-                    <div className={clsx('test-taker-student-classes', { 'test-taker-student-classes-center': _.isEmpty(classes) })}>
-                        {
-                            classes.map((data, index) => (
-                                <StudentClassCard
-                                    key={index}
-                                    level={data.level}
-                                    name={data.display}
-                                    onEdit={event => {
-                                        event.stopPropagation();
-                                        historyService.go(`/testTaker/student-class/${data.id}`);
-                                    }}
-                                    program={data.program}
-                                    selected={selectedCardIndex === index}
-                                    term={data.term}
-                                    testTaker={`${data.testTaker.firstName} ${data.testTaker.lastName}`}
-                                />
-                            ))
-                        }
-                        {!loading && _.isEmpty(classes) && <p className='text-muted'>You are not in any class</p>}
-                        {loading && <Ripple className='m-3' />}
-                    </div>
+
+                    {
+                        classes.map((data, index) => (
+                            <StudentClassCard
+                                key={index}
+                                instructor={`${_.get(data, 'instructor.firstName')} ${_.get(data, 'instructor.lastName')}`}
+                                level={_.get(data, 'level')}
+                                name={_.get(data, 'display')}
+                                program={_.get(data, 'program')}
+                                selected={selectedCardIndex === index}
+                                term={_.get(data, 'term')}
+                            />
+                        ))
+                    }
+                    {!loading && _.isEmpty(classes) && <p className='text-muted'>You are not in any class</p>}
+                    {loading && <Ripple className='m-3' />}
                 </div>
             </div>
         </>
