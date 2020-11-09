@@ -40,7 +40,7 @@ const InstructorStudentClasses = () => {
                     order: 'desc',
                 });
                 setClasses(newClasses);
-                setPage(page);
+                setPage(2);
                 setLoading(false);
                 return;
             }
