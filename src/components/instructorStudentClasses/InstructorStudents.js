@@ -41,15 +41,7 @@ function InstructorStudents({ data }) {
 
     return loading
         ? (
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 500,
-            }}
-            >
-                <Ripple />
-            </div>
+            <div className='instructor-students-center'><Ripple /></div>
         )
         : (
             <MaterialTable

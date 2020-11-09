@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import sassTheme from '../root/_theme.scss';
+import clsx from 'clsx';
 
 const useStyles = makeStyles({
     root: {
@@ -38,10 +38,9 @@ function StudentClassCard({
 
     return (
         <Card
-            className={classes.root}
+            className={clsx(classes.root, { 'instructor-student-class-card-selected': selected })}
             elevation={selected ? 1 : 5}
             onClick={onSelected}
-            style={{ border: selected ? `0.1px solid ${sassTheme.primary}` : 'none' }}
         >
             <IconButton
                 onClick={onEdit}

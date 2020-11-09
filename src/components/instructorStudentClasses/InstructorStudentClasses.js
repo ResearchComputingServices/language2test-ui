@@ -98,12 +98,8 @@ const InstructorStudentClasses = () => {
                     </Tooltip>
                 </div>
                 <div
+                    className='instructor-student-classes-container'
                     onScroll={onScroll}
-                    style={{
-                        height: 500,
-                        width: 420,
-                        overflowY: 'scroll',
-                    }}
                 >
                     <div className={clsx('instructor-student-classes', { 'instructor-student-classes-center': _.isEmpty(classes) })}>
                         {
@@ -141,13 +137,7 @@ const InstructorStudentClasses = () => {
                     </div>
                 </div>
             </div>
-            <div
-                className='p-2'
-                style={{
-                    width: '70%',
-                    minWidth: 500,
-                }}
-            >
+            <div className='instructor-students p-2'>
                 <Typography
                     className='pl-2 pb-3'
                     variant='h6'

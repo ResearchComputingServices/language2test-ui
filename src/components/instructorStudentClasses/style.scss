@@ -1,3 +1,11 @@
+@import "../root/_theme.scss";
+
+.instructor-student-classes-container {
+    height: 500px;
+    width: 420px;
+    overflow-y: scroll;
+}
+
 .instructor-student-classes {
     display: flex;
     flex-direction: column;
@@ -16,4 +24,20 @@
 
 .instructor-student-classes-center {
     justify-content: center;
+}
+
+.instructor-students {
+    width: 70%;
+    min-width: 500px;
+}
+
+.instructor-students-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.instructor-student-class-card-selected {
+    border: 0.1px solid $primary
 }

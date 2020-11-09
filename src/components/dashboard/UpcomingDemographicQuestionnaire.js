@@ -86,13 +86,7 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
             elevation={3}
         >
             <div className='pl-2 pb-3 upcoming-demographic-questionnaire-header'>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-                >
+                <div className='center'>
                     <Typography variant='h6'>
                         Upcoming Questionnaires
                     </Typography>
