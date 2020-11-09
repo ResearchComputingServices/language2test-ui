@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import RestService from './RestService';
 
 class TestTakerService extends RestService {
@@ -15,6 +16,15 @@ class TestTakerService extends RestService {
         .get(this._buildQuery({
             ...query,
             url: `${this.prefix}/student_classes/count`,
+        }))
+        .then(data => this._processResponse(data, options))
+
+    getUpcomingDemographicQuestionnaires = (query, options = {}) => axios
+        .get(this._buildQuery({
+            ...query,
+            start_datetime: moment().toISOString(),
+            end_datetime: moment().endOf('month').toISOString(),
+            url: `${this.prefix}/demographic_questionnaires`,
         }))
         .then(data => this._processResponse(data, options))
 }

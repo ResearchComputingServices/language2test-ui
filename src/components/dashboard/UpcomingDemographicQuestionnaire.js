@@ -17,43 +17,30 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
     const [layout, setLayout] = useState([]);
     const userSession = useStore('userSession');
     const [data, setData] = useState({});
-    const userFieldTypeService = useService('userFieldType');
+    const testTakerService = useService('testTaker');
 
     useMount(async () => {
-        // TODO Over here we actuall need to retrieve the special query that uses month.
-        const enumerationFieldMap = _.reduce(await userFieldTypeService.get(), (accumulator, userFieldType) => {
-            const enumerationValues = _.get(userFieldType, 'enumeration.values');
-            if (_.isArray(enumerationValues)) {
-                accumulator[userFieldType.name] = enumerationValues;
-            }
-            return accumulator;
-        }, {});
-        const fields = _.get(userSession, 'fields', []);
         const newLayout = [];
-        const addedFields = [];
         const formData = {};
+        const fields = await testTakerService.getUpcomingDemographicQuestionnaires();
         _.each(fields, (field, index) => {
-            const type = _.get(field, 'type');
-            if (type in enumerationFieldMap) {
+            const enumerationValues = _.get(field, 'userFieldType.enumeration.values');
+            // If enumerationValues is an array we know the type field has enumertions associated with it. Enumerations are just lists.
+            if (_.isArray(enumerationValues)) {
                 newLayout.push({
                     field: `fields.${index}.${field.name}`,
                     type: 'picklist',
-                    options: _.map(enumerationFieldMap[type], value => value.text),
-                    title: _.split(field.name, '_')
-                        .map(_.capitalize)
-                        .join(' '),
+                    options: _.map(enumerationValues, value => value.text),
+                    title: _.get(field, 'display')
                 });
             } else {
                 newLayout.push({
                     field: `fields.${index}.${field.name}`,
                     type: _.get(field, 'userFieldType.name'),
-                    title: _.split(field.name, '_')
-                        .map(_.capitalize)
-                        .join(' '),
+                    title: _.get(field, 'display') 
                 });
             }
             formData[`fields.${index}.${field.name}`] = field.value;
-            addedFields.push(field.name);
             setData(formData);
         });
         setLayout(layout.concat(newLayout));
