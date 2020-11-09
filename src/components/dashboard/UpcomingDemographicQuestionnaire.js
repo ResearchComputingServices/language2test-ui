@@ -23,32 +23,36 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
     const [testTakerService, userService] = useService('testTaker', 'user');
 
     useMount(async () => {
-        const newLayout = [];
-        const formData = {};
-        const existingFieldsMap = {};
-        const fields = await testTakerService.getUpcomingDemographicQuestionnaires();
-        _.each(userSession.fields, field => (existingFieldsMap[field.name] = field.value));
-        _.each(fields, (field, index) => {
-            const enumerationValues = _.get(field, 'userFieldType.enumeration.values');
-            // If enumerationValues is an array we know the type field has enumertions associated with it. Enumerations are just lists.
-            if (_.isArray(enumerationValues)) {
-                newLayout.push({
-                    field: `fields.${index}.${field.name}`,
-                    type: 'picklist',
-                    options: _.map(enumerationValues, value => value.text),
-                    title: _.get(field, 'display'),
-                });
-            } else {
-                newLayout.push({
-                    field: `fields.${index}.${field.name}`,
-                    type: _.get(field, 'userFieldType.name'),
-                    title: _.get(field, 'display'),
-                });
-            }
-            formData[`fields.${index}.${field.name}`] = existingFieldsMap[field.name];
-            setData(formData);
-        });
-        setLayout(layout.concat(newLayout));
+        try {
+            const fields = await testTakerService.getUpcomingDemographicQuestionnaires();
+            const newLayout = [];
+            const formData = {};
+            const existingFieldsMap = {};
+            _.each(userSession.fields, field => (existingFieldsMap[field.name] = field.value));
+            _.each(fields, (field, index) => {
+                const enumerationValues = _.get(field, 'userFieldType.enumeration.values');
+                // If enumerationValues is an array we know the type field has enumertions associated with it. Enumerations are just lists.
+                if (_.isArray(enumerationValues)) {
+                    newLayout.push({
+                        field: `fields.${index}.${field.name}`,
+                        type: 'picklist',
+                        options: _.map(enumerationValues, value => value.text),
+                        title: _.get(field, 'display'),
+                    });
+                } else {
+                    newLayout.push({
+                        field: `fields.${index}.${field.name}`,
+                        type: _.get(field, 'userFieldType.name'),
+                        title: _.get(field, 'display'),
+                    });
+                }
+                formData[`fields.${index}.${field.name}`] = existingFieldsMap[field.name];
+                setData(formData);
+                setLayout(layout.concat(newLayout));
+            });
+        } catch (err) {
+            ToastsStore.error('Failed to retrieve upcoming questions');
+        }
     });
 
     const preProcessData = data => {
@@ -69,9 +73,9 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
         try {
             const responseData = await userService.updateDemographicQuestionnaire(data);
             userSessionActions.assignUserSession(responseData);
-            ToastsStore.success('Successfully updated demopgrahic questionnaire');
+            ToastsStore.success('Successfully updated your answers');
         } catch (err) {
-            ToastsStore.error('Failed to update demographic questionnaire');
+            ToastsStore.error('Failed to update your answers');
         }
     };
 
