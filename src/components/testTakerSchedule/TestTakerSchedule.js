@@ -30,7 +30,6 @@ function TestTakerSchedule() {
 
     const onTestStart = async (testId, classId) => {
         const test = await testService.getWizardTest({ id: testId });
-        console.log(test);
         resetTestWizardSession();
         const { id, name, steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = test;
         const wizardSteps = [{
