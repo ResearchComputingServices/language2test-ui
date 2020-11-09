@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { ToastsStore } from 'react-toasts';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Paper } from '@material-ui/core';
@@ -6,6 +7,7 @@ import Form from '../form';
 import { Button } from '../common';
 import {
     useStore,
+    useActions,
     useForm,
     useMount,
     useState,
@@ -16,13 +18,16 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
     const controls = useForm();
     const [layout, setLayout] = useState([]);
     const userSession = useStore('userSession');
+    const userSessionActions = useActions('userSession');
     const [data, setData] = useState({});
-    const testTakerService = useService('testTaker');
+    const [testTakerService, userService] = useService('testTaker', 'user');
 
     useMount(async () => {
         const newLayout = [];
         const formData = {};
+        const existingFieldsMap = {};
         const fields = await testTakerService.getUpcomingDemographicQuestionnaires();
+        _.each(userSession.fields, field => (existingFieldsMap[field.name] = field.value));
         _.each(fields, (field, index) => {
             const enumerationValues = _.get(field, 'userFieldType.enumeration.values');
             // If enumerationValues is an array we know the type field has enumertions associated with it. Enumerations are just lists.
@@ -31,34 +36,43 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
                     field: `fields.${index}.${field.name}`,
                     type: 'picklist',
                     options: _.map(enumerationValues, value => value.text),
-                    title: _.get(field, 'display')
+                    title: _.get(field, 'display'),
                 });
             } else {
                 newLayout.push({
                     field: `fields.${index}.${field.name}`,
                     type: _.get(field, 'userFieldType.name'),
-                    title: _.get(field, 'display') 
+                    title: _.get(field, 'display'),
                 });
             }
-            formData[`fields.${index}.${field.name}`] = field.value;
+            formData[`fields.${index}.${field.name}`] = existingFieldsMap[field.name];
             setData(formData);
         });
         setLayout(layout.concat(newLayout));
     });
 
-    // eslint-disable-next-line
     const preProcessData = data => {
-        // TODO All the fields that the user has is currently in UserSession.
-        // We need to make sure that the no field is left behind from fields.
-        // Any field in fields needs to be in the data.fields array, so we
-        // have to add that back in.
+        _.defaults(data, userSession);
+        data.fields = _.map(data.fields, field => {
+            const name = _.first(_.keys(field));
+            const value = _.first(_.values(field));
+            return {
+                name,
+                value,
+            };
+        });
         return data;
     };
 
-    const updateProfile = () => {
+    const updateProfile = async () => {
         const data = preProcessData(controls.getValues({ nest: true }));
-        _.defaults(data, userSession);
-        console.log(data);
+        try {
+            const responseData = await userService.updateDemographicQuestionnaire(data);
+            userSessionActions.assignUserSession(responseData);
+            ToastsStore.success('Successfully updated demopgrahic questionnaire');
+        } catch (err) {
+            ToastsStore.error('Failed to update demographic questionnaire');
+        }
     };
 
     return (

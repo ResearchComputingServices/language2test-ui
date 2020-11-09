@@ -198,7 +198,10 @@ function Main({ authenticate }) {
                     >
                         <Switch>{routesAssemblerService.assemble(routes)}</Switch>
                         <Drawer />
-                        <ToastsContainer store={ToastsStore} />
+                        <ToastsContainer
+                            position='bottom_left'
+                            store={ToastsStore}
+                        />
                         <Confirmation />
                     </main>
                 </>
