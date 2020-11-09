@@ -49,15 +49,9 @@ function InstructorSchedule() {
         <>
             <Tooltip title='Create Assignation'>
                 <Fab
-                    className='m-2'
+                    className='m-2 instructor-schedule-create-button'
                     color='primary'
                     onClick={() => historyService.go('/instructor/schedule/create')}
-                    style={{
-                        zIndex: 1000,
-                        position: 'fixed',
-                        bottom: 0,
-                        right: 15,
-                    }}
                 >
                     <AddIcon />
                 </Fab>

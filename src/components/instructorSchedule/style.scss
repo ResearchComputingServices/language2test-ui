@@ -16,3 +16,10 @@
     font-size: 17px;
     padding-bottom: 17px
 }
+
+.instructor-schedule-create-button {
+    z-index: 1000;
+    position: fixed !important;
+    bottom: 0px !important;
+    right: 15px !important;
+}
