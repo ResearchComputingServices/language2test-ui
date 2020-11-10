@@ -19,10 +19,10 @@ import {
 
 function Test({ match }) {
     const rights = {
-        create: ['Administrator'],
-        update: ['Administrator'],
-        delete: ['Administrator'],
-        export: ['Administrator'],
+        create: ['Administrator', 'Test Developer'],
+        update: ['Administrator', 'Test Developer'],
+        delete: ['Administrator', 'Test Developer'],
+        export: ['Administrator', 'Test Developer'],
     };
     const entity = 'test';
     const id = _.get(match, 'params.id');
@@ -218,12 +218,12 @@ function Test({ match }) {
         error,
         setData,
     } = useFormData(entity, id, async data => {
-        const readonly = data.immutable
+        const readonly = _.isObject(data) && (data.immutable
         || (
             rolesCheckerService.has('Instructor')
                 && !rolesCheckerService.has('Administrator')
                 && !rolesCheckerService.has('Test Developer')
-        );
+        ));
         setIsReadonly(readonly);
         if (_.isNil(id)) {
             const initializationData = _.omit(cloneStore.data, ['id', 'name']);
