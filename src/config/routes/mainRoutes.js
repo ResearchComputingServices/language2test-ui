@@ -277,6 +277,11 @@ export default [
         roles: 'Instructor',
     },
     {
+        path: '/instructor/test-assignation/:id',
+        component: TestAssignation,
+        roles: 'Instructor'
+    },
+    {
         path: '/instructor/test-sessions/:id',
         component: InstructorTestSessions,
         roles: 'Instructor',

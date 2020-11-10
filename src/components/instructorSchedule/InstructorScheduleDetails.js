@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Tooltip, IconButton } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import Modal from '@material-ui/core/Modal';
 import PropTypes from 'prop-types';
 import { Button } from '../common';
@@ -13,6 +15,7 @@ function InstructorScheduleDetails({
     endDatetime,
     studentClassNames,
     onViewTestSessions,
+    onEditAssignation,
     isPast,
     id,
 }) {
@@ -41,7 +44,12 @@ function InstructorScheduleDetails({
                     left: `${(x + 400 >= width ? width - 425 : x) + 20}px`,
                 }}
             >
-                <h1 className='instructor-schedule-details-title'><b>{testName}</b></h1>
+                <div className='pb-3 space-between'>
+                    <h1><b>{testName}</b></h1>
+                    <Tooltip title='Edit Assignation'>
+                        <IconButton onClick={() => onEditAssignation(id)}><EditIcon /></IconButton>
+                    </Tooltip>
+                </div>
                 <h4>
                     <b>From</b>
                     {`: ${startDatetime}`}
@@ -60,7 +68,10 @@ function InstructorScheduleDetails({
                     </h4>
                 )}
                 {
-                    <Button onClick={() => onViewTestSessions(id)}>
+                    <Button
+                        className='my-3'
+                        onClick={() => onViewTestSessions(id)}
+                    >
                         View Test Sessions
                     </Button>
                 }
@@ -80,6 +91,7 @@ InstructorScheduleDetails.propTypes = {
     isPast: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
     onViewTestSessions: PropTypes.func.isRequired,
+    onEditAssignation: PropTypes.func.isRequired,
 };
 
 InstructorScheduleDetails.defaultProps = { studentClassNames: 'Unknown' };

@@ -45,6 +45,8 @@ function InstructorSchedule() {
 
     const onViewTestSessions = async id => historyService.go(`/instructor/test-sessions/${id}`);
 
+    const onEditAssignation = id => historyService.go(`/instructor/test-assignation/${id}`);
+
     return (
         <>
             <Tooltip title='Create Assignation'>
@@ -79,6 +81,7 @@ function InstructorSchedule() {
                             handleClose={closeModal}
                             id={scheduleDetails.id}
                             isPast={moment().isAfter(scheduleDetails.endDatetime)}
+                            onEditAssignation={onEditAssignation}
                             onViewTestSessions={onViewTestSessions}
                             open={scheduleDetails.open}
                             startDatetime={scheduleDetails.startDatetime.format('LLLL')}
