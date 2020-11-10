@@ -204,7 +204,7 @@ export default [
     {
         path: '/writings/writing',
         component: Writing,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/writings/writing/:id',
