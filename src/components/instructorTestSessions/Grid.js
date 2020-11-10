@@ -5,6 +5,7 @@ import DownloadIcon from '@material-ui/icons/GetApp';
 import PropTypes from 'prop-types';
 import { ToastsStore } from 'react-toasts';
 import moment from 'moment';
+import FileSaver from 'file-saver';
 import { Button } from '../common';
 import { useGridColumns, useService } from '../../hooks';
 
@@ -52,9 +53,17 @@ function InstructorTestSessions({ id, onRowClick }) {
                 color='primary'
                 onClick={async () => {
                     try {
-                        await service.exportTestSessions(id);
+                        const file = await service.exportTestSessions(id);
+                        const type = 'application/zip';
+                        const extension = 'zip';
+                        const blob = new Blob(
+                            [file],
+                            { type },
+                        );
+                        FileSaver.saveAs(blob, `test-sessions-${id}.${extension}`);
+                        ToastsStore.success('Successfully exported test sessions');
                     } catch (err) {
-                        ToastsStore.error('Failed to update your answers');
+                        ToastsStore.error('Failed to export test sessions');
                     }
                 }}
                 startIcon={<DownloadIcon />}

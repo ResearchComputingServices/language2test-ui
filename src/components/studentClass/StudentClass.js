@@ -5,6 +5,8 @@ import Form from './Form';
 import { Layout, NotFound } from '../common';
 import {
     useForm,
+    useMount,
+    useActions,
     useFormData,
     useFormActions,
     useFormButtons,
@@ -31,6 +33,9 @@ function StudentClass({ match }) {
     } = useFormData(entity, id);
 
     const actions = useFormActions(entity, 'student class');
+    const instructorStudentClassesActions = useActions('instructorStudentClasses');
+
+    useMount(() => instructorStudentClassesActions.reset());
 
     const buttons = useFormButtons(id, {
         ...actions,
