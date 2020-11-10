@@ -11,6 +11,7 @@ import {
     useStore,
     useActions,
     useService,
+    useRefState,
     useFormData,
     useFormLayout,
     useFormActions,
@@ -34,12 +35,13 @@ function User({ match }) {
     const dashboardActions = useActions('dashboard');
     const layout = useFormLayout(entity);
     const roles = controls.watch('roles');
-    const userFieldTypeService = useService('userFieldType');
+    const demographicquestionnaireField = useService('demographicQuestionnaireField');
     const [dynamicForm, setDynamicForm] = useState({
         layout: [],
         data: {},
         addedFields: [],
     });
+    const [getFieldMap, setFieldMap] = useRefState({});
     const [disableAddDemographicField, setDisableAddDemographicField] = useState(true);
     const typeMapRef = useRef({});
 
@@ -51,6 +53,10 @@ function User({ match }) {
             : setDisableAddDemographicField(false);
     }, [watchedSelectedDemographicField]);
 
+    const getFieldEnumerationValues = type => _.get(getFieldMap()[type], 'values');
+
+    const getFieldDisplay = name => _.get(getFieldMap()[name], 'display');
+
     const {
         data,
         loading,
@@ -59,13 +65,16 @@ function User({ match }) {
     } = useFormData(entity, id, async data => {
         // TODO - This form already retrieves userFieldTypes from the api-picklist field,
         // so doing it again within the view is basically pulling the data twice.
-        const enumerationFieldMap = _.reduce(await userFieldTypeService.get(), (accumulator, userFieldType) => {
-            const enumerationValues = _.get(userFieldType, 'enumeration.values');
+        setFieldMap(_.reduce(await demographicquestionnaireField.get(), (accumulator, field) => {
+            const enumerationValues = _.get(field, 'userFieldType.enumeration.values', []);
             if (_.isArray(enumerationValues)) {
-                accumulator[userFieldType.name] = enumerationValues;
+                accumulator[field.name] = {
+                    values: enumerationValues,
+                    display: _.get(field, 'display'),
+                };
             }
             return accumulator;
-        }, {});
+        }, {}));
         const fields = _.get(data, 'fields', []);
         const layout = [];
         const addedFields = [];
@@ -73,22 +82,18 @@ function User({ match }) {
         _.each(fields, (field, index) => {
             const type = _.get(field, 'type');
             typeMapRef.current[field.name] = type;
-            if (type in enumerationFieldMap) {
+            if (type in getFieldMap()) {
                 layout.push({
                     field: `fields.${index}.${field.name}`,
                     type: 'picklist',
-                    options: _.map(enumerationFieldMap[type], value => value.text),
-                    title: _.split(field.name, '_')
-                        .map(_.capitalize)
-                        .join(' '),
+                    options: _.map(getFieldEnumerationValues(type), value => value.text),
+                    title: getFieldDisplay(type),
                 });
             } else {
                 layout.push({
                     field: `fields.${index}.${field.name}`,
                     type: _.get(field, 'userFieldType.name'),
-                    title: _.split(field.name, '_')
-                        .map(_.capitalize)
-                        .join(' '),
+                    title: getFieldDisplay(field.name),
                 });
             }
             formData[`fields.${index}.${field.name}`] = field.value;
