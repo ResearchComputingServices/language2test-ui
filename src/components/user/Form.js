@@ -23,7 +23,7 @@ function UserForm({
                 data: dynamicData,
                 append: (
                     <div className='d-flex justify-content-end align-items-center'>
-                        <div>
+                        <div style={{ width: 380 }}>
                             <ApiPicklistField
                                 controls={controls}
                                 field={{
