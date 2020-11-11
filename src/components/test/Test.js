@@ -62,6 +62,7 @@ function Test({ match }) {
     const storeActions = useTestWizardActions();
     const rolesCheckerService = useRolesCheckerService();
     const [isReadonly, setIsReadonly] = useState(false);
+    const testWizardSessionPreviewActions = useActions('testWizardSessionPreview');
 
     const layoutRef = useRef();
     const dynamicDataRef = useRef();
@@ -279,6 +280,7 @@ function Test({ match }) {
     };
 
     const onPreview = () => {
+        testWizardSessionPreviewActions.resetTestWizardSession();
         const { steps, testUserFieldCategory, mandatoryTestUserFieldCategory } = getValues({ nest: true });
         const wizardSteps = [{
             type: 'demographicQuestionnaire',
@@ -305,6 +307,11 @@ function Test({ match }) {
                 }
             }
         });
+        testWizardSessionPreviewActions.startTestWizardSession({
+            id,
+            wizardSteps,
+        });
+        historyService.go('/test/wizard/preview');
     };
 
     const getForm = id => (

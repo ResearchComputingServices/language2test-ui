@@ -1,3 +1,4 @@
+import React from 'react';
 import Vocabularies from '../../components/vocabularies';
 import Vocabulary from '../../components/vocabulary';
 import Users from '../../components/users';
@@ -295,6 +296,16 @@ export default [
         path: '/test-taker/schedule',
         component: TestTakerSchedule,
         roles: 'Test Taker',
+    },
+    {
+        path: '/test/wizard/preview',
+        component: (...props) => (
+            <TestWizard
+                {...props}
+                preview
+            />
+        ),
+        roles: ['Administrator', 'Test Developer', 'Instructor'],
     },
     {
         path: '*',

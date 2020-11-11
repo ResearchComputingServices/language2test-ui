@@ -2,10 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { logout, resetTestWizardSession, endTestWizardSession } from '../globalActions';
 
 const initialState = {
-    name: null,
     id: null,
     wizardSteps: [],
-    classId: null,
     startDatetime: null,
     endDatetime: null,
     createDatetime: null,
@@ -20,8 +18,6 @@ export default createSlice({
     reducers: {
         startTestWizardSession: (state, action) => {
             state.id = action.payload.id;
-            state.name = action.payload.name;
-            state.classId = action.payload.classId;
             state.wizardSteps = action.payload.wizardSteps;
             state.startDatetime = new Date().toISOString();
             state.createDatetime = new Date().toISOString();
