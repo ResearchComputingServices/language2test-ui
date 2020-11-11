@@ -27,7 +27,7 @@ function TestForm({
                 <div className='d-flex flex-direction-column justify-content-between'>
                     <h6 className='form-title'>{title}</h6>
                     <div>
-                        <PreviewButton onClick={onPreview} />
+                        {!_.isEmpty(data) && <PreviewButton onClick={onPreview} />}
                         {!readonly && onClone && <CloneButton onClick={onClone} />}
                     </div>
                 </div>
