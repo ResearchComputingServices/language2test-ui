@@ -99,6 +99,7 @@ function UpcomingDemopgrahicQuestionnaire({ className }) {
                 </div>
                 <Button
                     color='primary'
+                    disabled={_.isEmpty(data)}
                     onClick={updateProfile}
                     size='small'
                 >
