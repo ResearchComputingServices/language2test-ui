@@ -34,7 +34,10 @@ export const actions = {
     dashboard: dashboard.actions,
     instructorStudentClasses: instructorStudentClasses.actions,
     testTakerStudentClasses: testTakerStudentClasses.actions,
-    testWizardSessionPreview: testWizardSessionPreview.actions,
+    testWizardSessionPreview: _.assign(testWizardSessionPreview.actions, {
+        resetTestWizardSession,
+        endTestWizardSession,
+    }),
 };
 
 export const reducers = {

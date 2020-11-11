@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import React, { useState, useEffect, useCallback } from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -15,20 +16,20 @@ import {
 import TestWizardResults from '../testWizardResult';
 import testWizardSteps from '../../config/wizardSteps/testWizardSteps';
 
-export default function() {
+function TestWizard({ preview }) {
     const showStepAnswers = false;
     const historyService = useService('history');
     const {
         activeStep,
         endDatetime,
         wizardSteps: steps,
-    } = useStore('testWizardSession');
+    } = useStore(preview ? 'testWizardSessionPreview' : 'testWizardSession');
     const {
         key: dialogKey,
         confirmed: dialogConfirmed,
         canceled: dialogCanceled,
     } = useStore('dialog');
-    const { setActiveStep, reset } = useActions('testWizardSession');
+    const { setActiveStep, reset } = useActions(preview ? 'testWizardSessionPreview' : 'testWizardSession');
     const { showDialog, hideDialog } = useActions('dialog');
     const { hide: hideDrawer } = useActions('drawer');
 
@@ -37,13 +38,13 @@ export default function() {
     const [isBackButtonClicked, setBackbuttonPress] = useState(false);
 
     useEffect(() => {
-        if (dialogConfirmed && _.eq(dialogKey, 'testWizard')) {
+        if (dialogConfirmed && _.eq(dialogKey, 'testWizard') && !preview) {
             setBackbuttonPress(true);
             historyService.go('/dashboard');
             hideDialog();
             reset();
         }
-    }, [dialogConfirmed, dialogKey, hideDialog, historyService, reset]);
+    }, [dialogConfirmed, dialogKey, hideDialog, historyService, preview, reset]);
 
     useEffect(() => {
         if (dialogCanceled && _.eq(dialogKey, 'testWizard')) {
@@ -54,6 +55,7 @@ export default function() {
     }, [dialogCanceled, dialogKey, hideDialog]);
 
     const onBackButtonEvent = useCallback(e => {
+        if (preview) return historyService.goBack();
         e.preventDefault();
         if (!isBackButtonClicked) {
             showDialog({
@@ -64,7 +66,7 @@ export default function() {
             historyService.go('/dashboard');
             reset();
         }
-    }, [isBackButtonClicked, showDialog, historyService, reset]);
+    }, [isBackButtonClicked, showDialog, historyService, reset, preview]);
 
     useEffect(() => {
         if (!_.isNil(endDatetime)) {
@@ -76,10 +78,6 @@ export default function() {
             window.removeEventListener('popstate', onBackButtonEvent);
         };
     }, [endDatetime, onBackButtonEvent]);
-
-    if (_.isNil(steps) || _.isEmpty(steps)) {
-        historyService.go('/dashboard');
-    }
 
     const stores = useTestWizardStores();
 
@@ -100,7 +98,11 @@ export default function() {
 
     const getStepComponent = stepIndex => {
         const currentStep = getCurrentStep(stepIndex);
-        return _.isNil(currentStep) ? <TestWizardResults /> : currentStep.stepComponent;
+        if (_.isNil(currentStep)) {
+            return <TestWizardResults preview={preview} />;
+        }
+        const Component = currentStep.stepComponent;
+        return <Component preview={preview} />;
     };
 
     const handleNext = () => setActiveStep(activeStep + 1);
@@ -189,3 +191,9 @@ export default function() {
         </>
     );
 }
+
+TestWizard.propTypes = { preview: PropTypes.bool };
+
+TestWizard.defaultProps = { preview: false };
+
+export default TestWizard;
