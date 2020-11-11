@@ -68,6 +68,8 @@ class UserService extends RestService {
             .then(data => this._processResponse(data, options));
     };
 
+    setTemporaryPassword = (id, password) => axios.put(`${this.prefix}/reset_keycloak_password`, { id, password })
+
     remove = this._remove;
 
     export = this._export;

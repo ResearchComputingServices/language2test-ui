@@ -7,7 +7,7 @@ import React, {
 import clsx from 'clsx';
 import {
     ToastsContainer,
-    ToastsStore
+    ToastsStore,
 } from 'react-toasts';
 import { Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -97,7 +97,6 @@ function Main({ authenticate }) {
         }
         // TODO Keycloak automatically redirects to the keycloak login page when token expires, so this action might never fire. This is a force.
         logoutUser();
-        if (loggingIn) {}
         let authenticatedUser = null;
         // The version of Keycloak we are using by itself is broken, we need to catch the error 'kc.login(...).success is not a function'.
         try { authenticatedUser = await keycloakService.login(); } catch (err) {
