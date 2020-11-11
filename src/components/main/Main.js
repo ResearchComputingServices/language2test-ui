@@ -1,7 +1,14 @@
 import _ from 'lodash';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+    useState,
+    useEffect,
+    useCallback,
+} from 'react';
 import clsx from 'clsx';
-import { ToastsContainer, ToastsStore } from 'react-toasts';
+import {
+    ToastsContainer,
+    ToastsStore
+} from 'react-toasts';
 import { Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -45,6 +52,8 @@ function Main({ authenticate }) {
         error: false,
         msg: 'Failed to authenticate user.',
     });
+    const [loggingIn, setLogginIn] = useState(false);
+    const [loggingOut, setLoggingOut] = useState(false);
     const routes = useRoutes('main');
     const routesAssemblerService = useProvider('route')();
     const { open: drawerOpen, enabled: drawerEnabled } = useStore('drawer');
@@ -56,6 +65,16 @@ function Main({ authenticate }) {
     const { disable: disableDrawer, hide: hideDrawer } = useActions('drawer');
     const wideScreenMode = useIsWideScreenMode();
 
+    useEffect(() => {
+        const logout = async () => {
+            await keycloakService.logout();
+            setLoggingOut(false);
+        };
+        if (loggingOut) {
+            logout();
+        }
+    }, [keycloakService, setLoggingOut, loggingOut]);
+
     const fetchUser = async authenticatedUser => {
         if (_.isNil(authenticatedUser)) return null;
         return userService.login();
@@ -63,19 +82,22 @@ function Main({ authenticate }) {
 
     const logout = useCallback(async () => {
         try {
-            historyService.go('/');
             logoutUser();
             hideDrawer();
-            await keycloakService.logout();
+            setLoggingOut(true);
+            historyService.go('/');
         } catch (err) {
             ToastsStore.error('Failed to logout');
         }
-    }, [historyService, keycloakService, logoutUser, hideDrawer]);
+    }, [historyService, logoutUser, hideDrawer]);
 
     const login = async () => {
         if (_.eq(authenticate, false)) {
             return;
         }
+        // TODO Keycloak automatically redirects to the keycloak login page when token expires, so this action might never fire. This is a force.
+        logoutUser();
+        if (loggingIn) {}
         let authenticatedUser = null;
         // The version of Keycloak we are using by itself is broken, we need to catch the error 'kc.login(...).success is not a function'.
         try { authenticatedUser = await keycloakService.login(); } catch (err) {
@@ -89,8 +111,7 @@ function Main({ authenticate }) {
         interceptorService.registerRequestInterceptor(request => (request.headers.Authorization = `Bearer ${keycloakService.getToken()}`));
         interceptorService.registerUnauthorizedInterceptor(async () => {
             try {
-                logoutUser();
-                await keycloakService.logout();
+                logout();
             } catch (err) {}
         });
         const user = await fetchUser(authenticatedUser);
@@ -141,7 +162,9 @@ function Main({ authenticate }) {
         interceptorService.registerDataTransformInterceptor();
         interceptorService.registerUnhandledInterceptor(() => console.error('Server failed to send back a response or has crashed.'));
         try {
+            setLogginIn(true);
             await login();
+            setLogginIn(false);
         } catch (err) {
             setError({
                 error: true,
@@ -150,66 +173,76 @@ function Main({ authenticate }) {
         }
     });
 
-    return (
-        <>
-            {_.eq(authenticated, true) && (
-                <>
-                    <AppBar position='fixed'>
-                        <Toolbar className='tool-bar'>
-                            <div className='hamburger-button-container'>
-                                <IconButton
-                                    className={clsx(
-                                        'hamburger-button',
-                                        { hide: !drawerEnabled },
-                                    )}
-                                    onClick={() => toggleDrawer()}
-                                >
-                                    <MenuIcon className='hamburger-button-icon' />
-                                </IconButton>
-                            </div>
-                            <Logo />
-                            <div className='app-bar-segment'>
-                                <h5 className={
-                                    clsx(
-                                        'app-title',
-                                        { 'hide-visibility': dimensions.width < 690 },
-                                    )
-                                }
-                                >
-                                    Platform for Testing Language Learners
-                                </h5>
-                                <UserMenu
-                                    displayName={displayName}
-                                    dropdowns={[
-                                        authenticated && {
-                                            title: 'Logout',
-                                            Icon: <ExitToAppIcon />,
-                                            handler: confirmLogout,
-                                        },
-                                    ]}
-                                />
-                            </div>
-                        </Toolbar>
-                    </AppBar>
-                    <main className={clsx(
-                        { content: !drawerEnabled || !drawerOpen || !wideScreenMode },
-                        { 'content-shift': drawerEnabled && drawerOpen && wideScreenMode },
-                    )}
-                    >
-                        <Switch>{routesAssemblerService.assemble(routes)}</Switch>
-                        <Drawer />
-                        <ToastsContainer
-                            position='bottom_left'
-                            store={ToastsStore}
-                        />
-                        <Confirmation />
-                    </main>
-                </>
-            )}
-            {!authenticated && !error.error && <Authenticating />}
-            {error.error && <Error msg={error.msg} />}
-        </>
-    );
+    if (error.error) {
+        return <Error msg={error.msg} />;
+    }
+
+    if (loggingIn) {
+        return <Authenticating msg='Logging you in...' />;
+    }
+
+    if (loggingOut) {
+        return <Authenticating msg='Logging you out...' />;
+    }
+
+    if (authenticated) {
+        return (
+            <>
+                <AppBar position='fixed'>
+                    <Toolbar className='tool-bar'>
+                        <div className='hamburger-button-container'>
+                            <IconButton
+                                className={clsx(
+                                    'hamburger-button',
+                                    { hide: !drawerEnabled },
+                                )}
+                                onClick={() => toggleDrawer()}
+                            >
+                                <MenuIcon className='hamburger-button-icon' />
+                            </IconButton>
+                        </div>
+                        <Logo />
+                        <div className='app-bar-segment'>
+                            <h5 className={
+                                clsx(
+                                    'app-title',
+                                    { 'hide-visibility': dimensions.width < 690 },
+                                )
+                            }
+                            >
+                                Platform for Testing Language Learners
+                            </h5>
+                            <UserMenu
+                                displayName={displayName}
+                                dropdowns={[
+                                    authenticated && {
+                                        title: 'Logout',
+                                        Icon: <ExitToAppIcon />,
+                                        handler: confirmLogout,
+                                    },
+                                ]}
+                            />
+                        </div>
+                    </Toolbar>
+                </AppBar>
+                <main className={clsx(
+                    { content: !drawerEnabled || !drawerOpen || !wideScreenMode },
+                    { 'content-shift': drawerEnabled && drawerOpen && wideScreenMode },
+                )}
+                >
+                    <Switch>{routesAssemblerService.assemble(routes)}</Switch>
+                    <Drawer />
+                    <ToastsContainer
+                        position='bottom_left'
+                        store={ToastsStore}
+                    />
+                    <Confirmation />
+                </main>
+            </>
+        );
+    }
+
+    return null;
 }
 
 Main.propTypes = { authenticate: PropTypes.bool };
