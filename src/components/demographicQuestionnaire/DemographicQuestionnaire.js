@@ -1,17 +1,18 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { ToastsStore } from 'react-toasts';
 import QuestionnaireForm from './QuestionnaireForm';
 import { useActions, useStore, useService, useForm, useFormLayout, useMount } from '../../hooks';
 
-export default function DemographicQuestionnaire() {
+function DemographicQuestionnaire({ preview }) {
     const controls = useForm();
     const { errors } = controls;
     const service = useService('user');
     const user = useStore('userSession');
     const { assignUserSession } = useActions('userSession');
-    const { validateStep, invalidateStep } = useActions('testWizardSession');
-    const { wizardSteps: steps } = useStore('testWizardSession');
+    const { validateStep } = useActions(preview ? 'testWizardSessionPreview' : 'testWizardSession');
+    const { wizardSteps: steps } = useStore(preview ? 'testWizardSessionPreview' : 'testWizardSession');
     const layout = useFormLayout('demographicQuestionnaire');
     const [dynamicForm, setDynamicForm] = useState({
         layout: [],
@@ -62,12 +63,6 @@ export default function DemographicQuestionnaire() {
         }
     });
 
-    useEffect(() => {
-        if (!_.isEmpty(errors)) {
-            invalidateStep(0);
-        }
-    }, [errors, invalidateStep]);
-
     const preProcessData = data => {
         const fieldsMap = _.reduce(fields, (accumulator, field) => {
             accumulator[field.name] = field;
@@ -108,6 +103,13 @@ export default function DemographicQuestionnaire() {
 
     const onSubmit = async data => {
         try {
+            if (preview) {
+                if (!steps[0].valid && _.isEmpty(errors)) {
+                    validateStep(0);
+                }
+                ToastsStore.success('Completed Demographic Questionnaire');
+                return;
+            }
             assignUserSession(await service.updateDemographicQuestionnaire(preProcessData(data)));
             if (!steps[0].valid && _.isEmpty(errors)) {
                 validateStep(0);
@@ -129,3 +131,9 @@ export default function DemographicQuestionnaire() {
         />
     );
 }
+
+DemographicQuestionnaire.propTypes = { preview: PropTypes.bool };
+
+DemographicQuestionnaire.defaultProps = { preview: false };
+
+export default DemographicQuestionnaire;

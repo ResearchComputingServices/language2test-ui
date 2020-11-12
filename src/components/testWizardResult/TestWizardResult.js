@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { Button } from '@material-ui/core';
 import SubmitTest from './SubmitTest';
 import Title from './Title';
 import ResultStatistics from '../result/ResultStatistics';
@@ -13,8 +15,8 @@ import {
     useService,
 } from '../../hooks';
 
-export default function TestWizardResults() {
-    const testSessionService = useService('testSession');
+function TestWizardResults({ preview }) {
+    const [testSessionService, historyService] = useService('testSession', 'history');
     const stepStores = useTestWizardStores();
     const {
         id: testId,
@@ -153,6 +155,27 @@ export default function TestWizardResults() {
 
     const resultsEvaluated = !_.isNil(endDatetime);
 
+    if (preview) {
+        return (
+            <>
+                <h2>This concludes your test preview</h2>
+                <Button
+                    className='my-4'
+                    color='primary'
+                    onClick={() => {
+                        if (historyService.size() <= 2) {
+                            return historyService.go('/tests');
+                        }
+                        historyService.goBack();
+                    }}
+                    variant='contained'
+                >
+                    Return to Test
+                </Button>
+            </>
+        );
+    }
+
     return !resultsEvaluated ? (
         <SubmitTest
             error={error}
@@ -183,3 +206,9 @@ export default function TestWizardResults() {
         </div>
     );
 }
+
+TestWizardResults.propTypes = { preview: PropTypes.bool };
+
+TestWizardResults.defaultProps = { preview: false };
+
+export default TestWizardResults;

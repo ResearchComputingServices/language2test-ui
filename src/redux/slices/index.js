@@ -13,6 +13,7 @@ import clone from './clone';
 import dashboard from './dashboard';
 import instructorStudentClasses from './instructorStudentClasses';
 import testTakerStudentClasses from './testTakerStudentClasses';
+import testWizardSessionPreview from './testWizardSessionPreview';
 import { logout, resetTestWizardSession, endTestWizardSession } from '../globalActions';
 
 export const actions = {
@@ -33,6 +34,10 @@ export const actions = {
     dashboard: dashboard.actions,
     instructorStudentClasses: instructorStudentClasses.actions,
     testTakerStudentClasses: testTakerStudentClasses.actions,
+    testWizardSessionPreview: _.assign(testWizardSessionPreview.actions, {
+        resetTestWizardSession,
+        endTestWizardSession,
+    }),
 };
 
 export const reducers = {
@@ -50,4 +55,5 @@ export const reducers = {
     dashboard: dashboard.reducer,
     instructorStudentClasses: instructorStudentClasses.reducer,
     testTakerStudentClasses: testTakerStudentClasses.reducer,
+    testWizardSessionPreview: testWizardSessionPreview.reducer,
 };
