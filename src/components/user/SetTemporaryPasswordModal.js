@@ -12,12 +12,20 @@ import { Button, ModalInfo } from '../common';
 
 function SetTemporaryPasswordModal({ className, onSetTemporaryPassword }) {
     const [show, setShow] = React.useState(false);
-    const [values, setValues] = React.useState({
+    const getInitialState = () => ({
         password: '',
         showPassword: false,
         confirmPassword: '',
         showConfirmPassword: false,
     });
+    const [values, setValues] = React.useState(getInitialState());
+
+    React.useEffect(() => {
+        if (show) {
+            setValues(getInitialState());
+        }
+    }, [show, setValues]);
+
     const handleChange = prop => event => {
         setValues({ ...values, [prop]: event.target.value });
     };
@@ -40,6 +48,12 @@ function SetTemporaryPasswordModal({ className, onSetTemporaryPassword }) {
 
     const passwordMisMatch = () => !_.eq(values.confirmPassword, values.password);
 
+    const onKeyDown = event => {
+        if (_.eq(event.which, 13)) {
+            onSetTemporaryPassword(values.password, () => setShow(false));
+        }
+    };
+
     return (
         <>
             <Button
@@ -59,7 +73,6 @@ function SetTemporaryPasswordModal({ className, onSetTemporaryPassword }) {
                             variant: 'contained',
                             disabled: _.isEmpty(values.password) || passwordMisMatch(),
                         },
-                        disabled: true,
                         name: 'change',
                         title: 'Set Password',
                         onClick: () => onSetTemporaryPassword(values.password, () => setShow(false)),
@@ -78,7 +91,11 @@ function SetTemporaryPasswordModal({ className, onSetTemporaryPassword }) {
                 show={show}
                 title='Set Temporary Password'
             >
-                <div className='col'>
+                <div
+                    className='col'
+                    onKeyDown={_.isEmpty(values.password) || passwordMisMatch() ? undefined : onKeyDown}
+                    role='presentation'
+                >
                     <FormControl
                         className='field'
                         error={passwordMisMatch()}
@@ -92,6 +109,7 @@ function SetTemporaryPasswordModal({ className, onSetTemporaryPassword }) {
                                     <IconButton
                                         onClick={handleClickShowPassword}
                                         onMouseDown={handleMouseDownPassword}
+                                        tabIndex={-1}
                                     >
                                         {values.showPassword ? <Visibility /> : <VisibilityOff />}
                                     </IconButton>
@@ -113,8 +131,10 @@ function SetTemporaryPasswordModal({ className, onSetTemporaryPassword }) {
                                     position='end'
                                 >
                                     <IconButton
+                                        disableRipple
                                         onClick={handleClickShowConfirmPassword}
                                         onMouseDown={handleMouseDownConfirmPassword}
+                                        tabIndex={-1}
                                     >
                                         {values.showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                                     </IconButton>

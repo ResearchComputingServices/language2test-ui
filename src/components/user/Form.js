@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { FormPaper, Button } from '../common';
 import Form from '../form';
@@ -25,10 +26,12 @@ function UserForm({
                 data: dynamicData,
                 append: (
                     <>
-                        <SetTemporaryPasswordModal
-                            className='field'
-                            onSetTemporaryPassword={onSetTemporaryPassword}
-                        />
+                        {!_.isNil(data.id) && (
+                            <SetTemporaryPasswordModal
+                                className='field'
+                                onSetTemporaryPassword={onSetTemporaryPassword}
+                            />
+                        )}
                         <div className='d-flex justify-content-end align-items-center'>
                             <div style={{ width: 380 }}>
                                 <ApiPicklistField
