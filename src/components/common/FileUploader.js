@@ -93,7 +93,7 @@ function FileUploader({ onUpload, acceptedFiles, as: Component }) {
                 ]}
                 onHide={handleClose}
                 show={show}
-                tile='Upload File'
+                title='Upload File'
             >
                 <LinearProgress className={`${modalLoading ? 'show' : 'hide'} my-3`} />
                 <div className='field'>

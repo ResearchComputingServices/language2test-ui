@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { ToastsStore } from 'react-toasts';
 import React, {
     useState,
     useEffect,
@@ -30,6 +31,7 @@ function User({ match }) {
     const entity = 'user';
     const id = _.get(match, 'params.id');
     const controls = useForm();
+    const userService = useService('user');
     const userSession = useStore('userSession');
     const { assignUserSession } = useActions('userSession');
     const dashboardActions = useActions('dashboard');
@@ -225,6 +227,16 @@ function User({ match }) {
         },
     }, rights, data.immutable, data.unremovable);
 
+    const onSetTemporaryPassword = async (password, hideModal) => {
+        try {
+            await userService.setTemporaryPassword(userSession.id, password);
+            ToastsStore.success('Successfully set temporary password');
+            hideModal();
+        } catch (err) {
+            ToastsStore.error('Failed to update the password');
+        }
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -238,6 +250,7 @@ function User({ match }) {
                     dynamicLayout={dynamicForm.layout}
                     layout={layout}
                     onAddDemographicField={onAddDemographicField}
+                    onSetTemporaryPassword={onSetTemporaryPassword}
                     selectedDemographicFieldsFilter={selectedDemographicFieldsFilter}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} User`}
                 />

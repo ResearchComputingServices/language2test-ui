@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
-import Button from '@material-ui/core/Button';
+import { Button } from '.';
 import {
     useIsWideScreenMode,
     useStore,
@@ -39,6 +39,7 @@ function ModalInfo({
             setDrawerHiddenManually(false);
         }
     };
+
     return (
         <Modal
             animation={animation}
