@@ -229,7 +229,7 @@ function User({ match }) {
 
     const onSetTemporaryPassword = async (password, hideModal) => {
         try {
-            await userService.setTemporaryPassword(userSession.id, password);
+            await userService.setTemporaryPassword(data.id, password);
             ToastsStore.success('Successfully set temporary password');
             hideModal();
         } catch (err) {
