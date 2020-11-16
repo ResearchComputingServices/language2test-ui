@@ -11,52 +11,65 @@ function ActionToast({
     open,
     onUndo,
     onClose,
+    className,
+    style,
 }) {
     return (
-        <div>
-            <Snackbar
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-                color='primary'
-                open={open}
+        <Snackbar
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+            }}
+            className={className}
+            color='primary'
+            open={open}
+            style={style}
+        >
+            <Alert
+                action={(
+                    <>
+                        <Button
+                            color='secondary'
+                            onClick={onUndo}
+                            size='small'
+                        >
+                            Undo
+                        </Button>
+                        <IconButton
+                            aria-label='close'
+                            color='inherit'
+                            onClick={onClose}
+                            size='small'
+                        >
+                            <CloseIcon fontSize='small' />
+                        </IconButton>
+                    </>
+                )}
+                onClose={onClose}
+                severity='success'
             >
-                <Alert
-                    action={(
-                        <>
-                            <Button
-                                color='secondary'
-                                onClick={onUndo}
-                                size='small'
-                            >
-                                Undo
-                            </Button>
-                            <IconButton
-                                aria-label='close'
-                                color='inherit'
-                                onClick={onClose}
-                                size='small'
-                            >
-                                <CloseIcon fontSize='small' />
-                            </IconButton>
-                        </>
-                    )}
-                    onClose={onClose}
-                    severity='success'
-                >
-                    {message}
-                </Alert>
-            </Snackbar>
-        </div>
+                {message}
+            </Alert>
+        </Snackbar>
     );
 }
 
 ActionToast.propTypes = {
-    message: PropTypes.string.isRequired,
-    open: PropTypes.bool.isRequired,
-    onUndo: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
+    message: PropTypes.string,
+    open: PropTypes.bool,
+    onUndo: PropTypes.func,
+    onClose: PropTypes.func,
+    className: PropTypes.string,
+    style: PropTypes.object,
+};
+
+ActionToast.defaultProps = {
+    message: '',
+    open: false,
+    onUndo: undefined,
+    onClose: undefined,
+    className: undefined,
+    style: undefined,
 };
 
 export default ActionToast;

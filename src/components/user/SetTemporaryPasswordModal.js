@@ -103,9 +103,7 @@ function SetTemporaryPasswordModal({ className, onSetTemporaryPassword }) {
                         <InputLabel htmlFor='standard-adornment-password'>Password</InputLabel>
                         <Input
                             endAdornment={(
-                                <InputAdornment
-                                    position='end'
-                                >
+                                <InputAdornment position='end'>
                                     <IconButton
                                         onClick={handleClickShowPassword}
                                         onMouseDown={handleMouseDownPassword}
@@ -127,9 +125,7 @@ function SetTemporaryPasswordModal({ className, onSetTemporaryPassword }) {
                         <InputLabel htmlFor='standard-adornment-password'>Confirm Password</InputLabel>
                         <Input
                             endAdornment={(
-                                <InputAdornment
-                                    position='end'
-                                >
+                                <InputAdornment position='end'>
                                     <IconButton
                                         disableRipple
                                         onClick={handleClickShowConfirmPassword}
