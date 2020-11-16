@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import DownloadIcon from '@material-ui/icons/GetApp';
 import UploadIcon from '@material-ui/icons/Publish';
-import Button from './Button';
-import Grid from './Grid';
-import { FileUploader } from '.';
+import { FileUploader, Button, Grid } from '.';
 
 function AdministratorGrid({
+    className,
+    style,
     title,
     onRowClick,
     onCreate,
@@ -29,7 +29,10 @@ function AdministratorGrid({
     };
     const tableRef = React.createRef(null);
     return (
-        <div className='administrator-grids'>
+        <div
+            className={`administrator-grids ${className}`}
+            style={style}
+        >
             <div className='d-flex direction-row mb-4'>
                 {_.isFunction(onCreate)
                     && (
@@ -93,7 +96,7 @@ function AdministratorGrid({
 
 AdministratorGrid.propTypes = {
     entity: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     onRowClick: PropTypes.func,
     onCreate: PropTypes.func,
     onImport: PropTypes.func,
@@ -101,9 +104,12 @@ AdministratorGrid.propTypes = {
     options: PropTypes.object,
     importFileTypes: PropTypes.array,
     fetch: PropTypes.func,
+    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 AdministratorGrid.defaultProps = {
+    title: '',
     onRowClick: undefined,
     onCreate: undefined,
     onImport: undefined,
@@ -111,6 +117,8 @@ AdministratorGrid.defaultProps = {
     fetch: undefined,
     importFileTypes: ['xlsx'],
     options: {},
+    style: undefined,
+    className: '',
 };
 
 export default AdministratorGrid;

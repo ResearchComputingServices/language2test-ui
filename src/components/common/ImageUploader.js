@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { ModalInfo } from '.';
 import { useForm, useService, useMount } from '../../hooks';
 
-function ImageUploader({ imageName, onUpload, className }) {
+function ImageUploader({ imageName, onUpload, className, style }) {
     const fileService = useService('file');
     const { handleSubmit, register, unregister, errors, control, setValue, clearError, getValues } = useForm();
     const [loading, setLoading] = useState(false);
@@ -84,6 +84,7 @@ function ImageUploader({ imageName, onUpload, className }) {
                         className={className}
                         color='primary'
                         onClick={handleShow}
+                        style={style}
                         variant='contained'
                     >
                         {filename ? 'Change Attached Image' : 'Attach Image'}
@@ -150,12 +151,14 @@ ImageUploader.propTypes = {
     imageName: PropTypes.string,
     onUpload: PropTypes.func,
     className: PropTypes.string,
+    style: PropTypes.object,
 };
 
 ImageUploader.defaultProps = {
     imageName: '',
     onUpload: null,
     className: '',
+    style: undefined,
 };
 
 export default ImageUploader;

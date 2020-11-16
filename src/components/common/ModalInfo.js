@@ -16,6 +16,8 @@ function ModalInfo({
     title,
     children,
     animation,
+    className,
+    style,
     centered,
     staticModal,
     buttons,
@@ -45,9 +47,10 @@ function ModalInfo({
             animation={animation}
             backdrop={staticModal ? 'static' : true}
             centered={centered}
-            className='hover'
+            className={`hover ${className}`}
             onHide={hide}
             show={show}
+            style={style}
         >
             <Modal.Header closeButton>
                 <Modal.Title>
@@ -89,6 +92,8 @@ ModalInfo.propTypes = {
     centered: PropTypes.bool,
     buttons: PropTypes.array,
     staticModal: PropTypes.bool,
+    className: PropTypes.string,
+    style: PropTypes.object,
 };
 
 ModalInfo.defaultProps = {
@@ -97,6 +102,8 @@ ModalInfo.defaultProps = {
     centered: true,
     staticModal: false,
     buttons: [],
+    className: '',
+    style: undefined,
 };
 
 export default ModalInfo;

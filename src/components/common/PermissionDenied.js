@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default () => {
+function PermissionDenied({ className, style }) {
     const Block = (
         <span
             aria-labelledby='block'
@@ -10,10 +11,25 @@ export default () => {
         </span>
     );
     return (
-        <div className='my-5 text-center'>
+        <div
+            className={`my-5 text-center ${className}`}
+            style={style}
+        >
             {Block}
             403 Permission Denied
             {Block}
         </div>
     );
+}
+
+PermissionDenied.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
 };
+
+PermissionDenied.defaultProps = {
+    className: '',
+    style: undefined,
+};
+
+export default PermissionDenied;

@@ -4,7 +4,7 @@ import LinearProgress from './LinearProgress';
 import Spinner from './Spinner';
 import Error from './Error';
 
-function Layout({ children, className, loading, error, unmountOnLoad, linearProgress }) {
+function Layout({ children, style, className, loading, error, unmountOnLoad, linearProgress }) {
     return (
         <div className='layout-container'>
             {loading && !error && (
@@ -13,7 +13,10 @@ function Layout({ children, className, loading, error, unmountOnLoad, linearProg
                     {linearProgress && <LinearProgress />}
                 </div>
             )}
-            <div className={`layout ${!loading && !error ? className : ''} ${loading ? 'layout-loading' : ''}`}>
+            <div
+                className={`layout ${!loading && !error ? className : ''} ${loading ? 'layout-loading' : ''}`}
+                style={style}
+            >
                 {!error && (!unmountOnLoad ? children : !loading && children)}
                 {error && <Error error={error} />}
             </div>
@@ -31,6 +34,7 @@ Layout.propTypes = {
         PropTypes.bool,
         PropTypes.number,
     ]),
+    style: PropTypes.object,
 };
 
 Layout.defaultProps = {
@@ -40,6 +44,7 @@ Layout.defaultProps = {
     error: false,
     linearProgress: false,
     className: '',
+    style: undefined,
 };
 
 export default Layout;

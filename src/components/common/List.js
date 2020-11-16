@@ -7,6 +7,8 @@ function List({
     data,
     pageSize,
     emptyTitle,
+    className,
+    style,
     renderRow,
     paginationAlignment,
 }) {
@@ -19,6 +21,7 @@ function List({
 
     return (
         <PaginatedList
+            className={className}
             count={Math.ceil(count / pageSize) || 1}
             data={paginatedData}
             emptyTitle={emptyTitle}
@@ -26,6 +29,7 @@ function List({
             page={page}
             paginationAlignment={paginationAlignment}
             renderRow={(data, index) => renderRow(data, index, ((page - 1) * (pageSize)) + index + 1)}
+            style={style}
         />
     );
 }
@@ -36,12 +40,16 @@ List.propTypes = {
     emptyTitle: PropTypes.string,
     renderRow: PropTypes.func.isRequired,
     paginationAlignment: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object,
 };
 
 List.defaultProps = {
     data: [],
     pageSize: 5,
     emptyTitle: undefined,
+    className: undefined,
+    style: undefined,
     paginationAlignment: 'left',
 };
 
