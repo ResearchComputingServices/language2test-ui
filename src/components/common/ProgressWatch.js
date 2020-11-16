@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-function ProgressWatch({ tick, totalTick, anchored }) {
+function ProgressWatch({ tick, totalTick, anchored, className, style }) {
     const formatDigit = digit => (digit / 10 < 1 ? `0${digit}` : digit);
     const getTimeRemaining = () => {
         if (tick < 0 || !isNumber(tick)) return '∞';
@@ -17,7 +17,10 @@ function ProgressWatch({ tick, totalTick, anchored }) {
     };
     const getProgressValue = () => (((totalTick - tick) / totalTick) * 100);
     return (
-        <div className={`progress-watch ${anchored ? ' progress-watch-anchored' : ''}`}>
+        <div
+            className={`progress-watch ${anchored ? ' progress-watch-anchored' : ''} ${className}`}
+            style={style}
+        >
             <CircularProgress
                 className='progress-watch-spinner'
                 value={100 - getProgressValue()}
@@ -49,8 +52,14 @@ ProgressWatch.propTypes = {
     tick: PropTypes.number.isRequired,
     totalTick: PropTypes.number.isRequired,
     anchored: PropTypes.bool,
+    className: PropTypes.string,
+    style: PropTypes.object,
 };
 
-ProgressWatch.defaultProps = { anchored: false };
+ProgressWatch.defaultProps = {
+    className: '',
+    style: undefined,
+    anchored: false,
+};
 
 export default ProgressWatch;

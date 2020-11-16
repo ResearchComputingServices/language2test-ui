@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Layout } from '.';
 import { useData, useService } from '../../hooks';
 
-function Image({ imageName }) {
+function Image({ imageName, className, style }) {
     const fileService = useService('file');
     const [image, setImage] = useState(null);
 
@@ -16,7 +16,11 @@ function Image({ imageName }) {
     }, [imageName]);
 
     return (
-        <Layout loading={loading}>
+        <Layout
+            className={className}
+            loading={loading}
+            style={style}
+        >
             <img
                 alt={imageName}
                 className='scale-down'
@@ -26,6 +30,16 @@ function Image({ imageName }) {
     );
 }
 
-Image.propTypes = { imageName: PropTypes.string.isRequired };
+Image.propTypes = {
+    imageName: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object,
+};
+
+Image.defaultProps = {
+    imageName: '',
+    className: undefined,
+    style: undefined,
+};
 
 export default Image;

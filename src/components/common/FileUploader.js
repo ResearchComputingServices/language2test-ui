@@ -11,7 +11,13 @@ import PropTypes from 'prop-types';
 import { ModalInfo } from '.';
 import { useForm } from '../../hooks';
 
-function FileUploader({ onUpload, acceptedFiles, as: Component }) {
+function FileUploader({
+    onUpload,
+    acceptedFiles,
+    as: Component,
+    style,
+    className,
+}) {
     const { handleSubmit, register, unregister, errors, control, setValue, clearError, getValues } = useForm();
     const [modalLoading, setModalLoading] = useState(false);
     const [show, setShow] = useState(false);
@@ -50,7 +56,10 @@ function FileUploader({ onUpload, acceptedFiles, as: Component }) {
     };
 
     return (
-        <div>
+        <div
+            className={className}
+            style={style}
+        >
             {!_.isNil(Component) && (
                 <Component
                     handleClose={handleClose}
@@ -126,14 +135,19 @@ function FileUploader({ onUpload, acceptedFiles, as: Component }) {
 }
 
 FileUploader.propTypes = {
-    onUpload: PropTypes.func.isRequired,
+    onUpload: PropTypes.func,
     acceptedFiles: PropTypes.array,
     as: PropTypes.func,
+    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 FileUploader.defaultProps = {
+    onUpload: _.noop,
     acceptedFiles: undefined,
     as: undefined,
+    style: undefined,
+    className: undefined,
 };
 
 export default FileUploader;

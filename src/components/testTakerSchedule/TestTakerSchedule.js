@@ -19,6 +19,7 @@ function TestTakerSchedule() {
     const [testScheduleService, testService, historyService] = useService(['testSchedule', 'test', 'history']);
     const storeActions = useTestWizardActions();
     const { error, loading } = useStore('testWizardSession');
+    const userSession = useStore('userSession');
     const {
         startTestWizardSession,
         startFetch,
@@ -121,7 +122,7 @@ function TestTakerSchedule() {
                     };
                     return (
                         <TestTakerScheduleDetails
-                            canTakeTest={moment().isBetween(scheduleDetails.startDatetime, scheduleDetails.endDatetime) && !scheduleDetails.taken}
+                            canTakeTest={userSession.CHANGE_ME_LATER != null && moment().isBetween(scheduleDetails.startDatetime, scheduleDetails.endDatetime) && !scheduleDetails.taken}
                             coordinates={scheduleDetails.coordinates}
                             endDatetime={scheduleDetails.endDatetime.format('LLLL')}
                             handleClose={closeModal}

@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { ToastsStore } from 'react-toasts';
 import { useService, useGridColumns } from '../../hooks';
 
-const style = { padding: 20 };
-
 function Grid({
+    className,
+    style,
     tableRef,
     title,
     onRowClick,
@@ -61,6 +61,7 @@ function Grid({
 
     return (
         <MaterialTable
+            className={className}
             columns={columns}
             data={query => fetchData(query)}
             editable={{
@@ -70,21 +71,22 @@ function Grid({
             }}
             onRowClick={_.isFunction(onRowClick) ? onRowClick : undefined}
             options={{
-                ..._.omit(options, ['format', 'exclude', 'query']),
-                // TODO backened needs to implemenet search functionalities on an entity.
                 search: false,
-                // TODO backend needs to implement filtering functionality on an entity.
                 filtering: false,
+                ..._.omit(options, ['format', 'exclude', 'query']),
             }}
-            style={style}
+            style={{
+                ...style,
+                ...{ padding: 20 },
+            }}
             tableRef={tableRef}
-            title={title || ''}
+            title={title}
         />
     );
 }
 
 Grid.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     onRowAdd: PropTypes.func,
     onRowUpdate: PropTypes.func,
     onRowDelete: PropTypes.func,
@@ -93,16 +95,21 @@ Grid.propTypes = {
     entity: PropTypes.string.isRequired,
     tableRef: PropTypes.object,
     fetch: PropTypes.func,
+    className: PropTypes.string,
+    style: PropTypes.object,
 };
 
 Grid.defaultProps = {
     options: {},
+    title: '',
     onRowClick: undefined,
     onRowAdd: undefined,
     onRowUpdate: undefined,
     onRowDelete: undefined,
     tableRef: undefined,
     fetch: undefined,
+    className: undefined,
+    style: undefined,
 };
 
 export default Grid;

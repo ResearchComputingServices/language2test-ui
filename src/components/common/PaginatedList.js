@@ -8,6 +8,7 @@ import Spinner from './Spinner';
 
 function PaginatedList({
     className,
+    style,
     data,
     onPaginationChange,
     count,
@@ -31,6 +32,7 @@ function PaginatedList({
             className={clsx(
                 className, 'paginated-list-container', { 'd-flex justify-content-center align-items-center': loading || error || isEmpty },
             )}
+            style={style}
         >
             {loading && <Spinner />}
             {!loading && !error && isEmpty && <div className='text-muted'>{emptyTitle}</div>}
@@ -69,6 +71,7 @@ PaginatedList.propTypes = {
     onPaginationChange: PropTypes.func.isRequired,
     count: PropTypes.number.isRequired,
     page: PropTypes.number.isRequired,
+    style: PropTypes.object,
     loading: PropTypes.bool,
     error: PropTypes.bool,
     className: PropTypes.string,
@@ -82,6 +85,7 @@ PaginatedList.defaultProps = {
     error: false,
     className: '',
     renderRow: _.noop,
+    style: undefined,
     emptyTitle: 'List is Empty',
     paginationAlignment: 'left',
 };

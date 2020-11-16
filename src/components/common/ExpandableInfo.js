@@ -9,10 +9,13 @@ const ExpandableInfo = ({
     title,
     children,
     defaultExpanded,
+    className,
+    style,
 }) => (
     <ExpansionPanel
-        className='expandable-info mb-4'
+        className={`expandable-info mb-4 ${className}`}
         defaultExpanded={defaultExpanded}
+        style={style}
     >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <h1><u>{title}</u></h1>
@@ -24,11 +27,19 @@ const ExpandableInfo = ({
 );
 
 ExpandableInfo.propTypes = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
+    title: PropTypes.string,
+    children: PropTypes.node,
+    className: PropTypes.string,
+    style: PropTypes.object,
     defaultExpanded: PropTypes.bool,
 };
 
-ExpandableInfo.defaultProps = { defaultExpanded: true };
+ExpandableInfo.defaultProps = {
+    title: '',
+    children: null,
+    className: undefined,
+    style: undefined,
+    defaultExpanded: true,
+};
 
 export default ExpandableInfo;

@@ -16,6 +16,7 @@ const initialState = {
     address: '',
     education: '',
     fields: [],
+    CHANGE_ME_LATER: null,
     authenticated: false,
 };
 
@@ -27,6 +28,7 @@ const userSessionSlice = createSlice({
             const { payload: user } = action;
             _.assign(state, {
                 id: user.id,
+                CHANGE_ME_LATER: user.CHANGE_ME_LATER,
                 studentId: user.studentId,
                 firstLanguage: user.firstLanguage,
                 email: user.email,
@@ -46,6 +48,7 @@ const userSessionSlice = createSlice({
             const { payload: user } = action;
             _.assign(state, {
                 id: user.id,
+                CHANGE_ME_LATER: user.CHANGE_ME_LATER,
                 studentId: user.studentId,
                 firstLanguage: user.firstLanguage,
                 email: user.email,

@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default () => {
+function NotFound({ className, style }) {
     const Question = (
         <span
             aria-labelledby='question'
@@ -10,10 +11,25 @@ export default () => {
         </span>
     );
     return (
-        <div className='my-5 text-center'>
+        <div
+            className={`my-5 text-center ${className}`}
+            style={style}
+        >
             {Question}
             404 Page Not Found
             {Question}
         </div>
     );
+}
+
+NotFound.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
 };
+
+NotFound.defaultProps = {
+    className: '',
+    style: undefined,
+};
+
+export default NotFound;
