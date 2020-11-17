@@ -55,6 +55,7 @@ class UserService extends RestService {
         ],
     })
 
+    // TODO In backend and in front-end this needs to be changed to updateProfile
     updateDemographicQuestionnaire = data => {
         const options = {
             requestTransformers: [
@@ -64,6 +65,7 @@ class UserService extends RestService {
             ],
         };
         return axios
+            // Needs to be changed to profile
             .put(`${this.prefix}/demographic_questionnaire`, this._processRequest(data, options))
             .then(data => this._processResponse(data, options));
     };
