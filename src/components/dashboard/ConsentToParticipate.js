@@ -8,8 +8,10 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { Button } from '../common';
 
 function ConsentToParticipate({ defaultValue, disabled, style, className, onConsent, confirm }) {
-    const [selectedValue, setSelectedValue] = React.useState(defaultValue);
     const mapValue = selectedValue => (selectedValue === 'a' ? true : (selectedValue === 'd' ? false : null));
+    const unMapValue = defaultValue => (defaultValue === true ? 'a' : (defaultValue === false ? 'd' : null));
+
+    const [selectedValue, setSelectedValue] = React.useState(unMapValue(defaultValue));
 
     const handleChange = event => {
         const consent = event.target.value;

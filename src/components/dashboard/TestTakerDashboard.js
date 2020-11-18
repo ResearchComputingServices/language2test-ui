@@ -14,7 +14,7 @@ function TestTakerDashboard() {
     const userSession = useStore('userSession');
     const userSessionActions = useActions('userSession');
     const [loading, setLoading] = useState(false);
-    const [showConsentModal, setShowConsentModal] = useState(userSession.CHANGE_ME_LATER == null);
+    const [showConsentModal, setShowConsentModal] = useState(userSession.agreeToParticipate == null);
 
     return (
         <>
@@ -23,10 +23,13 @@ function TestTakerDashboard() {
                     className='ml-4 mt-4 mb-2'
                     confirm
                     disabled={loading}
-                    onConsent={async () => {
+                    onConsent={async consent => {
                         try {
                             setLoading(true);
-                            userSessionActions.assignUserSession(await userService.updateDemographicQuestionnaire({ ...userSession }));
+                            userSessionActions.assignUserSession(await userService.updateDemographicQuestionnaire({
+                                ...userSession,
+                                agreeToParticipate: consent,
+                            }));
                             setShowConsentModal(false);
                             ToastsStore.success('Successfully updated consent');
                         } catch (err) {
@@ -37,14 +40,18 @@ function TestTakerDashboard() {
                     }}
                 />
             </ModalInfo>
-            {userSession.CHANGE_ME_LATER != null && (
+            {userSession.agreeToParticipate != null && (
                 <ConsentToParticipate
                     className='ml-4 mt-4 mb-2'
+                    defaultValue={userSession.agreeToParticipate}
                     disabled={loading}
-                    onConsent={async () => {
+                    onConsent={async consent => {
                         try {
                             setLoading(true);
-                            userSessionActions.assignUserSession(await userService.updateDemographicQuestionnaire({ ...userSession }));
+                            userSessionActions.assignUserSession(await userService.updateDemographicQuestionnaire({
+                                ...userSession,
+                                agreeToParticipate: consent,
+                            }));
                             setShowConsentModal(false);
                         } catch (err) {
                             ToastsStore.error('Failed to update consent');

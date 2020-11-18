@@ -122,7 +122,7 @@ function TestTakerSchedule() {
                     };
                     return (
                         <TestTakerScheduleDetails
-                            canTakeTest={userSession.CHANGE_ME_LATER != null && moment().isBetween(scheduleDetails.startDatetime, scheduleDetails.endDatetime) && !scheduleDetails.taken}
+                            canTakeTest={userSession.agreeToParticipate != null && moment().isBetween(scheduleDetails.startDatetime, scheduleDetails.endDatetime) && !scheduleDetails.taken}
                             coordinates={scheduleDetails.coordinates}
                             endDatetime={scheduleDetails.endDatetime.format('LLLL')}
                             handleClose={closeModal}
