@@ -103,6 +103,11 @@ function Writing({ match }) {
         historyService.go('/writings/writing');
     };
 
+    const getOnClone = () => {
+        if (!rolesCheckerService.has(rights.create)) return;
+        return !getClone() ? onClone : undefined;
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -113,7 +118,7 @@ function Writing({ match }) {
                     data={data}
                     dynamicLayout={dynamicLayout}
                     layout={layout}
-                    onClone={!getClone() ? onClone : undefined}
+                    onClone={getOnClone()}
                     readonly={isReadonly}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Writing`}
                 />

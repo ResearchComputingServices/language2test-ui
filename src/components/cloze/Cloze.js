@@ -233,6 +233,11 @@ function Cloze({ match }) {
             && !rolesCheckerService.has('Test Developer')
     );
 
+    const getOnClone = () => {
+        if (!rolesCheckerService.has(rights.create)) return;
+        return !getClone() ? onClone : undefined;
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -242,7 +247,7 @@ function Cloze({ match }) {
                     controls={controls}
                     data={data}
                     layout={layout}
-                    onClone={!getClone() ? onClone : undefined}
+                    onClone={getOnClone()}
                     readonly={readonly}
                     title={`${!_.isNil(id) ? 'Edit' : 'New'} Cloze`}
                 >

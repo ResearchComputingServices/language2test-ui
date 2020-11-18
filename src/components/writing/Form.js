@@ -29,7 +29,7 @@ function WritingForm({
             <div className='form-body'>
                 <div className='d-flex flex-direction-column justify-content-between'>
                     <h6 className='form-title'>{title}</h6>
-                    {!readonly && onClone && <CloneButton onClick={onClone} />}
+                    {onClone && <CloneButton onClick={onClone} />}
                 </div>
                 <InUse
                     msg={`Currently being used in one or more ${getUsedIn(data)}`}

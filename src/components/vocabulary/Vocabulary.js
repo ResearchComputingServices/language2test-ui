@@ -71,6 +71,11 @@ function Vocabulary({ match }) {
         historyService.go('/vocabularies/vocabulary');
     };
 
+    const getOnClone = () => {
+        if (!rolesCheckerService.has(rights.create)) return;
+        return !getClone() ? onClone : undefined;
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -80,7 +85,7 @@ function Vocabulary({ match }) {
                     controls={controls}
                     data={data}
                     layout={layout}
-                    onClone={!getClone() ? onClone : undefined}
+                    onClone={getOnClone()}
                     readonly={
                         data.immutable
                         || (
