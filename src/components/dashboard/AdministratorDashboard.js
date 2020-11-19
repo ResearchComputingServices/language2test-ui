@@ -15,6 +15,7 @@ function AdministratorDashboard() {
             </div>
             <div className='administrator-dashboard-logged-in-users'>
                 <InfiniteList
+                    className='my-3'
                     fetch={userService.getUserSessions}
                     noDataTitle='No active sessions'
                     renderRow={(data, index) => (

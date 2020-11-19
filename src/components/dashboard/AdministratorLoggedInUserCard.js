@@ -1,10 +1,13 @@
 import React from 'react';
+import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 
 function AdministratorLoggedInUserCard({
+    className,
+    style,
     username,
     roles,
     displayName,
@@ -12,7 +15,10 @@ function AdministratorLoggedInUserCard({
     lastAccessTime,
 }) {
     return (
-        <Card className='administrator-dashboard-logged-in-user-card-container'>
+        <Card
+            className={clsx('administrator-dashboard-logged-in-user-card-container', className)}
+            style={style}
+        >
             <CardContent>
                 <Typography
                     className='administrator-dashboard-logged-in-user-card-title'
@@ -65,6 +71,8 @@ AdministratorLoggedInUserCard.propTypes = {
     displayName: PropTypes.string,
     sessionStartTime: PropTypes.string,
     lastAccessTime: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object,
 };
 
 AdministratorLoggedInUserCard.defaultProps = {
@@ -73,6 +81,8 @@ AdministratorLoggedInUserCard.defaultProps = {
     displayName: 'Unknown',
     sessionStartTime: 'Unknown',
     lastAccessTime: 'Unknown',
+    className: undefined,
+    style: undefined,
 };
 
 export default AdministratorLoggedInUserCard;
