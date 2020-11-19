@@ -53,3 +53,29 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.administrator-dashboard-users {
+    flex: 2 
+}
+
+.administrator-dashboard-logged-in-users {
+    flex: 1
+}
+
+.administrator-dashboard-logged-in-user-card-container {
+    width: 90%;
+    margin: 10px;
+    display: inline-block;
+}
+
+.administrator-dashboard-logged-in-user-card-title {
+    font-size: 14px;
+}
+
+.administrator-dashboard-logged-in-user-card-pos {
+    margin-bottom: 12px !important;
+}
+
+.administrator-dashboard-logged-in-user-card-selected {
+    border: 0.1px solid $primary
+}

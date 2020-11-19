@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -8,23 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import clsx from 'clsx';
 
-const useStyles = makeStyles({
-    root: {
-        width: '90%',
-        margin: 10,
-        display: 'inline-block',
-        cursor: 'pointer',
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: { fontSize: 14 },
-    pos: { marginBottom: 12 },
-});
-
-function StudentClassCard({
+function InstructorStudentClassCard({
     instructor,
     level,
     name,
@@ -34,11 +17,9 @@ function StudentClassCard({
     selected,
     onSelected,
 }) {
-    const classes = useStyles();
-
     return (
         <Card
-            className={clsx(classes.root, { 'instructor-student-class-card-selected': selected })}
+            className={clsx('instructor-student-class-card-container', { 'instructor-student-class-card-selected': selected })}
             elevation={selected ? 1 : 5}
             onClick={onSelected}
         >
@@ -50,7 +31,7 @@ function StudentClassCard({
             </IconButton>
             <CardContent>
                 <Typography
-                    className={classes.title}
+                    className='instructor-student-class-card-title'
                     color='textSecondary'
                     gutterBottom
                 >
@@ -66,7 +47,7 @@ function StudentClassCard({
                     {name}
                 </Typography>
                 <Typography
-                    className={classes.pos}
+                    className='instructor-student-class-card-pos'
                     color='textSecondary'
                 >
                     Level:
@@ -74,7 +55,7 @@ function StudentClassCard({
                     {level}
                 </Typography>
                 <Typography
-                    className={classes.pos}
+                    className='instructor-student-class-card-pos'
                     color='textSecondary'
                 >
                     Program:
@@ -82,7 +63,7 @@ function StudentClassCard({
                     {program}
                 </Typography>
                 <Typography
-                    className={classes.pos}
+                    className='instructor-student-class-card-pos'
                     color='textSecondary'
                 >
                     Term:
@@ -94,7 +75,7 @@ function StudentClassCard({
     );
 }
 
-StudentClassCard.propTypes = {
+InstructorStudentClassCard.propTypes = {
     instructor: PropTypes.string,
     level: PropTypes.string,
     name: PropTypes.string,
@@ -105,7 +86,7 @@ StudentClassCard.propTypes = {
     onSelected: PropTypes.func,
 };
 
-StudentClassCard.defaultProps = {
+InstructorStudentClassCard.defaultProps = {
     instructor: 'Unknown',
     level: 'Unknown',
     name: 'Unknown',
@@ -116,4 +97,4 @@ StudentClassCard.defaultProps = {
     onSelected: undefined,
 };
 
-export default StudentClassCard;
+export default InstructorStudentClassCard;
