@@ -3,6 +3,8 @@ import axios from 'axios';
 import RestService from './RestService';
 
 class UserService extends RestService {
+    basePrefix = this.prefix;
+
     prefix = `${this.prefix}/users`;
 
     _addDefaultRoles(data) {
@@ -54,6 +56,13 @@ class UserService extends RestService {
             this._parseRoles,
         ],
     })
+
+    getUserSessions = (query, options = {}) => axios
+        .get(this._buildQuery({
+            ...query,
+            url: `${this.basePrefix}/admin/user_sessions`,
+        }))
+        .then(data => this._processResponse(data, options))
 
     // TODO In backend and in front-end this needs to be changed to updateProfile
     updateDemographicQuestionnaire = data => {

@@ -38,6 +38,21 @@
     height: 500px;
 }
 
+.instructor-student-class-card-container {
+    width: 90%;
+    margin: 10px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.instructor-student-class-card-title {
+    font-size: 14px;
+}
+
+.instructor-student-class-card-pos {
+    margin-bottom: 12px !important;
+}
+
 .instructor-student-class-card-selected {
     border: 0.1px solid $primary
 }

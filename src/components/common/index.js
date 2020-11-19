@@ -4,6 +4,7 @@ import Authorization from './Authorization';
 import Confirmation from './Confirmation';
 import Error from './Error';
 import ExpandableInfo from './ExpandableInfo';
+import InfiniteList from './InfiniteList';
 import FormPaper from './FormPaper';
 import Grid from './Grid';
 import Layout from './Layout';
@@ -30,6 +31,7 @@ export {
     AdministratorGrid,
     Button,
     Authorization,
+    InfiniteList,
     Confirmation,
     Error,
     ExpandableInfo,

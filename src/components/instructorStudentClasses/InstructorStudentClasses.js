@@ -6,7 +6,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import { useMount, useService, useStore, useActions } from '../../hooks';
 import { Ripple } from '../common';
 import InstructorStudents from './InstructorStudents';
-import StudentClassCard from './StudentClassCard';
+import InstructorStudentClassCard from './InstructorStudentClassCard';
 
 const InstructorStudentClasses = () => {
     const {
@@ -104,7 +104,7 @@ const InstructorStudentClasses = () => {
                     <div className={clsx('instructor-student-classes', { 'instructor-student-classes-center': _.isEmpty(classes) })}>
                         {
                             classes.map((data, index) => (
-                                <StudentClassCard
+                                <InstructorStudentClassCard
                                     key={index}
                                     instructor={`${data.instructor.firstName} ${data.instructor.lastName}`}
                                     level={data.level}
