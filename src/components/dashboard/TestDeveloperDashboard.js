@@ -1,8 +1,10 @@
 import React from 'react';
-import TestDeveloperGridFilter from './TestDeveloperGridFilter';
-import Tests from '../tests/Grid';
-import { TestsWithSessions, TestsNotInUse, UpcomingTests, ClonedTests } from '../testDeveloperGrids';
+import { Fab, Tooltip, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { useService } from '../../hooks';
+import { TestsWithSessions, TestsNotInUse, UpcomingTests, ClonedTests } from '../testDeveloperGrids';
+import Tests from '../tests/Grid';
+import TestDeveloperGridFilter from './TestDeveloperGridFilter';
 
 function TestDeveloperDashboard() {
     const [gridFilter, setGridFilter] = React.useState(null);
@@ -38,7 +40,56 @@ function TestDeveloperDashboard() {
                 onChange={onGridFilterCHange}
                 options={Object.keys(gridMap)}
             />
-            {getGrid(gridFilter)}
+            <div className='test-developer-grids-container'>
+                {getGrid(gridFilter)}
+            </div>
+            <div className='test-developer-tests-navigation'>
+                <Button
+                    className='test-developer-tests-navigation-button'
+                    color='primary'
+                    onClick={() => historyService.go('/vocabularies')}
+                    variant='contained'
+                >
+                    Vocabularies
+                </Button>
+                <Button
+                    className='test-developer-tests-navigation-button'
+                    color='primary'
+                    onClick={() => historyService.go('/clozes')}
+                    variant='contained'
+                >
+                    Clozes
+                </Button>
+                <Button
+                    className='test-developer-tests-navigation-button'
+                    color='primary'
+                    onClick={() => historyService.go('/reading-comprehensions')}
+                    variant='contained'
+                >
+                    RC
+                </Button>
+                <Button
+                    className='test-developer-tests-navigation-button'
+                    color='primary'
+                    onClick={() => historyService.go('/writings')}
+                    variant='contained'
+                >
+                    Writings
+                </Button>
+            </div>
+            <div className='dashboard-actions mb-2 mr-3'>
+                <div className='row'>
+                    <Tooltip title='Create a Test'>
+                        <Fab
+                            className='m-2'
+                            color='primary'
+                            onClick={() => historyService.go('test-developer/test')}
+                        >
+                            <AddIcon />
+                        </Fab>
+                    </Tooltip>
+                </div>
+            </div>
         </div>
     );
 }

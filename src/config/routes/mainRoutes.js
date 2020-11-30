@@ -313,6 +313,11 @@ export default [
         roles: 'Test Developer',
     },
     {
+        path: '/test-developer/test',
+        component: Test,
+        roles: 'Test Developer',
+    },
+    {
         path: '*',
         component: NotFound,
         roles: '*',
