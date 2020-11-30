@@ -28,7 +28,7 @@ function TestForm({
                     <h6 className='form-title'>{title}</h6>
                     <div>
                         {!_.isEmpty(data) && <PreviewButton onClick={onPreview} />}
-                        {!readonly && onClone && <CloneButton onClick={onClone} />}
+                        {onClone && <CloneButton onClick={onClone} />}
                     </div>
                 </div>
                 <InUse

@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import InstructorDashboard from './InstructorDashboard';
 import TestTakerDashboard from './TestTakerDashboard';
+import TestDeveloperDashboard from './TestDeveloperDashboard';
 import AdministratorDashboard from './AdministratorDashboard';
 import { useStore, useActions, useMount } from '../../hooks';
 import { NotYetImplemented } from '../common';
@@ -26,6 +27,7 @@ function Dashboard() {
         Instructor: <InstructorDashboard />,
         'Test Taker': <TestTakerDashboard />,
         Administrator: <AdministratorDashboard />,
+        'Test Developer': <TestDeveloperDashboard />,
     }[role] || <NotYetImplemented />);
 
     return (

@@ -1,0 +1,23 @@
+.test-developer-tests-grid-filter {
+    width: 400px;
+}
+
+.test-developer-tests-grid-container {
+    max-width: 1200px;
+}
+
+.test-developer-tests-navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 30px;
+    width: 210px;
+    z-index: 1000;
+    margin-left: 5px;
+}
+
+.test-developer-tests-navigation-button {
+    width: 100px !important;
+    margin: 1px !important;
+}

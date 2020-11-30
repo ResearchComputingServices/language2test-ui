@@ -25,6 +25,7 @@ import rolesChecker from './RolesCheckerService';
 import instructor from './InstructorService';
 import student from './StudentService';
 import testTaker from './TestTakerService';
+import testDeveloper from './TestDeveloperService';
 
 export {
     history,
@@ -54,4 +55,5 @@ export {
     instructor,
     student,
     testTaker,
+    testDeveloper,
 };
