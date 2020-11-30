@@ -18,6 +18,7 @@ import {
 } from '../../hooks';
 
 function Test({ match }) {
+    const [clonedFromId, setClonedFromId] = useState(null);
     const rights = {
         create: ['Administrator', 'Test Developer'],
         update: ['Administrator', 'Test Developer'],
@@ -228,6 +229,8 @@ function Test({ match }) {
         setIsReadonly(readonly);
         if (_.isNil(id)) {
             const initializationData = _.omit(cloneStore.data, ['id', 'name']);
+            initializationData.clonedFromId = _.get(cloneStore, 'data.id', null);
+            setClonedFromId(_.get(cloneStore, 'data.id', null));
             cloneActions.reset();
             controls.reset(initializationData);
             setClone(true);
@@ -260,13 +263,15 @@ function Test({ match }) {
     const buttons = useFormButtons(id, {
         ...actions,
         create: async data => {
+            data.clonedFromId = clonedFromId;
             const result = await actions.create(data);
             if (!_.isNil(result)) {
                 setData(result);
-                getClone() ? historyService.go('/tests') : actions.cancel();
+                actions.cancel();
             }
         },
         update: async data => {
+            data.clonedFromId = clonedFromId;
             const result = await actions.update(data);
             if (!_.isNil(result)) {
                 setData(result);
@@ -314,6 +319,11 @@ function Test({ match }) {
         historyService.go('/test/wizard/preview');
     };
 
+    const getOnClone = () => {
+        if (!rolesCheckerService.has(rights.create)) return;
+        return !getClone() ? onClone : undefined;
+    };
+
     const getForm = id => (
         !_.isNil(id) && _.isEmpty(data)
             ? <NotFound />
@@ -328,7 +338,7 @@ function Test({ match }) {
                     dynamicLayout={dynamicLayoutRef.current}
                     layout={layoutRef.current}
                     onAddStep={addStep}
-                    onClone={!getClone() ? onClone : undefined}
+                    onClone={getOnClone()}
                     onPreview={onPreview}
                     onRemoveStep={removeStep}
                     readonly={isReadonly}

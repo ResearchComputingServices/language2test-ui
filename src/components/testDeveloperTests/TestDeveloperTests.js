@@ -33,7 +33,7 @@ function TestDeveloperTests() {
         if (gridFilter in gridMap) {
             return <div className='ml-2 my-4'>{gridMap[gridFilter]}</div>;
         }
-        return <Tests onRowClick={() => historyService.go('test-developer/test/1')} />;
+        return <Tests onRowClick={(event, data) => historyService.go(`test-developer/test/${data.id}`)} />;
     };
 
     return (

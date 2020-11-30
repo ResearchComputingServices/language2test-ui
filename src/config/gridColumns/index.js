@@ -2,6 +2,7 @@ import clozes from './clozesGridColumns';
 import demographicQuestionnaireFields from './demographicQuestionnaireFieldsGridColumns';
 import readingComprehensions from './readingComprehensionsGridColumns';
 import testCategories from './testCategoriesGridColumn';
+import testsWithSessions from './testsWithSessionsGridColumns';
 import testSessions from './testSessionsGridColumns';
 import tests from './testsGridColumns';
 import users from './usersGridColumns';
@@ -18,6 +19,7 @@ export {
     clozes,
     demographicQuestionnaireFields,
     readingComprehensions,
+    testsWithSessions,
     testCategories,
     testSessions,
     tests,

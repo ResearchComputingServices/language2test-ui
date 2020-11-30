@@ -15,6 +15,7 @@ class TestService extends RestService {
         'testStudentClass',
         'immutable',
         'unremovable',
+        'clonedFromId',
     ]
 
     _responeTransformer = data => {
