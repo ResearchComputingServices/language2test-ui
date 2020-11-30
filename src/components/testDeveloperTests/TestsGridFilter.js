@@ -4,10 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import clsx from 'clsx';
 
-function TestDeveloperGridFilter({ className, style, onChange, options }) {
+function TestDeveloperGridFilter({ defaultValue, className, style, onChange, options }) {
     return (
         <Autocomplete
-            className={clsx(className, 'test-developer-dashboard-grid-filter')}
+            className={clsx(className, 'test-developer-tests-grid-filter')}
             getOptionLabel={option => option}
             onChange={onChange}
             options={options}
@@ -19,11 +19,13 @@ function TestDeveloperGridFilter({ className, style, onChange, options }) {
                 />
             )}
             style={style}
+            value={defaultValue}
         />
     );
 }
 
 TestDeveloperGridFilter.propTypes = {
+    defaultValue: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
     onChange: PropTypes.func.isRequired,
@@ -31,6 +33,7 @@ TestDeveloperGridFilter.propTypes = {
 };
 
 TestDeveloperGridFilter.defaultProps = {
+    defaultValue: null,
     className: '',
     style: undefined,
 };

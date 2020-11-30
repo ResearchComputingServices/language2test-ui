@@ -1,48 +1,17 @@
 import React from 'react';
 import { Fab, Tooltip, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { useService } from '../../hooks';
-import { TestsWithSessions, TestsNotInUse, UpcomingTests, ClonedTests } from '../testDeveloperGrids';
-import Tests from '../tests/Grid';
-import TestDeveloperGridFilter from './TestDeveloperGridFilter';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import { useService, useGridActions } from '../../hooks';
+import TestDeveloperTests from '../testDeveloperTests';
 
 function TestDeveloperDashboard() {
-    const [gridFilter, setGridFilter] = React.useState(null);
     const historyService = useService('history');
-    const [gridMap] = React.useState({
-        'In Use (with a test session)': <TestsWithSessions />,
-        'Upcoming/Assigned': <UpcomingTests />,
-        Unused: <TestsNotInUse />,
-        'Cloned Tests': <ClonedTests />,
-    });
-
-    const onGridFilterCHange = (...args) => {
-        const [, value] = args;
-        setGridFilter(value);
-    };
-
-    const getGrid = gridFilter => {
-        if (gridFilter in gridMap) {
-            return <div className='ml-2 my-4'>{gridMap[gridFilter]}</div>;
-        }
-        return (
-            <Tests onRowClick={() => {
-                historyService.go('test-developer/test/1');
-            }}
-            />
-        );
-    };
+    const { onExport } = useGridActions('tests');
 
     return (
         <div className='p-4'>
-            <TestDeveloperGridFilter
-                className='ml-2'
-                onChange={onGridFilterCHange}
-                options={Object.keys(gridMap)}
-            />
-            <div className='test-developer-grids-container'>
-                {getGrid(gridFilter)}
-            </div>
+            <TestDeveloperTests />
             <div className='test-developer-tests-navigation'>
                 <Button
                     className='test-developer-tests-navigation-button'
@@ -86,6 +55,15 @@ function TestDeveloperDashboard() {
                             onClick={() => historyService.go('test-developer/test')}
                         >
                             <AddIcon />
+                        </Fab>
+                    </Tooltip>
+                    <Tooltip title='Export Tests'>
+                        <Fab
+                            className='m-2'
+                            color='primary'
+                            onClick={onExport}
+                        >
+                            <GetAppIcon />
                         </Fab>
                     </Tooltip>
                 </div>
