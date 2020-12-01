@@ -35,6 +35,7 @@ import Student from '../../components/student';
 import InstructorTestAssignation from '../../components/instructorTestAssignation';
 import InstructorTestSessions from '../../components/instructorTestSessions';
 import TestTakerSchedule from '../../components/testTakerSchedule';
+import TestDeveloperTestSessions from '../../components/testDeveloperTestSessions';
 
 export default [
     {
@@ -315,6 +316,16 @@ export default [
     {
         path: '/test-developer/test',
         component: Test,
+        roles: 'Test Developer',
+    },
+    {
+        path: '/test-developer/test-sessions/:id',
+        component: TestDeveloperTestSessions,
+        roles: 'Test Developer',
+    },
+    {
+        path: '/test-developer/test-session/:id',
+        component: TestSession,
         roles: 'Test Developer',
     },
     {

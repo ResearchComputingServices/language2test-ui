@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
+import { history } from '../../services';
 
 export default [
     {
@@ -16,7 +17,7 @@ export default [
                 color='primary'
                 onClick={e => {
                     e.stopPropagation();
-                    console.log(rowData);
+                    history.go(`/test-developer/test-sessions/${rowData.id}`);
                 }}
             >
                 View Test Session

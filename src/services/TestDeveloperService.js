@@ -59,6 +59,21 @@ class TestDeveloperService extends RestService {
             url: `${this.prefix}/test_not_in_use/count`,
         }))
         .then(data => this._processResponse(data, options))
+
+    getTestSessionsCount = id => axios
+        .get(this._buildQuery({
+            url: `${this.prefix}/test_sessions/count`,
+            test_id: id,
+        }))
+        .then(data => this._processResponse(data, {}))
+
+    getTestSessions = (id, query) => axios
+        .get(this._buildQuery({
+            ...query,
+            url: `${this.prefix}/test_sessions`,
+            test_id: id,
+        }))
+        .then(data => this._processResponse(data, {}))
 }
 
 const instructorService = new TestDeveloperService();

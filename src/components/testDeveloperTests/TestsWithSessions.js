@@ -6,7 +6,7 @@ import { useGridColumns, useService } from '../../hooks';
 
 function TestsWithSessions({ data }) {
     const [loading, setLoading] = useState(false);
-    const columns = useGridColumns('testsWithSessions');
+    const columns = useGridColumns('testDeveloperTestsWithSessions');
     const [service, historyService] = useService('testDeveloper', 'history');
 
     useEffect(() => {
