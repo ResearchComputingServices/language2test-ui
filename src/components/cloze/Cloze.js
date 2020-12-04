@@ -266,7 +266,7 @@ function Cloze({ match }) {
                                         : () => showDialog('Generating the cloze will wipe out your current questions, are you sure?')
                                 }
                             >
-                                Update Cloze Questions
+                                Generate Cloze Questions
                             </Button>
                         </div>
                     )}
