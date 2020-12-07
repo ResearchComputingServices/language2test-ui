@@ -7,6 +7,10 @@ import { AdministratorGrid } from '../common';
 function TestSessionsGrid({
     onRowClick,
     onExport,
+    onFilter,
+    filterApplied,
+    tableRef,
+    query,
 }) {
     const format = datum => {
         datum.testName = _.get(datum, 'test.name');
@@ -19,9 +23,12 @@ function TestSessionsGrid({
     return (
         <AdministratorGrid
             entity='testSessions'
+            filterApplied={filterApplied}
             onExport={onExport}
+            onFilter={onFilter}
             onRowClick={onRowClick}
-            options={{ format }}
+            options={{ format, query }}
+            tableRef={tableRef}
             title='Test Sessions'
         />
     );
@@ -30,11 +37,19 @@ function TestSessionsGrid({
 TestSessionsGrid.propTypes = {
     onRowClick: PropTypes.func,
     onExport: PropTypes.func,
+    onFilter: PropTypes.func,
+    filterApplied: PropTypes.bool,
+    tableRef: PropTypes.object,
+    query: PropTypes.object,
 };
 
 TestSessionsGrid.defaultProps = {
     onRowClick: undefined,
     onExport: undefined,
+    onFilter: undefined,
+    filterApplied: undefined,
+    tableRef: undefined,
+    query: {},
 };
 
 export default TestSessionsGrid;

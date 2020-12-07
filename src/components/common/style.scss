@@ -395,3 +395,13 @@
 .infinite-list-card-selected {
     border: 0.1px solid $primary
 }
+
+.administrator-grids-applied-filter {
+    border-color: #1b8a16 !important;
+    color: #1b8a16 !important;
+}
+
+/* Bootstrap override */
+.hover {
+    z-index: 1050;
+}
