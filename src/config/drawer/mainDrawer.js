@@ -41,7 +41,7 @@ export default [
             {
                 path: '/test-sessions/',
                 title: 'Sessions',
-                roles: 'Administrator',
+                roles: ['Instructor', 'Administrator', 'Test Developer'],
             },
             {
                 name: 'types',

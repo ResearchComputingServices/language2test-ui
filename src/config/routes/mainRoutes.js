@@ -131,12 +131,12 @@ export default [
     {
         path: '/test-sessions/',
         component: TestSessions,
-        roles: 'Administrator',
+        roles: ['Instructor', 'Administrator', 'Test Developer'],
     },
     {
         path: '/test-sessions/test-session/:id',
         component: TestSession,
-        roles: 'Administrator',
+        roles: ['Instructor', 'Administrator', 'Test Developer'],
     },
     {
         path: '/test-categories/',

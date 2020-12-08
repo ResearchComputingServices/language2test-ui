@@ -38,6 +38,8 @@ export default function TestSessions() {
                 filterApplied={!_.isEmpty(testSessions.filters)}
                 onExport={
                     rolesCheckerService.has('Administrator')
+                    || rolesCheckerService.has('Instructor')
+                    || rolesCheckerService.has('Test Developer')
                         ? () => actions.onExport('application/zip', 'zip', getQuery(testSessions.filters))
                         : undefined
                 }
