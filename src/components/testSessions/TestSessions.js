@@ -21,6 +21,7 @@ export default function TestSessions() {
     const testSessions = useStore('testSessions');
     const controls = useForm();
     const tableRef = React.useRef(null);
+    const userSession = useStore('userSession');
 
     const getQuery = filters => _.reduce(filters, (acc, value, key) => {
         if (!_.isEmpty(value)) {
@@ -114,13 +115,24 @@ export default function TestSessions() {
                             type: 'api-picklist',
                             entity: 'test',
                         },
-                        {
-                            field: 'instructorId',
-                            title: 'Instructor',
-                            query: { roles: 'Instructor' },
-                            type: 'api-picklist',
-                            entity: 'user',
-                        },
+                        rolesCheckerService.has('Instructor') && !rolesCheckerService.has('Adminsitrator')
+                            ? {
+                                field: 'instructor',
+                                title: 'Instructor',
+                                type: 'api-picklist',
+                                query: { roles: 'Instructor' },
+                                defaultValue: () => ({ name: userSession.name }),
+                                disabled: true,
+                                entity: 'user',
+                                required: true,
+                            }
+                            : {
+                                field: 'instructorId',
+                                title: 'Instructor',
+                                query: { roles: 'Instructor' },
+                                type: 'api-picklist',
+                                entity: 'user',
+                            },
                     ]}
                 />
             </ModalInfo>
