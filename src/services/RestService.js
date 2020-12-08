@@ -73,10 +73,14 @@ export default class RestService {
     _export = (id, options = {}) => {
         let url = `${this.prefix}/export`;
         url = !_.isNil(id) ? `${url}?id=${id}` : url;
+        const query = _.get(options, 'query');
         const config = {
             responseType: 'arraybuffer',
             headers: { 'Content-Type': 'blob' },
         };
+        if (!_.isNil(query) && !_.isEmpty(query) && _.isObject(query)) {
+            config.params = query;
+        }
         return axios
             .get(url, config)
             .then(data => this._processResponse(data, options));

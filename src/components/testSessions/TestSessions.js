@@ -36,7 +36,11 @@ export default function TestSessions() {
         <Layout className='my-4'>
             <TestSessionsGrid
                 filterApplied={!_.isEmpty(testSessions.filters)}
-                onExport={rolesCheckerService.has('Administrator') ? () => actions.onExport('application/zip', 'zip') : undefined}
+                onExport={
+                    rolesCheckerService.has('Administrator')
+                        ? () => actions.onExport('application/zip', 'zip', getQuery(testSessions.filters))
+                        : undefined
+                }
                 onFilter={() => setOpenFilterModal(true)}
                 onRowClick={actions.onRowClick}
                 query={getQuery(testSessions.filters)}

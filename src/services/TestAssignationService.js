@@ -33,6 +33,8 @@ class TestAssignation extends RestService {
     remove = this._remove;
 
     count = this._count;
+
+    export = this._export;
 }
 
 const testAssignationService = new TestAssignation();

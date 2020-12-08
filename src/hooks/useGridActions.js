@@ -32,9 +32,9 @@ export default function useGridActions(entity, options = {}) {
         }
     };
 
-    const onExport = async (type, extension) => {
+    const onExport = async (type, extension, query) => {
         try {
-            const file = await service.export();
+            const file = await service.export(null, { query });
             type = !_.isNil(type) ? type : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
             extension = !_.isNil(extension) ? extension : 'xlsx';
             if (_.isFunction(exportCallback)) {
