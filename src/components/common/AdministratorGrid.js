@@ -1,8 +1,10 @@
 import React from 'react';
+import FilterListIcon from '@material-ui/icons/FilterList';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import DownloadIcon from '@material-ui/icons/GetApp';
 import UploadIcon from '@material-ui/icons/Publish';
+import clsx from 'clsx';
 import { FileUploader, Button, Grid } from '.';
 
 function AdministratorGrid({
@@ -13,10 +15,13 @@ function AdministratorGrid({
     onCreate,
     onImport,
     onExport,
+    onFilter,
     entity,
     options,
     fetch,
     importFileTypes,
+    tableRef: tableRefProp,
+    filterApplied,
 }) {
     const fileMappings = {
         xlsx: [
@@ -27,14 +32,15 @@ function AdministratorGrid({
             'text/plain',
         ],
     };
-    const tableRef = React.createRef(null);
+    const tableRef = tableRefProp || React.createRef(null);
     return (
         <div
             className={`administrator-grids ${className}`}
             style={style}
         >
-            <div className='d-flex direction-row mb-4'>
-                {_.isFunction(onCreate)
+            <div className='d-flex direction-row mb-4 justify-content-between'>
+                <div className='d-flex direction-row'>
+                    {_.isFunction(onCreate)
                     && (
                         <Button
                             className='mr-3'
@@ -45,7 +51,7 @@ function AdministratorGrid({
                             Create
                         </Button>
                     )}
-                {_.isFunction(onImport)
+                    {_.isFunction(onImport)
                     && (
                         <FileUploader
                             acceptedFiles={_.reduce(
@@ -69,7 +75,7 @@ function AdministratorGrid({
                             }}
                         />
                     )}
-                {_.isFunction(onExport)
+                    {_.isFunction(onExport)
                     && (
                         <Button
                             className='mr-3'
@@ -81,6 +87,18 @@ function AdministratorGrid({
                             Export
                         </Button>
                     )}
+                </div>
+                {_.isFunction(onFilter) && (
+                    <Button
+                        className={clsx({ 'administrator-grids-applied-filter': filterApplied })}
+                        color='primary'
+                        onClick={onFilter}
+                        startIcon={<FilterListIcon />}
+                        variant='outlined'
+                    >
+                        {`${filterApplied ? 'Change' : 'Apply'} Filter`}
+                    </Button>
+                )}
             </div>
             <Grid
                 entity={entity}
@@ -101,11 +119,14 @@ AdministratorGrid.propTypes = {
     onCreate: PropTypes.func,
     onImport: PropTypes.func,
     onExport: PropTypes.func,
+    onFilter: PropTypes.func,
     options: PropTypes.object,
     importFileTypes: PropTypes.array,
     fetch: PropTypes.func,
     style: PropTypes.object,
     className: PropTypes.string,
+    filterApplied: PropTypes.bool,
+    tableRef: PropTypes.object,
 };
 
 AdministratorGrid.defaultProps = {
@@ -114,11 +135,14 @@ AdministratorGrid.defaultProps = {
     onCreate: undefined,
     onImport: undefined,
     onExport: undefined,
+    onFilter: undefined,
+    filterApplied: false,
     fetch: undefined,
     importFileTypes: ['xlsx'],
     options: {},
     style: undefined,
     className: '',
+    tableRef: undefined,
 };
 
 export default AdministratorGrid;

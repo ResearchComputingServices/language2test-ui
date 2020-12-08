@@ -15,6 +15,7 @@ import instructorStudentClasses from './instructorStudentClasses';
 import testTakerStudentClasses from './testTakerStudentClasses';
 import testWizardSessionPreview from './testWizardSessionPreview';
 import testDeveloperTestsGridFilter from './testDeveloperTestsGridFilter';
+import testSessions from './testSessions';
 import { logout, resetTestWizardSession, endTestWizardSession } from '../globalActions';
 
 export const actions = {
@@ -40,6 +41,7 @@ export const actions = {
         endTestWizardSession,
     }),
     testDeveloperTestsGridFilter: testDeveloperTestsGridFilter.actions,
+    testSessions: testSessions.actions,
 };
 
 export const reducers = {
@@ -59,4 +61,5 @@ export const reducers = {
     testTakerStudentClasses: testTakerStudentClasses.reducer,
     testWizardSessionPreview: testWizardSessionPreview.reducer,
     testDeveloperTestsGridFilter: testDeveloperTestsGridFilter.reducer,
+    testSessions: testSessions.reducer,
 };
