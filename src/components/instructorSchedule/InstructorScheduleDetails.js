@@ -72,7 +72,7 @@ function InstructorScheduleDetails({
                         className='my-3'
                         onClick={() => onViewTestSessions(id)}
                     >
-                        View Test Sessions
+                        View Past Results
                     </Button>
                 }
             </div>

@@ -141,32 +141,32 @@ export default [
     {
         path: '/test-categories/',
         component: TestCategories,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/test-categories/test-category',
         component: TestCategory,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/test-categories/test-category/:id',
         component: TestCategory,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/demographic-questionnaire-fields/',
         component: DemographicQuestionnaireFields,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/demographic-questionnaire-fields/demographic-questionnaire-field',
         component: DemographicQuestionnaireField,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/demographic-questionnaire-fields/demographic-questionnaire-field/:id',
         component: DemographicQuestionnaireField,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/student-classes',
@@ -216,32 +216,32 @@ export default [
     {
         path: '/enumerations/',
         component: Enumerations,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/enumerations/enumeration',
         component: Enumeration,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/enumerations/enumeration/:id',
         component: Enumeration,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/user-field-types/',
         component: UserFieldTypes,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/user-field-types/user-field-type',
         component: UserFieldType,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/user-field-types/user-field-type/:id',
         component: UserFieldType,
-        roles: 'Administrator',
+        roles: ['Administrator', 'Test Developer'],
     },
     {
         path: '/roles/',

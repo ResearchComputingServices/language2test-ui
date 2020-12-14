@@ -44,7 +44,7 @@ TestSessionForm.propTypes = {
 };
 
 TestSessionForm.defaultProps = {
-    title: 'Test Session',
+    title: 'Past Result',
     data: {},
     children: null,
     buttons: [],

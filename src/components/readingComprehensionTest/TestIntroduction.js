@@ -10,7 +10,7 @@ const TestIntroduction = ({ onStartClick, total }) => (
                 {' '}
                 <b>{total}</b>
                 {' '}
-                Reading Comprehension(s).
+                Reading(s).
             </p>
             <p className='mb-4'>
                 During the quiz, you will see each reading

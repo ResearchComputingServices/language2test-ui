@@ -55,7 +55,7 @@ export default function TestSessions() {
                     setFilterApplied(!filterApplied);
                 }}
                 show={openFilterModal}
-                title='Filter Test Session'
+                title='Filter Past Result'
             >
                 <Form
                     buttons={[

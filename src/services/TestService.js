@@ -28,7 +28,7 @@ class TestService extends RestService {
             const order = _.uniq(_.get(data, 'order'));
             const typeMap = {
                 Vocabulary: vocabularies,
-                'Reading Comprehension': readingComprehensions,
+                Reading: readingComprehensions,
                 Cloze: clozes,
                 Writing: writings,
             };
@@ -41,8 +41,8 @@ class TestService extends RestService {
                 }
                 if (!_.isEmpty(readingComprehensions)) {
                     steps.push({
-                        type: 'Reading Comprehension',
-                        values: typeMap['Reading Comprehension'],
+                        type: 'Reading',
+                        values: typeMap.Reading,
                     });
                 }
                 if (!_.isEmpty(clozes)) {
@@ -91,7 +91,7 @@ class TestService extends RestService {
                         order.push(step.type);
                     }
                 }
-                if (_.eq(step.type, 'Reading Comprehension')) {
+                if (_.eq(step.type, 'Reading')) {
                     testRc = step.values;
                     if (!_.isEmpty(testRc)) {
                         order.push(step.type);

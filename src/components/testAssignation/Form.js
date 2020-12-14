@@ -36,7 +36,7 @@ TestAssignationForm.propTypes = {
 };
 
 TestAssignationForm.defaultProps = {
-    title: 'Test Assignation',
+    title: 'Test Schedules',
     data: {},
     buttons: [],
 };

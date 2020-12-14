@@ -20,7 +20,7 @@ export default [
                     history.go(`/test-developer/test-sessions/${rowData.id}`);
                 }}
             >
-                View Test Session
+                View Past Result
             </Button>
         ),
     },

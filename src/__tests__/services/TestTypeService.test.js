@@ -13,7 +13,7 @@ describe('TestTypeService', () => {
         },
         {
             id: 2,
-            name: 'Reading Comprehension',
+            name: 'Reading',
         },
         {
             id: 3,
@@ -57,7 +57,7 @@ describe('TestTypeService', () => {
         const response = await service.add(request);
         expect(response).toEqual(expect.objectContaining({
             id: 2,
-            name: 'Reading Comprehension',
+            name: 'Reading',
         }));
     });
 
@@ -66,7 +66,7 @@ describe('TestTypeService', () => {
         const response = await service.update(request);
         expect(response).toEqual(expect.objectContaining({
             id: 2,
-            name: 'Reading Comprehension',
+            name: 'Reading',
         }));
     });
 

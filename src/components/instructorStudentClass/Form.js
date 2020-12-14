@@ -17,7 +17,7 @@ function InstructorStudentClassForm({
                     {title}
                 </h6>
                 <InUse
-                    msg='Currently being used in one or more Test Assignation(s)'
+                    msg='Currently being used in one or more Test Schedules(s)'
                     show={data.immutable || data.unremovable}
                 />
                 <Form

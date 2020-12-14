@@ -13,11 +13,12 @@ import {
 
 function DemographicQuestionnaireField({ match }) {
     const rights = {
-        create: ['Administrator'],
-        update: ['Administrator'],
-        delete: ['Administrator'],
-        export: ['Administrator'],
+        create: ['Administrator', 'Test Developer'],
+        update: ['Administrator', 'Test Developer'],
+        delete: ['Administrator', 'Test Developer'],
+        export: ['Administrator', 'Test Developer'],
     };
+
     const entity = 'demographicQuestionnaireField';
     const id = _.get(match, 'params.id');
     const controls = useForm();

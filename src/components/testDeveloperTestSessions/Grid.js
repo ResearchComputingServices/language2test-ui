@@ -55,7 +55,7 @@ function TestDeveloperTestSessions({ id, onRowClick }) {
                     marginTop: 15,
                     padding: 10,
                 }}
-                title={`Test Sessions - ${id}`}
+                title={`Past Results - ${id}`}
             />
         </div>
     );

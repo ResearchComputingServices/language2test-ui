@@ -30,41 +30,41 @@ export default [
         items: [
             {
                 path: '/tests/',
-                title: 'Instances',
+                title: 'Development',
                 roles: ['Administrator', 'Instructor', 'Test Developer'],
             },
             {
                 path: '/test-assignations/',
-                title: 'Assignations',
+                title: 'Scheduling',
                 roles: 'Administrator',
             },
             {
                 path: '/test-sessions/',
-                title: 'Sessions',
+                title: 'Past Results',
                 roles: ['Instructor', 'Administrator', 'Test Developer'],
             },
             {
                 name: 'types',
-                title: 'Types',
+                title: 'Item banks',
                 items: [
                     {
                         path: '/vocabularies',
-                        title: 'Vocabularies',
+                        title: 'Vocabulary',
                         roles: ['Administrator', 'Instructor', 'Test Developer'],
                     },
                     {
                         path: '/reading-comprehensions',
-                        title: 'Reading Comprehensions',
+                        title: 'Reading',
                         roles: ['Administrator', 'Instructor', 'Test Developer'],
                     },
                     {
                         path: '/clozes',
-                        title: 'Clozes',
+                        title: 'Cloze',
                         roles: ['Administrator', 'Instructor', 'Test Developer'],
                     },
                     {
                         path: '/writings',
-                        title: 'Writings',
+                        title: 'Writing',
                         roles: ['Administrator', 'Instructor', 'Test Developer'],
                     },
                 ],
@@ -80,22 +80,22 @@ export default [
             {
                 path: '/test-categories/',
                 title: 'Test Categories',
-                roles: 'Administrator',
+                roles: ['Administrator', 'Test Developer'],
             },
             {
                 path: '/demographic-questionnaire-fields/',
                 title: 'Demographic Fields',
-                roles: 'Administrator',
+                roles: ['Administrator', 'Test Developer'],
             },
             {
                 path: '/user-field-types/',
                 title: 'User Field Types',
-                roles: 'Administrator',
+                roles: ['Administrator', 'Test Developer'],
             },
             {
                 path: '/enumerations/',
                 title: 'Enumerations',
-                roles: 'Administrator',
+                roles: ['Administrator', 'Test Developer'],
             },
             {
                 path: '/roles/',
