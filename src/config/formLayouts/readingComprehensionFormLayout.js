@@ -35,7 +35,7 @@ export default [
         title: 'Category',
         type: 'api-picklist',
         entity: 'testCategory',
-        filter: data => _.eq(_.get(data, 'testType.name'), 'Reading Comprehension'),
+        filter: data => _.eq(_.get(data, 'testType.name'), 'Reading'),
         required: true,
     },
     {

@@ -28,7 +28,7 @@ function TestSession({ match }) {
         error,
     } = useFormData(entity, id);
 
-    const actions = _.omit(useFormActions(entity, 'test session'), ['download']);
+    const actions = _.omit(useFormActions(entity, 'past result'), ['download']);
 
     const buttons = useFormButtons(id, actions, rights, data.immutable, data.unremovable);
 
@@ -46,7 +46,7 @@ function TestSession({ match }) {
                             controls={controls}
                             data={data}
                             layout={testSessionFormLayout}
-                            title='Test Session'
+                            title='Past Result'
                         >
                             <TestSessionResults data={data} />
                         </Form>

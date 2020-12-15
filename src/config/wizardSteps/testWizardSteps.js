@@ -15,7 +15,7 @@ export default {
         stepComponent: Vocabulary,
     },
     readingComprehension: {
-        title: 'Reading Comprehension',
+        title: 'Reading',
         storeName: 'readingComprehensionTest',
         stepComponent: ReadingComprehension,
     },

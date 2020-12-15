@@ -22,10 +22,10 @@ const TestContainer = ({
         </Paper>
         <TestControls
             disablePreviousBtn
-            nextButtonTitle={_.eq(current, total) ? 'Finish Reading Comprehension Test' : 'Next Reading Comprehension'}
+            nextButtonTitle={_.eq(current, total) ? 'Finish Reading Test' : 'Next Reading'}
             onNextClick={onNextClick}
             onPreviousClick={onPreviousClick}
-            previousButtonTitle='Previous Reading Comprehension'
+            previousButtonTitle='Previous Reading'
         />
     </div>
 );

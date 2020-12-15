@@ -29,7 +29,7 @@ function TestSessionsGrid({
             onRowClick={onRowClick}
             options={{ format, query }}
             tableRef={tableRef}
-            title='Test Sessions'
+            title='Past Results'
         />
     );
 }

@@ -23,7 +23,7 @@ function ReadingComprehensionsGrid({
             onImport={onImport}
             onRowClick={onRowClick}
             options={{ format }}
-            title='Reading Comprehensions'
+            title='Readings'
         />
     );
 }

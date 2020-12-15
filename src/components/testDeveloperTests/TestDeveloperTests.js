@@ -18,7 +18,7 @@ function TestDeveloperTests() {
     const { setGridFilter } = useActions('testDeveloperTestsGridFilter');
     const historyService = useService('history');
     const [gridMap] = React.useState({
-        'In Use (with a test session)': <TestsWithSessions />,
+        'In Use (with a past result)': <TestsWithSessions />,
         'Upcoming/Assigned': <UpcomingTests />,
         Unused: <TestsNotInUse />,
         'Cloned Tests': <ClonedTests />,

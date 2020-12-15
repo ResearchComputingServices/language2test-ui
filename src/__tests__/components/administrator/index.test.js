@@ -13,7 +13,7 @@ describe('MainDrawer', () => {
         getByText('Sessions');
         getByText('Types');
         getByText('Vocabularies');
-        getByText('Reading Comprehensions');
+        getByText('Readings');
         getByText('Clozes');
         getByText('Writings');
         getByText('Settings');

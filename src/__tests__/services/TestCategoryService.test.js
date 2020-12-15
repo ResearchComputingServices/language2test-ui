@@ -21,7 +21,7 @@ describe('TestCategoryService', () => {
             name: 'Default',
             test_type: {
                 id: 2,
-                name: 'Reading Comprehension',
+                name: 'Reading',
             },
             test_type_id: 2,
         },
@@ -60,7 +60,7 @@ describe('TestCategoryService', () => {
         expect(response).toEqual(expect.objectContaining({
             id: 2,
             name: 'Default',
-            test_type: { id: 2, name: 'Reading Comprehension' },
+            test_type: { id: 2, name: 'Reading' },
             test_type_id: 2,
         }));
     });
@@ -71,7 +71,7 @@ describe('TestCategoryService', () => {
         expect(response).toEqual(expect.objectContaining({
             id: 2,
             name: 'Default',
-            test_type: { id: 2, name: 'Reading Comprehension' },
+            test_type: { id: 2, name: 'Reading' },
             test_type_id: 2,
         }));
     });

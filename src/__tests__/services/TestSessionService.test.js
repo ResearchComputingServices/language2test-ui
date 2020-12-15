@@ -639,7 +639,7 @@ describe('TestSessionService', () => {
                     name: 'Default',
                     test_type: {
                         id: 2,
-                        name: 'Reading Comprehension',
+                        name: 'Reading',
                     },
                     test_type_id: 2,
                 },

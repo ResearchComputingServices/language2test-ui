@@ -19,7 +19,7 @@ function TestSessionResults({ data }) {
             Component: WritingResult,
         },
         rc: {
-            title: 'Reading Comprehension',
+            title: 'Reading',
             Component: ReadingComprehensionResult,
         },
         cloze: {

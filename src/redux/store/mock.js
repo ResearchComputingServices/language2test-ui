@@ -223,14 +223,14 @@ export default configureStore({
                             text: 'Grants access to delete test(s)',
                         },
                         {
-                            category: 'Test Session',
+                            category: 'Past Result',
                             dependencies: [],
                             id: 20,
                             name: 'read-test-session',
                             text: 'Grants access to read test-session(s)',
                         },
                         {
-                            category: 'Test Session',
+                            category: 'Past Result',
                             dependencies: [
                                 'read-test-session',
                             ],
@@ -239,7 +239,7 @@ export default configureStore({
                             text: 'Grants access to export test-session(s)',
                         },
                         {
-                            category: 'Test Session',
+                            category: 'Past Result',
                             dependencies: [
                                 'read-test-session',
                             ],
@@ -248,7 +248,7 @@ export default configureStore({
                             text: 'Grants access to create test-session(s)',
                         },
                         {
-                            category: 'Test Session',
+                            category: 'Past Result',
                             dependencies: [
                                 'read-test-session',
                             ],
@@ -257,7 +257,7 @@ export default configureStore({
                             text: 'Grants access to delete test-session(s)',
                         },
                         {
-                            category: 'Test Session',
+                            category: 'Past Result',
                             dependencies: [
                                 'read-test-session',
                             ],
@@ -358,63 +358,63 @@ export default configureStore({
                             text: 'Grants access to import vocabulary(ies)',
                         },
                         {
-                            category: 'Reading Comprehension',
+                            category: 'Reading',
                             dependencies: [
                                 'read-test-category',
                             ],
                             id: 35,
                             name: 'read-reading-comprehension',
-                            text: 'Grants access to read reading comprehension(s)',
+                            text: 'Grants access to read reading(s)',
                         },
                         {
-                            category: 'Reading Comprehension',
+                            category: 'Reading',
                             dependencies: [
                                 'read-reading-comprehension',
                                 'read-test-category',
                             ],
                             id: 36,
                             name: 'create-reading-comprehension',
-                            text: 'Grants access to create reading comprehension(s)',
+                            text: 'Grants access to create reading(s)',
                         },
                         {
-                            category: 'Reading Comprehension',
+                            category: 'Reading',
                             dependencies: [
                                 'read-reading-comprehension',
                                 'read-test-category',
                             ],
                             id: 37,
                             name: 'update-reading-comprehension',
-                            text: 'Grants access to update reading comprehension(s)',
+                            text: 'Grants access to update reading(s)',
                         },
                         {
-                            category: 'Reading Comprehension',
+                            category: 'Reading',
                             dependencies: [
                                 'read-reading-comprehension',
                                 'read-test-category',
                             ],
                             id: 38,
                             name: 'delete-reading-comprehension',
-                            text: 'Grants access to delete reading comprehension(s)',
+                            text: 'Grants access to delete reading(s)',
                         },
                         {
-                            category: 'Reading Comprehension',
+                            category: 'Reading',
                             dependencies: [
                                 'read-reading-comprehension',
                                 'read-test-category',
                             ],
                             id: 39,
                             name: 'export-reading-comprehension',
-                            text: 'Grants access to export reading comprehension(s)',
+                            text: 'Grants access to export reading(s)',
                         },
                         {
-                            category: 'Reading Comprehension',
+                            category: 'Reading',
                             dependencies: [
                                 'read-reading-comprehension',
                                 'read-test-category',
                             ],
                             id: 40,
                             name: 'import-reading-comprehension',
-                            text: 'Grants access to import reading comprehension(s)',
+                            text: 'Grants access to import reading(s)',
                         },
                         {
                             category: 'Cloze',

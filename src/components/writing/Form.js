@@ -15,10 +15,10 @@ function WritingForm({
 }) {
     const getUsedIn = data => {
         if (data.immutable && data.unremovable) {
-            return 'Test(s) and Test Session(s)';
+            return 'Test(s) and Past Result(s)';
         }
         if (data.immutable) {
-            return 'Test Session(s)';
+            return 'Past Result(s)';
         }
         if (data.unremovable) {
             return 'Test(s)';

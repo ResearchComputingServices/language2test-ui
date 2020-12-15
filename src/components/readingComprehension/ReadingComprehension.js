@@ -115,7 +115,7 @@ function ReadingComprehension({ match }) {
 
     const layout = useFormLayout(entity);
 
-    const actions = useFormActions(entity, 'reading comprehension');
+    const actions = useFormActions(entity, 'reading');
 
     const buttons = useFormButtons(id, {
         ...actions,
@@ -205,7 +205,7 @@ function ReadingComprehension({ match }) {
                     layout={layout}
                     onClone={getOnClone()}
                     readonly={isReadonly}
-                    title={`${!_.isNil(id) ? 'Edit' : 'New'} Reading Comprehension`}
+                    title={`${!_.isNil(id) ? 'Edit' : 'New'} Reading`}
                 >
                     {!isReadonly && (
                         <>
@@ -221,7 +221,7 @@ function ReadingComprehension({ match }) {
                         <PaginatedList
                             count={Math.ceil(count / pageSize) || 1}
                             data={paginatedData}
-                            emptyTitle='This reading comprehension has no questions'
+                            emptyTitle='This reading has no questions'
                             onPaginationChange={pageNumber => setPage(pageNumber)}
                             page={page}
                             renderRow={(data, index) => (

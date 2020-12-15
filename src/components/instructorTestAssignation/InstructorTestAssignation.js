@@ -35,7 +35,7 @@ function InstructorTestAssignation({ match }) {
         setData,
     } = useFormData(entity, id);
 
-    const actions = useFormActions(entity, 'test assignation');
+    const actions = useFormActions(entity, 'test schedule');
 
     const checkDatetimeValidation = (startDatetime = moment(), endDatetime = moment()) => {
         startDatetime = moment(startDatetime);
@@ -81,7 +81,7 @@ function InstructorTestAssignation({ match }) {
                     controls={controls}
                     data={data}
                     layout={layout}
-                    title={`${!_.isNil(id) ? 'Edit' : 'New'} Test Assignation`}
+                    title={`${!_.isNil(id) ? 'Edit' : 'New'} Test Schedules`}
                 />
             ));
 

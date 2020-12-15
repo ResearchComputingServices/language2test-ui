@@ -35,7 +35,7 @@ describe('ReadingComprehensionService', () => {
                 name: 'Default',
                 test_type: {
                     id: 2,
-                    name: 'Reading Comprehension',
+                    name: 'Reading',
                 },
                 test_type_id: 2,
             },
@@ -104,7 +104,7 @@ describe('ReadingComprehensionService', () => {
             test_category: {
                 id: 2,
                 name: 'Default',
-                test_type: { id: 2, name: 'Reading Comprehension' },
+                test_type: { id: 2, name: 'Reading' },
                 test_type_id: 2,
             },
             test_category_id: 2,
@@ -140,7 +140,7 @@ describe('ReadingComprehensionService', () => {
             test_category: {
                 id: 2,
                 name: 'Default',
-                test_type: { id: 2, name: 'Reading Comprehension' },
+                test_type: { id: 2, name: 'Reading' },
                 test_type_id: 2,
             },
             test_category_id: 2,

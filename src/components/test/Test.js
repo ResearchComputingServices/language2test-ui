@@ -33,8 +33,8 @@ function Test({ match }) {
             entity: 'vocabularies',
             identifierKey: 'word',
         },
-        'Reading Comprehension': {
-            title: 'Reading Comprehensions',
+        'Reading': {
+            title: 'Readings',
             entity: 'readingComprehensions',
             identifierKey: 'name',
         },

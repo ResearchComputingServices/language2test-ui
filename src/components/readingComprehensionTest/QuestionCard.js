@@ -11,7 +11,7 @@ function QuestionCard({ children, sequence }) {
             {!_.isNil(sequence) && (
                 <div className='mb-4'>
                     <p className='h4'>
-                        {`Reading Comprehension - ${sequence}`}
+                        {`Reading - ${sequence}`}
                     </p>
                 </div>
             )}

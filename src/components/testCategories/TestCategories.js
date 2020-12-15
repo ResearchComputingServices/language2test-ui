@@ -5,9 +5,9 @@ import { useGridActions, useGridButtons } from '../../hooks';
 
 export default function TestCategories() {
     const rights = {
-        create: ['Administrator'],
-        export: ['Administrator'],
-        import: ['Administrator'],
+        create: ['Administrator', 'Test Developer'],
+        import: ['Administrator', 'Test Developer'],
+        export: ['Administrator', 'Test Developer'],
     };
     const actions = useGridActions('testCategories');
     const buttons = useGridButtons(actions, rights);

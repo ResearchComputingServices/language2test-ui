@@ -26,7 +26,7 @@ function TestAssignationGrid({
             onImport={onImport}
             onRowClick={onRowClick}
             options={{ format }}
-            title='Test Assignation'
+            title='Test Schedules'
         />
     );
 }
